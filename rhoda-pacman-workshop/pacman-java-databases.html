@@ -140,7 +140,10 @@
     <a class="nav-link" href="#sol_rh_dbaas">Background: Red Hat Solution</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#sol_rh_dbaas">Background: Service binding libraries</a>
+    <a class="nav-link" href="#bg_sb_lib">Background: Service binding libraries</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#prereq_rhoda">Prerequisites: Things to Do before configuring MongoDB Atlas</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#deploy_mongodb">Exercise: Deploy MongoDB</a>
@@ -369,13 +372,73 @@ Centralized monitoring, consistent control plane for admins</p>
 OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.
 The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.
 Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.
-The volume mount point is exposed as an environment variable. Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.</p>
+The volume mount point is exposed as an environment variable.
+Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.</p>
+</div>
+<div class="paragraph">
+<p>Here are some application examples on how to use a service binding library:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/RHEcosystemAppEng/mongo-quickstart">Mongo Quarkus application</a></p>
+</li>
+<li>
+<p><a href="https://github.com/RHEcosystemAppEng/postgresql-orm-quickstart">Crunchy Postgres Quarkus application</a></p>
+</li>
+<li>
+<p><a href="https://github.com/myeung18/postgresql-orm-demo-app">CockroachDB Postgres Quarkus application</a></p>
+</li>
+<li>
+<p><a href="https://github.com/myeung18/cockroachdb-go-quickstart">CockroachDB Postgres Go application</a></p>
+</li>
+<li>
+<p><a href="https://github.com/RHODA-lab/rhoda-qa-python/blob/main/run-test.py">Crunchy Postgres Python test program</a></p>
+</li>
+<li>
+<p><a href="https://github.com/RHODA-lab/rhoda-qa-python/blob/main/test-cockroachdb.py">CockroachDB Postgres Python test program</a></p>
+</li>
+</ul>
+</div>
+<div class="ulist _additional-resources">
+<div class="title">Additional resources</div>
+<ul>
+<li>
+<p>See the <a href="https://github.com/servicebinding/spec#workload-projection">Kubernetes GitHub project</a> for more details on service bindings.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="prereq_rhoda"><a class="anchor" href="#prereq_rhoda"></a>Prerequisites: Things to Do befor configuring MongoDB Atlas</h2>
+<h2 id="prereq_rhoda"><a class="anchor" href="#prereq_rhoda"></a>Prerequisites: Things to Do before configuring MongoDB Atlas</h2>
 <div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>A Red Hat user account to access the <a href="https://console.redhat.com/">Red Hat Hybrid Cloud Console</a>.</p>
+</li>
+<li>
+<p>An instance of OpenShift Container Platform (OCP) 4.9 or higher running on Red Hat OpenShift Dedicated (OSD), or Red Hat OpenShift Service on AWS (ROSA).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>When using OSD or ROSA, an Amazon Web Services (AWS) account and credentials are required.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Access to the OpenShift Cluster Manager (OCM) console.</p>
+</li>
+<li>
+<p>A service account with either the <a href="https://www.mongodb.com/atlas/database">MongoDB Atlas</a>, or <a href="https://www.crunchydata.com">Crunchy Data Bridge</a>, or <a href="https://www.cockroachlabs.com">CockroachDB</a> cloud database provider.</p>
+</li>
+<li>
+<p>An existing database instance running on one of these cloud database providers: MongoDB Atlas, Crunchy Data Bridge, or CockroachDB.</p>
+</li>
+</ul>
+</div>
 <div class="paragraph">
 <p>In order to run the lab in your cluster, you need to meet the requirements discussed below.</p>
 </div>
@@ -417,11 +480,239 @@ The volume mount point is exposed as an environment variable. Developer framewor
 <div class="sect1">
 <h2 id="find_mongodb_creds"><a class="anchor" href="#find_mongodb_creds"></a>Exercise: Find your MongoDB Atlas account credentials</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>You need the Organization ID, the Organization Public Key, and the Organization Private Key to create a provider account resource for MongoDB Atlas.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If using MongoDB Atlas as a cloud-database provider, then you must add the IP address of the application pod to MongoDB Atlas' IP Access List.
+If the IP address is not in the IP Access List, then a 504 gateway timeout error occurs.
+Visit the MongoDB Atlas <a href="https://docs.atlas.mongodb.com/security/ip-access-list/">website</a> for more details on adding an IP address to your database project.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>From the MongoDB Atlas <a href="https://www.mongodb.com/">home page</a>, <strong>Sign In</strong> to your account.</p>
+</li>
+<li>
+<p>From your account home page:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mongodb_first_single_screen_all_step.png" alt="Single screenshot for finding your Organization ID value">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select <strong>Organization</strong> from the dropdown menu <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Click <strong>Settings</strong> from the Organization navigation menu <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+</li>
+<li>
+<p>Copy the Organization ID value <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In some cases your organization ID may be hidden by default.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Next, from the account home page:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mongodb_second_single_screen_all_step.png" alt="Single screenshot for finding your API keys">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Click <strong>Access Manager</strong> from the <strong>Organization</strong> navigation menu <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Click <strong>API Keys</strong> <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+</li>
+<li>
+<p>If you have existing API keys, you can find them listed here.
+Copy the API public and private keys for the import provider account fields.
+Also, verify that your API keys have the <strong>Organization Owner</strong> and <strong>Organization Member</strong> permissions <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span> <span class="image"><img src="_images/4th_Callout_Bullet.png" alt="Fourth callout"></span>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If you need new API keys, click <strong>Create API Key</strong>, and proceed to the next step.</p>
+</li>
+<li>
+<p>On the <strong>Create API Key</strong> page, enter a <strong>Description</strong>, and under the <strong>Organization Permissions</strong> dropdown box select the <strong>Organization Owner</strong> and <strong>Organization Member</strong> permissions.
+Click <strong>Next</strong>.</p>
+</li>
+<li>
+<p>Copy the API public and private keys for the import provider account fields.</p>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="access_dbaas_console"><a class="anchor" href="#access_dbaas_console"></a>Exercise: Accessing the developer workspace and adding a database instance</h2>
+<h2 id="dev_add_db"><a class="anchor" href="#dev_add_db"></a>Exercise: Accessing the developer workspace and adding a database instance</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can access the developer workspace in the OpenShift console to manage connectivity between database instances and applications.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p><a href="#installing-the-red-hat-openshift-database-access-add-on_{context}">Installation</a> of the OpenShift Database Access add-on.</p>
+</li>
+<li>
+<p><a href="#accessing-the-database-access-menu-for-configuring-and-monitoring_{context}">Import</a> at least one cloud-database provider account.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log into the OpenShift console.</p>
+</li>
+<li>
+<p>Access the developer workspace, and select or create your project, then select a cloud-hosted database provider to add to your project:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_dev_entry_point_single_page_all_steps.png" alt="Single page screenshot of the developer&#8217;s entry point">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select the <strong>Developer</strong> perspective <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Click <strong>+Add</strong> <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+</li>
+<li>
+<p>Click the <strong>Project</strong> dropdown menu <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span>.</p>
+</li>
+<li>
+<p>Create a new project or search for your application’s project <span class="image"><img src="_images/4th_Callout_Bullet.png" alt="Fourth callout"></span>.</p>
+</li>
+<li>
+<p>Select the <strong>Cloud-Hosted Databases</strong> tile to connect to a cloud-database provider <span class="image"><img src="_images/5th_Callout_Bullet.png" alt="Fifth callout"></span>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Select your cloud-hosted database provider tile.</p>
+</li>
+<li>
+<p>Click <strong>Add to Topology</strong>.</p>
+</li>
+<li>
+<p>Select a previously configured <strong>Provider Account</strong> for this database instance from the dropdown menu.</p>
+</li>
+<li>
+<p>Select the database instance ID you want to use, and then click <strong>Add to Topology</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Continue</strong>.
+Upon a successful connection, you are taken to the <a href="#connecting-an-application-to-a-database-instance-using-the-topology-view_{context}"><strong>Topology</strong></a> page.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+<h1 id="_accessing_the_developer_workspace_and_adding_a_database_instance" class="sect0"><a class="anchor" href="#_accessing_the_developer_workspace_and_adding_a_database_instance"></a>Accessing the developer workspace and adding a database instance</h1>
+<div class="paragraph _abstract">
+<p>You can access the developer workspace in the OpenShift console to manage connectivity between database instances and applications.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p><a href="#installing-the-red-hat-openshift-database-access-add-on_{context}">Installation</a> of the OpenShift Database Access add-on.</p>
+</li>
+<li>
+<p><a href="#accessing-the-database-access-menu-for-configuring-and-monitoring_{context}">Import</a> at least one cloud-database provider account.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log into the OpenShift console.</p>
+</li>
+<li>
+<p>Access the developer workspace, and select or create your project, then select a cloud-hosted database provider to add to your project:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_dev_entry_point_single_page_all_steps.png" alt="Single page screenshot of the developer&#8217;s entry point">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select the <strong>Developer</strong> perspective <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Click <strong>+Add</strong> <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+</li>
+<li>
+<p>Click the <strong>Project</strong> dropdown menu <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span>.</p>
+</li>
+<li>
+<p>Create a new project or search for your application’s project <span class="image"><img src="_images/4th_Callout_Bullet.png" alt="Fourth callout"></span>.</p>
+</li>
+<li>
+<p>Select the <strong>Cloud-Hosted Databases</strong> tile to connect to a cloud-database provider <span class="image"><img src="_images/5th_Callout_Bullet.png" alt="Fifth callout"></span>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Select your cloud-hosted database provider tile.</p>
+</li>
+<li>
+<p>Click <strong>Add to Topology</strong>.</p>
+</li>
+<li>
+<p>Select a previously configured <strong>Provider Account</strong> for this database instance from the dropdown menu.</p>
+</li>
+<li>
+<p>Select the database instance ID you want to use, and then click <strong>Add to Topology</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Continue</strong>.
+Upon a successful connection, you are taken to the <a href="#connecting-an-application-to-a-database-instance-using-the-topology-view_{context}"><strong>Topology</strong></a> page.</p>
+</li>
+</ol>
+</div>
+<div class="sect1">
+<h2 id="explore_rhoda_magic"><a class="anchor" href="#explore_rhoda_magic"></a>Exercise: Navigate through Data Services Console</h2>
 <div class="sectionbody">
 
 </div>
@@ -433,232 +724,15 @@ The volume mount point is exposed as an environment variable. Developer framewor
 </div>
 </div>
 <div class="sect1">
-<h2 id="exploring_openshift_magic"><a class="anchor" href="#exploring_openshift_magic"></a>Exercise: Exploring OpenShift Magic</h2>
-<div class="sectionbody">
-
-</div>
-</div>
-<div class="sect1">
 <h2 id="play_pacman"><a class="anchor" href="#play_pacman"></a>Exercise: Play Pacman and save your high scores</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As soon as we attached the Secret to the <strong>Deployment</strong>, some
-magic happened. OpenShift decided that this was a significant enough change to
-warrant updating the internal version number of the <strong>ReplicaSet</strong>. You
-can verify this by looking at the output of <code>oc get rs</code>:</p>
+<p>Pacman URL : <a href="https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/" class="bare">https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/</a></p>
 </div>
-<div class="listingblock console-output">
+<div class="imageblock text-center unresolved">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                       DESIRED   CURRENT   READY   AGE
-nationalparks-58bd4758fc   0         0         0       4m58s
-nationalparks-7445576cd9   0         0         0       6m42s
-nationalparks-789c6bc4f4   1         1         1       41s
-parksmap-57df75c46d        1         1         1       8m24s
-parksmap-65c4f8b676        0         0         0       18m</code></pre>
+<img src="pacman.png.png" alt="Pacman Game" width="800">
 </div>
-</div>
-<div class="paragraph">
-<p>We see that the DESIRED and CURRENT number of instances for the current deployment. The desired and current number of the other instances are 0.
-This means that OpenShift has gracefully torn down our "old" application and
-stood up a "new" instance.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="data_data_everywhere"><a class="anchor" href="#data_data_everywhere"></a>Exercise: Data, Data, Everywhere</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Now that we have a database deployed, we can again visit the <code>nationalparks</code> web
-service to query for data:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/data/all</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And the result?</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">[]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Where&#8217;s the data? Think about the process you went through. You deployed the
-application and then deployed the database. Nothing actually loaded anything
-<strong>INTO</strong> the database, though.</p>
-</div>
-<div class="paragraph">
-<p>The application provides an endpoint to do just that:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/data/load</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And the result?</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Items inserted in database: 2893</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you then go back to <code>/ws/data/all</code> you will see tons of JSON data now.
-That&#8217;s great. Our parks map should finally work!</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-There are some errors reported with browsers like Firefox 54 that don&#8217;t properly parse the resulting JSON. It&#8217;s
-a browser problem, and the application is working properly.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">https://parksmap-%PROJECT%.%CLUSTER_SUBDOMAIN%</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Hmm&#8230;&#8203; There&#8217;s just one thing. The main map <strong>STILL</strong> isn&#8217;t displaying the parks.
-That&#8217;s because the front end parks map only tries to talk to services that have
-the right <strong>Label</strong>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>You are probably wondering how the database connection magically started
-working? When deploying applications to OpenShift, it is always best to use
-environment variables, secrets, or configMaps to define connections to dependent systems.  This allows
-for application portability across different environments.  The source file that
-performs the connection as well as creates the database schema can be viewed
-here:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">http://www.github.com/openshift-roadshow/nationalparks/blob/master/src/main/java/com/openshift/evg/roadshow/parks/db/MongoDBConnection.java#L44-l48</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In short summary: By referring to bindings to connect to services
-(like databases), it can be trivial to promote applications throughout different
-lifecycle environments on OpenShift without having to modify application code.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="working_with_labels"><a class="anchor" href="#working_with_labels"></a>Exercise: Working With Labels</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>We explored how a <strong>Label</strong> is just a key=value pair earlier when looking at
-<strong>Services</strong> and <strong>Routes</strong> and <strong>Selectors</strong>. In general, a <strong>Label</strong> is simply an
-arbitrary key=value pair. It could be anything.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>pizza=pepperoni</code></p>
-</li>
-<li>
-<p><code>pet=dog</code></p>
-</li>
-<li>
-<p><code>openshift=awesome</code></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>In the case of the parks map, the application is actually querying the OpenShift
-API and asking about the <strong>Routes</strong> and <strong>Services</strong> in the project. If any of them have a
-<strong>Label</strong> that is <code>type=parksmap-backend</code>, the application knows to interrogate
-the endpoints to look for map data.
-You can see the code that does this
-<a href="https://github.com/openshift-roadshow/parksmap-web/blob/master/src/main/java/com/openshift/evg/roadshow/rest/RouteWatcher.java#L20">here</a>.</p>
-</div>
-<div class="paragraph">
-<p>Fortunately, the command line provides a convenient way for us to manipulate
-labels. <code>describe</code> the <code>nationalparks</code> service:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc describe route nationalparks</code></pre>
-</div>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Name:                   nationalparks
-Namespace:              %PROJECT%
-Created:                2 hours ago
-Labels:                 app=workshop
-                        app.kubernetes.io/component=nationalparks
-                        app.kubernetes.io/instance=nationalparks
-                        app.kubernetes.io/name=java
-                        app.kubernetes.io/part-of=workshop
-                        app.openshift.io/runtime=java
-                        app.openshift.io/runtime-version=11
-                        component=nationalparks
-                        role=backend
-Annotations:            openshift.io/host.generated=true
-Requested Host:         nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%
-                        exposed on router router 2 hours ago
-Path:                   &lt;none&gt;
-TLS Termination:        &lt;none&gt;
-Insecure Policy:        &lt;none&gt;
-Endpoint Port:          8080-tcp
-
-Service:                nationalparks
-Weight:                 100 (100%)
-Endpoints:              10.1.9.8:8080</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You see that it already has some labels. Now, use <code>oc label</code>:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc label route nationalparks type=parksmap-backend</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You will see something like:</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">route.route.openshift.io/nationalparks labeled</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you check your browser now:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">https://parksmap-%PROJECT%.%CLUSTER_SUBDOMAIN%/</code></pre>
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-databases-new-parks.png" alt="MongoDB">
-</div>
-</div>
-<div class="paragraph">
-<p>You&#8217;ll notice that the parks suddenly are showing up. That&#8217;s really cool!</p>
 </div>
 </div>
 </div>
