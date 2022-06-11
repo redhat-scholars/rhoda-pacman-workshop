@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Binary Builds :: Deploy Pacman using Red Hat OpenShift Database Access</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/mlbparks-binary-build.html">
-    <link rel="prev" href="mlbparks-templates.html">
-    <link rel="next" href="mlbparks-debugging.html">
+    <title>Automation with Pipelines :: Deploy Pacman using Red Hat OpenShift Database Access</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-dotnet-pipeline-codechanges-github.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -204,31 +202,31 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mlbparks-binary-build.html">Binary Builds</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#moving_on_from_s2i">Moving on From S2I</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#moving_on_from_s2i">Moving on From S2I</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#fast_iterative_code_change_using_binary_deploy">Fast Iterative Code Change Using Binary Deploy</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#fast_iterative_code_change_using_binary_deploy">Fast Iterative Code Change Using Binary Deploy</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="#using_binary_deployment">Exercise: Using Binary Deployment</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#using_binary_deployment">Exercise: Using Binary Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#clone_source">Clone source</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#clone_source">Clone source</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#setup_the_build_of_the_war_file">Setup the Build of the WAR file</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#setup_the_build_of_the_war_file">Setup the Build of the WAR file</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#clone_change">Clone change</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#clone_change">Clone change</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#doing_the_binary_build">Doing the Binary Build</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#doing_the_binary_build">Doing the Binary Build</a>
   </li>
 </ul>
   </li>
@@ -291,199 +289,308 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Deploy Pacman using Red Hat OpenShift Database Access</a></li>
-    <li><a href="mlbparks-binary-build.html">Binary Builds</a></li>
+    <li><a href="pacman-dotnet-pipeline-codechanges-github.html">Automation with Pipelines</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/mlbparks-binary-build.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-dotnet-pipeline-codechanges-github.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Binary Builds</h1>
+<h1 class="page">Automation with Pipelines</h1>
 <div class="sect1">
-<h2 id="moving_on_from_s2i"><a class="anchor" href="#moving_on_from_s2i"></a>Moving on From S2I</h2>
+<h2 id="webhooks"><a class="anchor" href="#webhooks"></a>Background: Web Hooks</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>As you saw before S2I is a great way to get from source code to a container, but the process is a bit too slow for daily fast iterative
-development. For example, if you want to change some CSS or change one method in a class you don&#8217;t want to go through
-a full git commit and build cycle. In this lab we are going to show you a more efficient method for quick iteration. While
-we are at it we will also show you how to debug your code.</p>
-</div>
-<div class="paragraph">
-<p>Now that we built the MLB parks service let&#8217;s go ahead and make some quick changes.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="fast_iterative_code_change_using_binary_deploy"><a class="anchor" href="#fast_iterative_code_change_using_binary_deploy"></a>Fast Iterative Code Change Using Binary Deploy</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The OpenShift command line has the ability to do a deployment from your local machine. In this case we are going to use S2I,
-but we are going to tell OpenShift to just take the war file from our local machine and bake it in the image.</p>
-</div>
-<div class="paragraph">
-<p>Doing this pattern of development lets us do quick builds on our local machine (benefitting from our local cache and
-all the horsepower on our machine) and then just quickly send up the war file.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You could also use this pattern to actually send up your working directory to the S2I builder to have it do the Maven build
-on OpenShift. Using the local directory would relieve you from having Maven or any of the Java toolchain on your local
-machine AND would also not require git commit with a push. Read more in the
-{openshift-docs-url}/builds/basic-build-operations.html#builds-basic-start-source_basic-build-operations[official documentation]
-</td>
-</tr>
-</table>
+<p>Most Git repository servers support the concept of web hooks&#8201;&#8212;&#8201;calling to an
+external source via HTTP(S) when a change in the code repository happens.
+OpenShift provides an API endpoint that supports receiving hooks from
+remote systems in order to trigger builds. By pointing the code repository&#8217;s
+hook at the OpenShift Pipelines resources, automated code/build/deploy pipelines can be
+achieved.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="using_binary_deployment"><a class="anchor" href="#using_binary_deployment"></a>Exercise: Using Binary Deployment</h2>
+<h2 id="adding_triggers_to_your_pipeline"><a class="anchor" href="#adding_triggers_to_your_pipeline"></a>Adding Triggers to your Pipeline</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="clone_source"><a class="anchor" href="#clone_source"></a>Clone source</h3>
 <div class="paragraph">
-<p>The first step is to clone the MLB source code from GitHub to your workshop environment:</p>
+<p>Tekton <strong>Triggers</strong> enable us to configure Pipelines to respond to external events (Git push events, pull requests etc) such as Web Hooks.</p>
 </div>
-<div class="listingblock console-input">
+<div class="paragraph">
+<p>Adding triggering support requires the creation of a <code>TriggerTemplate</code>, <code>TriggerBinding</code>, and an <code>EventListener</code> in our project.</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/openshift-roadshow/mlbparks.git</code></pre>
+<img src="_images/devops-pipeline-triggers.png" alt="Triggers">
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-We are using Intellij here in the guide for screenshots but this should work regardless of your tool chain. JBoss
-Developer Studio and JBoss Developer Tools have built in functionality that makes this close to seamless right from the IDE.
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="setup_the_build_of_the_war_file"><a class="anchor" href="#setup_the_build_of_the_war_file"></a>Setup the Build of the WAR file</h3>
 <div class="paragraph">
-<p>If you have Maven all set up on your machine, then you can <code>cd</code> into the <code>mlbparks</code> directory and run <code>mvn package</code></p>
+<p>Let&#8217;s see each component in detail:</p>
 </div>
-<div id="docker_for_maven" class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>If you don&#8217;t have Maven on your machine but you are able to run docker, you can instead mount the repo directory and run the build commands from within the container.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
+<div class="ulist">
+<ul>
 <li>
-<p>From within the directory that you ran <code>git clone</code> above, run the following command:</p>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run -it --rm --user 0 --name maven_builder -v ~/.kube:/home/jboss/.kube -v $(pwd):/workspaces -w /workspaces registry.access.redhat.com/ubi8/openjdk-11 /bin/bash</code></pre>
-</div>
-</div>
+<p><strong>TriggerTemplate</strong>: a trigger template is a template for newly created resources. It supports parameters to create specific <code>PipelineResources</code> and <code>PipelineRuns</code>.</p>
 </li>
 <li>
-<p>Next, run this command (in the container) to locally install the latest version of <code>oc</code> on the container</p>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p $HOME/bin &amp;&amp; curl -L <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz" class="bare">https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz</a> | \
-    tar -xvzf - -C $HOME/bin/ oc &amp;&amp; chmod 755 $HOME/bin/oc &amp;&amp; ln -s $HOME/bin/oc $HOME/bin/kubectl</code></pre>
-</div>
-</div>
+<p><strong>TriggerBinding</strong>: validates events and extracts payload fields</p>
 </li>
 <li>
-<p>Finally, ensure that you are still connected to your OpenShift cluster from within the builder container by running the following and comparing the output:</p>
+<p><strong>EventListener</strong>: connects <code>TriggerBindings</code> and <code>TriggerTemplates</code> into an addressable endpoint (the event sink). It uses the extracted event parameters from each TriggerBinding (and any supplied static parameters) to create the resources specified in the corresponding TriggerTemplate. It also optionally allows an external service to pre-process the event payload via the interceptor field.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s create them all together for our Pipeline:</p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc whoami --show-server</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f https://raw.githubusercontent.com/openshift-roadshow/nationalparks/master/pipeline/nationalparks-triggers-all.yaml -n %PROJECT%</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>This will create a new Pod with a Route that we can use to setup our Webhook on GitHub to trigger the automatic start of the Pipeline.</p>
+</div>
+<div class="paragraph">
+<p>From left side menu, click on <strong>Topology</strong> to verify if a new Deployment <strong>el-nationalparks</strong> for the <code>EventListener</code> has ben created:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-triggers-eventlistener.png" alt="EventListener created">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fork_repository_from_GitHub"><a class="anchor" href="#fork_repository_from_GitHub"></a>Exercise: Fork NationalParks repository from GitHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <a href="https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo" target="_blank" rel="noopener">fork</a> is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.</p>
+</div>
+<div class="paragraph">
+<p>In this step we will fork the original <code>nationalparks</code> repository to apply our changes and automatically trigger the Pipeline through a <a href="https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/about-webhooks" target="_blank" rel="noopener">GitHub Webhook</a> that we&#8217;re going to configure.</p>
+</div>
+<div class="paragraph">
+<p>Go to <a href="https://github.com/openshift-roadshow/nationalparks" target="_blank" rel="noopener">Nationalparks</a> repository. From top-right side, click to <strong>Fork</strong> to start forking it into your account.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-github-fork-1.png" alt="Fork Repository">
+</div>
+</div>
+<div class="paragraph">
+<p>Select your account, and click <strong>Fork</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-github-fork-2.png" alt="Fork in progress">
+</div>
+</div>
+<div class="paragraph">
+<p>Your repository is forked now, we can start adding our automation to that.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="configuring_github_webhooks"><a class="anchor" href="#configuring_github_webhooks"></a>Exercise: Configuring GitHub Web Hooks</h2>
+<div class="sectionbody">
+<div class="tabset is-loading">
+<div class="ulist tabs">
+<ul>
+<li>
+<p><a id="tabset1_ocp"></a>OCP</p>
+</li>
+<li>
+<p><a id="tabset1_crc"></a>CRC</p>
+</li>
+</ul>
+</div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_ocp">
+<div class="paragraph">
+<p>From Topology, click to <code>el-nationalparks</code> Deployment, go into <strong>Routes</strong> section and and copy the <strong>el-nationparks</strong> Route URL.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-triggers-route.png" alt="EventListener created">
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_crc">
+<div class="paragraph">
+<p>When using <a href="https://developers.redhat.com/products/codeready-containers/overview" target="_blank" rel="noopener">CRC</a>, your OpenShift cluster is running in your computer and it is not externally accessible. In order to let GitHub trigger our Pipeline via a Web Hook, we can use <a href="https://ngrok.com" target="_blank" rel="noopener">Ngrok</a>, an online service that exposes local servers to public internet over secure tunnels.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use a template to launch an Ngrok instance inside our project to link to our Tekton Eventlistener <code>el-nationalparks</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-app -f https://raw.githubusercontent.com/csrwng/ngrok/master/openshift/ngrok-template.yaml -p HOST=el-nationalparks -p PORT=8080 -n %PROJECT%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see an output like this:</p>
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"><a href="https://%CLUSTER_SUBDOMAIN%:30713" class="bare">https://%CLUSTER_SUBDOMAIN%:30713</a></code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">--&gt; Deploying template "%PROJECT%/ngrok" for "https://raw.githubusercontent.com/csrwng/ngrok/master/openshift/ngrok-template.yaml" to project %PROJECT%
+
+     * With parameters:
+        * Host=el-nationalparks
+        * Port=8080
+
+--&gt; Creating resources ...
+    service "ngrok" created
+    deploymentconfig.apps.openshift.io "ngrok" created
+    route.route.openshift.io "ngrok" created
+    imagestream.image.openshift.io "ngrok" created
+--&gt; Success
+    Access your application via route 'ngrok-%PROJECT%.%CLUSTER_SUBDOMAIN%'
+    Run 'oc status' to view your app.</code></pre>
 </div>
-</div>
-</li>
-</ol>
 </div>
 <div class="paragraph">
-<p>Once completed, you should be able to follow the commands as they are outlined below.</p>
+<p>Get the Ngrok Route URL:</p>
 </div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get route ngrok -n %PROJECT%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open it in the browser to get the Ngrok tunnel URL that we can use and copy the HTTP URL you see in the webpage as shown below, this will be the one we will use to configure the Github Webhook.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-triggers-ngrok.png" alt="Ngrok tunnels">
+</div>
+</div>
+<div class="paragraph">
+<p>Verify that it is working, when opening in the browser you should get the response from the <strong>EventListener</strong> we are exposing through an Ngrok tunnel:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">{"eventListener":"nationalparks","namespace":"%PROJECT%","eventID":"vzkx5"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you have the URL copied to your clipboard, navigate to the code repository fork that you have on GitHub.</p>
+</div>
+<div class="paragraph">
+<p>From your fork page top-right menu, click <strong>Settings</strong>. Then from result left-side menu, click <strong>Webhook</strong>, then from right side click <strong>Add webhooks</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-github-webhook-settings.png" alt="Add Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>In the next screen, paste your link into the "Payload URL" field. You can leave the
+secret token field blank&#8201;&#8212;&#8201;the secret is already in the URL and does not need
+to be in the payload.</p>
+</div>
+<div class="paragraph">
+<p>Change the <code>Content Type</code> to <code>application/json</code>.</p>
+</div>
+<div class="paragraph">
+<p>Finally, click on <strong>Add Webhook</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-github-add-webhook.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>Boom! From now on, every time you commit new source code to your GitHub
+repository, a new build and deploy will occur inside of OpenShift.  Let&#8217;s try
+this out.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using_github_webhooks"><a class="anchor" href="#using_github_webhooks"></a>Exercise: Using GitHub Web Hooks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Click the <strong>Code</strong> tab in GitHub. This is GitHub&#8217;s repository view.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Make sure that the drop-down menu at the upper right is set for
+the <strong><code>master</code></strong> branch. Navigate to the
+following path:
 </td>
 </tr>
 </table>
 </div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd mlbparks
-mvn package</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Pay attention to the output location for the ROOT.war, we will need that directory later.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="code_change"><a class="anchor" href="#code_change"></a>Code Change</h3>
-<div class="paragraph">
-<p>Time for a source code change!</p>
-</div>
-<div class="paragraph">
-<p>Edit <code>BackendController</code> Java class from this path:</p>
-</div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">src/main/java/com/openshift/evg/roadshow/rest/BackendController.java</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Controllers/</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This is the REST endpoint that gives basic info on the service and can be reached at:</p>
+<p>Then click on the <code>ParksController.cs</code> file.</p>
 </div>
-<div class="listingblock copypaste">
+<div class="paragraph">
+<p>Once you have the file on the screen, click the edit button in the top right
+hand corner as shown here:</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http://mlbparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/</code></pre>
+<img src="_images/nationalparks-codechanges-github-change-code.png" alt="Webhook">
 </div>
 </div>
 <div class="paragraph">
-<p>Please change line 23 to add a <em>AMAZING</em> in front of "MLB Parks" look like this:</p>
+<p>Change line number 45:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">return new Backend("mlbparks", "AMAZING MLB Parks", new Coordinates("39.82", "-98.57"), 5);</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">displayName = "National Parks (C#)",</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Don&#8217;t forget to save the file and run <code>mvn package</code> again from the root of the source folder:</p>
+<p>To</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">displayName = "Amazing National Parks (C#)",</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Click on <strong>Commit changes</strong> at the bottom of the screen. Feel free to enter a commit message.</p>
+</div>
+<div class="paragraph">
+<p>Once you have committed your changes, a new <strong>PipelineRun</strong> should almost instantaneously be
+triggered in OpenShift. Click <strong>Pipeline</strong> in the left navigation menu then <code>nationalparks-pipeline</code>. You should see a new one running:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-pipeline-running.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>or run the following command to verify:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn package</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pipelineruns</code></pre>
 </div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="doing_the_binary_build"><a class="anchor" href="#doing_the_binary_build"></a>Doing the Binary Build</h3>
-<div class="paragraph">
-<p>Alright we have our war file built, time to kick off a build using it.</p>
 </div>
 <div class="paragraph">
-<p>If you built your war with Maven:</p>
+<p>Once the build and deploy has finished, verify your new image was automatically deployed by viewing the application in your browser:</p>
 </div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc start-build bc/mlbparks --from-file=target/ROOT.war --follow</code></pre>
+<div class="paragraph">
+<p><a href="http://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/" target="_blank" rel="noopener">National Parks Info Page</a></p>
 </div>
+<div class="paragraph">
+<p>You should now see the new name you have set in the JSON string returned.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -492,35 +599,13 @@ mvn package</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-The --follow is optional if you want to follow the build output in your terminal.
+To see this in the map&#8217;s legend itself, you will need to scale down your parksmap to 0, then back up to 1 to force the app to refresh its cache.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Using labels and a recreate deployment strategy, as soon as the new deployment finishes the map name will be updated. Under a recreate deployment strategy we first tear down the pod before doing our new deployment.
-When the pod is torn down, the parksmap service removes the MLBParks map from the layers. When it comes back up, the layer
-automatically gets added back with our new title.  This would not have happened with a rolling deployment because
-rolling spins up the new version of the pod before it takes down the old one. Rolling strategy enables a zero-downtime deployment.</p>
-</div>
-<div class="paragraph">
-<p>You can follow the deployment in progress from Topology view, and when it is completed, you will see the new content at:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http://mlbparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>So now you have seen how we can speed up the build and deploy process.</p>
-</div>
-</div>
-</div>
-</div>
-<nav class="pagination">
-  <span class="prev"><a href="mlbparks-templates.html">MLBParks App</a></span>
-  <span class="next"><a href="mlbparks-debugging.html">Debugging Apps</a></span>
-</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

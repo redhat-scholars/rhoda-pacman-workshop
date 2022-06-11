@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Connecting to a Database :: Deploy Pacman using Red Hat OpenShift Database Access</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-java-databases.html">
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-dotnet-databases.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -289,10 +289,10 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Deploy Pacman using Red Hat OpenShift Database Access</a></li>
-    <li><a href="pacman-java-databases.html">Connecting to a Database</a></li>
+    <li><a href="pacman-dotnet-databases.html">Connecting to a Database</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-java-databases.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-dotnet-databases.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
@@ -362,47 +362,18 @@ version control system.</p>
 <div class="sect1">
 <h2 id="create_mongodb_template"><a class="anchor" href="#create_mongodb_template"></a>Exercise: Create a MongoDB Template</h2>
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you are using <a href="https://developers.redhat.com/developer-sandbox" target="_blank" rel="noopener">Developer Sandbox for Red Hat OpenShift</a>, you can <strong>skip</strong> this section and jump to the next one called <strong>Exercise: Deploy MongoDB</strong> because MongoDB Template it&#8217;s already available on Developer Sandbox.
-</td>
-</tr>
-</table>
-</div>
 <div class="paragraph">
 <p>In this step we will create a MongoDB template inside our project, so that is only visible to our user and we can access it from Developer Perspective to create a MongoDB instance.</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f https://raw.githubusercontent.com/openshift-labs/starter-guides/ocp-4.8/mongodb-template.yaml -n %PROJECT%</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f https://raw.githubusercontent.com/openshift-labs/starter-guides/ocp-4.6/mongodb-template.yaml -n %PROJECT%</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>What just happened? What did you just <code>create</code>? The item that we passed to the <code>create</code>
 command is a <strong>Template</strong>. <code>create</code> simply makes the template available in
 your <strong>Project</strong>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you are runnning OKD the mongodb image is missing and you will need to provide it.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc import-image mongodb:3.6 --from=registry.access.redhat.com/rhscl/mongodb-36-rhel7 --confirm</code></pre>
-</div>
 </div>
 </div>
 </div>
@@ -489,45 +460,24 @@ Make sure you name your database service name <strong>mongodb-nationalparks</str
 feature of <strong>Templates</strong> in OpenShift. For
 now, be sure to use the following values in their respective fields:</p>
 </div>
-<div class="paragraph">
-<p><strong>Database Service Name</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb-nationalparks</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>MongoDB Connection Username</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>MongoDB Connection Password</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>MongoDB Database Name</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>MongoDB Admin Password</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb</code></pre>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Database Service Name</code> : <code>mongodb-nationalparks</code></p>
+</li>
+<li>
+<p><code>MongoDB Connection Username</code> : <code>mongodb</code></p>
+</li>
+<li>
+<p><code>MongoDB Connection Password</code> : <code>mongodb</code></p>
+</li>
+<li>
+<p><code>MongoDB Database Name</code>: <code>mongodb</code></p>
+</li>
+<li>
+<p><code>MongoDB Admin Password</code> : <code>mongodb</code></p>
+</li>
+</ul>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -574,24 +524,13 @@ Make sure to have configured the <strong><code>MongoDB Database Name</code></str
 <div class="paragraph">
 <p>This change in configuration will trigger a new deployment of the <code>nationalparks</code> application with the environment variables properly injected.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
 <div class="paragraph">
-<p>Back in the <strong>Topology</strong> view, if your <code>mongodb-nationalparks</code> component is not already in the light gray area that denotes the <code>workshop</code> application, click and drag the component whilst holding down kbd:[Shift] to add it to the group with the other two components (as shown below)</p>
+<p>Back in the <strong>Topology</strong> view, click and drag with Shift key the <code>mongodb-nationalparks</code> component into the light gray area that denotes the <code>workshop</code> application, so that all three components are contained in it.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-databases-add-mongodb-to-workshop-app.png" alt="Add mongodb to the workshop app">
+<img src="_images/nationalparks-databases-add-mongodb-to-workshop-app-dotnet.png" alt="Add mongodb to the workshop app">
 </div>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="paragraph">
 <p>Next, let&#8217;s fix the labels assigned to the <code>mongodb-nationalparks</code> deployment. Currently, we cannot set labels when using the database template from the catalog, so we will fix these labels manually.</p>
@@ -668,7 +607,7 @@ service to query for data:</p>
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/data/all</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">http://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/data/all</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -689,7 +628,7 @@ application and then deployed the database. Nothing actually loaded anything
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/data/load</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">http://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/data/load</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -785,7 +724,7 @@ API and asking about the <strong>Routes</strong> and <strong>Services</strong> i
 <strong>Label</strong> that is <code>type=parksmap-backend</code>, the application knows to interrogate
 the endpoints to look for map data.
 You can see the code that does this
-<a href="https://github.com/openshift-roadshow/parksmap-web/blob/master/src/main/java/com/openshift/evg/roadshow/rest/RouteWatcher.java#L20">here</a>.</p>
+<a href="https://github.com/openshift-roadshow/parksmap-web/blob/{parksmap-version}/src/main/java/com/openshift/evg/roadshow/rest/RouteWatcher.java#L20">here</a>.</p>
 </div>
 <div class="paragraph">
 <p>Fortunately, the command line provides a convenient way for us to manipulate
@@ -804,10 +743,10 @@ Created:                2 hours ago
 Labels:                 app=workshop
                         app.kubernetes.io/component=nationalparks
                         app.kubernetes.io/instance=nationalparks
-                        app.kubernetes.io/name=java
+                        app.kubernetes.io/name=dotnet
                         app.kubernetes.io/part-of=workshop
-                        app.openshift.io/runtime=java
-                        app.openshift.io/runtime-version=11
+                        app.openshift.io/runtime=dotnet
+                        app.openshift.io/runtime-version=3.1
                         component=nationalparks
                         role=backend
 Annotations:            openshift.io/host.generated=true

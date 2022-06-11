@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Webhooks with OpenShift :: Deploy Pacman using Red Hat OpenShift Database Access</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-java-codechanges-github.html">
+    <title>Continuous Integration and Pipelines :: Deploy Pacman using Red Hat OpenShift Database Access</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-python-pipeline.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -289,221 +289,373 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Deploy Pacman using Red Hat OpenShift Database Access</a></li>
-    <li><a href="pacman-java-codechanges-github.html">Webhooks with OpenShift</a></li>
+    <li><a href="pacman-python-pipeline.html">Continuous Integration and Pipelines</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-java-codechanges-github.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-python-pipeline.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Webhooks with OpenShift</h1>
+<h1 class="page">Continuous Integration and Pipelines</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>As we discussed in the previous module, OpenShift provides the Source-2-Image mechanism to create containers by defining a <code>BuildConfig</code>. In addition to that, it provides <a href="https://docs.openshift.com/container-platform/{openshift-version}/cicd/builds/triggering-builds-build-hooks.html" target="_blank" rel="noopener">triggers</a> to control the circumstances in which the BuildConfig should be run, such as Webhooks.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="prerequisite_github_account"><a class="anchor" href="#prerequisite_github_account"></a>Prerequisite: GitHub Account</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>We will demonstrate the automation capability with OpenShift, and in order to do this, we need you to have an account on <a href="https://github.com" target="_blank" rel="noopener">GitHub</a>.</p>
+<p>In this lab you will learn about pipelines and how to configure a pipeline in OpenShift so
+that it will take care of the application lifecycle.</p>
 </div>
 <div class="paragraph">
-<p>If you don&#8217;t have an account on GitHub, please create one <a href="https://github.com/join" target="_blank" rel="noopener">here</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="webhooks"><a class="anchor" href="#webhooks"></a>Background: Webhooks</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Most Git repository servers support the concept of web hooks&#8201;&#8212;&#8201;calling to an
-external source via HTTP(S) when a change in the code repository happens.
-OpenShift provides an API endpoint that supports receiving hooks from
-remote systems in order to trigger builds. By pointing the code repository&#8217;s
-hook at the OpenShift API, automated code/build/deploy can be
-achieved.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="webhooks_with_openshift"><a class="anchor" href="#webhooks_with_openshift"></a>Exercise: Webhooks with OpenShift</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>In this lab you can use a build webhook to trigger a build execution every time there is a change in your copy of the nationalparks GitHub repository. In the OpenShift web console, navigate to your <strong>%PROJECT%</strong> project, and then click to <strong>Builds</strong>. Click the <code>nationalparks</code> BuildConfig and then go to the <strong>Webhooks</strong> section.</p>
+<p>A continuous delivery (CD) pipeline is an automated expression of your process for getting software
+from version control right through to your users and customers.
+Every change to your software (committed in source control) goes through a complex process on
+its way to being released. This process involves building the software in a reliable and repeatable
+manner, as well as progressing the built software (called a "build") through multiple stages of
+testing and deployment.</p>
 </div>
 <div class="paragraph">
-<p>On this screen you will see the option to copy the GitHub webhook URL, click to <strong>Copy URL with Secret</strong> as shown in the following image:</p>
+<p>OpenShift Pipelines is a cloud-native, continuous integration and delivery (CI/CD) solution for building pipelines using <a href="https://tekton.dev/">Tekton</a>. Tekton is a flexible, Kubernetes-native, open-source CI/CD framework that enables automating deployments across multiple platforms (Kubernetes, serverless, VMs, etc) by abstracting away the underlying details.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-codechanges-webhook-config.png" alt="Webhook">
+<img src="_images/devops-pipeline-flow.png" alt="Pipelines">
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="fork_repository_from_github"><a class="anchor" href="#fork_repository_from_github"></a>Exercise: Fork NationalParks repository from GitHub</h2>
+<h2 id="understanding_tekton"><a class="anchor" href="#understanding_tekton"></a>Understanding Tekton</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>A <a href="https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo" target="_blank" rel="noopener">fork</a> is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.</p>
+<p>Tekton defines a number of <a href="https://kubernetes.io/docs/concepts/extend-kubernetes/api-extension/custom-resources/">Kubernetes custom resources</a> as building blocks in order to standardize pipeline concepts and provide a terminology that is consistent across CI/CD solutions.</p>
 </div>
 <div class="paragraph">
-<p>In this step we will fork the original <code>nationalparks</code> repository to apply our changes and automatically trigger the Pipeline through a <a href="https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/about-webhooks" target="_blank" rel="noopener">GitHub Webhook</a> that we&#8217;re going to configure.</p>
+<p>The custom resources needed to define a pipeline are listed below:</p>
 </div>
-<div class="paragraph">
-<p>Go to <a href="https://github.com/openshift-roadshow/nationalparks" target="_blank" rel="noopener">Nationalparks</a> repository. From top-right side, click to <strong>Fork</strong> to start forking it into your account.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Task</code>: a reusable, loosely coupled number of steps that perform a specific task (e.g. building a container image)</p>
+</li>
+<li>
+<p><code>Pipeline</code>: the definition of the pipeline and the <code>Tasks</code> that it should perform</p>
+</li>
+<li>
+<p><code>TaskRun</code>: the execution and result of running an instance of task</p>
+</li>
+<li>
+<p><code>PipelineRun</code>: the execution and result of running an instance of pipeline, which includes a number of <code>TaskRuns</code></p>
+</li>
+</ul>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-fork-1.png" alt="Fork Repository">
+<img src="_images/tekton-architecture.png" alt="Tekton Architecture">
 </div>
 </div>
 <div class="paragraph">
-<p>Select your account, and click <strong>Fork</strong></p>
+<p>In short, in order to create a pipeline, one does the following:</p>
 </div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-codechanges-github-fork-2.png" alt="Fork in progress">
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create custom or install <a href="https://github.com/tektoncd/catalog">existing</a> reusable <code>Tasks</code></p>
+</li>
+<li>
+<p>Create a <code>Pipeline</code> and <code>PipelineResources</code> to define your application&#8217;s delivery pipeline</p>
+</li>
+<li>
+<p>Create a <code>PersistentVolumeClaim</code> to provide the volume/filesystem for pipeline execution or provide a <code>VolumeClaimTemplate</code> which creates a <code>PersistentVolumeClaim</code></p>
+</li>
+<li>
+<p>Create a <code>PipelineRun</code> to instantiate and invoke the pipeline</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
-<p>Your repository is forked now, we can start adding our automation to that.</p>
+<p>For further details on pipeline concepts, refer to the <a href="https://github.com/tektoncd/pipeline/tree/master/docs#learn-more">Tekton documentation</a> that provides an excellent guide for understanding various parameters and attributes available for defining pipelines.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="configuring_github_webhooks"><a class="anchor" href="#configuring_github_webhooks"></a>Exercise: Configuring GitHub Web Hooks</h2>
+<h2 id="explore_pipeline"><a class="anchor" href="#explore_pipeline"></a>Explore your Pipeline</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Once you have forked the repository and you have the Webhook URL with Secret copied to your clipboard, navigate to the code repository fork that you have on GitHub.</p>
+<p>As pipelines provide the ability to promote applications between different stages of the delivery cycle, Tekton, which is our Continuous Integration server that will execute our pipelines, will be deployed on a project with a Continuous Integration role. Pipelines executed in this project will have permissions to interact with all the projects modeling the different stages of our delivery cycle.</p>
 </div>
 <div class="paragraph">
-<p>From your fork page top-right menu, click <strong>Settings</strong>. Then from result left-side menu, click <strong>Webhook</strong>, then from right side click <strong>Add webhooks</strong>.</p>
+<p>For this example, we&#8217;re going to deploy our pipeline that we created automatically from Developer Console together with <code>nationalparks</code> backend.</p>
 </div>
-<div class="imageblock">
+<div class="paragraph">
+<p>Verify Tasks already available in the OpenShift cluster (ClusterTasks):</p>
+</div>
+<div class="listingblock execute-1">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-webhook-settings.png" alt="Add Webhook">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get clustertasks -n {{project_namespace}}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In the next screen, paste your link into the "Payload URL" field. You can leave the
-secret token field blank&#8201;&#8212;&#8201;the secret is already in the URL and does not need
-to be in the payload.</p>
-</div>
-<div class="paragraph">
-<p>Change the <code>Content Type</code> to <code>application/json</code>.</p>
-</div>
-<div class="paragraph">
-<p>Finally, click on <strong>Add Webhook</strong>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-codechanges-github-automation-webhook.png" alt="Webhook">
-</div>
-</div>
-<div class="paragraph">
-<p>Boom! From now on, every time you commit new source code to your GitHub
-repository, a new build and deploy will occur inside of OpenShift.  Let&#8217;s try
-this out.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="using_github_webhooks"><a class="anchor" href="#using_github_webhooks"></a>Exercise: Using GitHub Web Hooks</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Click the <strong>Code</strong> tab in GitHub. This is GitHub&#8217;s repository view.</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Make sure that the drop-down menu at the upper right is set for
-the <strong><code>master</code></strong> branch. Navigate to the
-following path:
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">src/main/java/com/openshift/evg/roadshow/parks/rest/</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Then click on the <code>BackendController.java</code> file.</p>
-</div>
-<div class="paragraph">
-<p>Once you have the file on the screen, click the edit button in the top right
-hand corner as shown here:</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-codechanges-github-change-code.png" alt="Webhook">
-</div>
-</div>
-<div class="paragraph">
-<p>Change line number 20:</p>
+<p>You should see something similar:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">return new Backend("nationalparks","National Parks", new Coordinates("47.039304", "14.505178"), 4);</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                 AGE
+....
+s2i-python-3               4h58m
+s2i-python-3-pr            4h58m
+....</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>To</p>
+<p>Verify the Pipeline we created:</p>
+</div>
+<div class="listingblock execute-1">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get pipelines -n {{project_namespace}}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see something like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                     AGE
+nationalparks   5m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now let&#8217;s review our Tekton Pipeline:</p>
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">return new Backend("nationalparks","Awesome National Parks", new Coordinates("47.039304", "14.505178"), 4);</code></pre>
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">---
+apiVersion: tekton.dev/v1beta1
+kind: Pipeline
+metadata:
+  name: nationalparks
+spec:
+  params:
+    - default: nationalparks
+      name: APP_NAME
+      type: string
+    - default: &gt;-
+        https://github.com/openshift-roadshow/nationalparks-py.git
+      name: GIT_REPO
+      type: string
+    - default: master
+      name: GIT_REVISION
+      type: string
+    - default: 'image-registry.openshift-image-registry.svc:5000/user1/nationalparks'
+      name: IMAGE_NAME
+      type: string
+    - default: .
+      name: PATH_CONTEXT
+      type: string
+    - default: '1'
+      name: MINOR_VERSION
+      type: string
+  tasks:
+    - name: fetch-repository
+      params:
+        - name: url
+          value: $(params.GIT_REPO)
+        - name: revision
+          value: $(params.GIT_REVISION)
+        - name: subdirectory
+          value: ''
+        - name: deleteExisting
+          value: 'true'
+      taskRef:
+        kind: ClusterTask
+        name: git-clone
+      workspaces:
+        - name: output
+          workspace: workspace
+    - name: build
+      params:
+        - name: IMAGE
+          value: $(params.IMAGE_NAME)
+        - name: TLSVERIFY
+          value: 'false'
+        - name: PATH_CONTEXT
+          value: $(params.PATH_CONTEXT)
+        - name: MINOR_VERSION
+          value: $(params.MINOR_VERSION)
+      runAfter:
+        - fetch-repository
+      taskRef:
+        kind: ClusterTask
+        name: s2i-python-3
+      workspaces:
+        - name: source
+          workspace: workspace
+    - name: deploy
+      params:
+        - name: SCRIPT
+          value: kubectl $@
+        - name: ARGS
+          value:
+            - rollout
+            - status
+            - deploy/$(params.APP_NAME)
+      runAfter:
+        - build
+      taskRef:
+        kind: ClusterTask
+        name: openshift-client
+  workspaces:
+    - name: workspace</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Click on <strong>Commit changes</strong> at the bottom of the screen. Feel free to enter a commit message.</p>
+<p>A <code>Pipeline</code> is a user-defined model of a CD pipeline. A Pipeline’s code defines your entire build process, which typically includes stages for building an application, testing it and then delivering it.</p>
 </div>
 <div class="paragraph">
-<p>Once you have committed your changes, a new <strong>Build</strong> should almost instantaneously be
-triggered in OpenShift. From OpenShift Web Console, click <strong>Builds</strong>&#8594;<strong>nationalparks</strong> and then navigate to the <strong>Builds</strong>. You should see a new one running:</p>
+<p>A <code>Task</code> and a <code>ClusterTask</code> contain some step to be executed. <strong>ClusterTasks</strong> are available to all user within a cluster where OpenShift Pipelines has been installed, while <strong>Tasks</strong> can be custom.</p>
+</div>
+<div class="paragraph">
+<p>This pipeline has 3 Tasks defined:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>fetch-repository</strong>: this is a <code>ClusterTask</code> that will clone our source repository for nationalparks and store it to a <code>Workspace</code> <code>app-source</code> which will use the PVC created for it <code>app-source-workspace</code></p>
+</li>
+<li>
+<p><strong>build</strong>: will build and test our Python application, generate and push a container image automatically with compiled binaries inside OpenShift Container Registry.</p>
+</li>
+<li>
+<p><strong>deploy</strong>: it will deploy the created image on OpenShift using the Deployment named <code>nationalparks</code> we created in the previous lab.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>From left-side menu, click on <strong>Pipeline</strong>, then click on <strong>nationalparks</strong> to see the pipeline you just created.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-codechanges-build-running.png" alt="Webhook">
+<img src="_images/devops-pipeline-created-new.png" alt="Pipeline created">
 </div>
 </div>
 <div class="paragraph">
-<p>or run the following command to verify:</p>
+<p>The Pipeline is parametric, with default value on the one we need to use.</p>
 </div>
-<div class="listingblock console-input">
+<div class="paragraph">
+<p>It is using one <strong>Workspace</strong>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>app-source</strong>: this need to be linked to a <strong>PersistentVolumeClaim</strong> since will be used to store the code and the compiled binary to be used in different <strong>Tasks</strong></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="add_storage_for_pipeline"><a class="anchor" href="#add_storage_for_pipeline"></a>Exercise: Add Storage for your Pipeline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>OpenShift manages Storage with <a href="https://kubernetes.io/docs/concepts/storage/persistent-volumes/">Persistent Volumes</a> to be attached to Pods running our applications through <strong>Persistent Volume Claim</strong> requests, and it also provides the capability to manage it at ease from Web Console.
+From <strong>Administrator Perspective</strong>, go to <strong>Storage</strong>&#8594; <strong>Persistent Volume Claims</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Go to top-right side and click <strong>Create Persistent Volume Claim</strong> button.</p>
+</div>
+<div class="paragraph">
+<p>Inside <strong>Persistent Volume Claim name</strong> insert <strong>app-source-pvc</strong>.</p>
+</div>
+<div class="paragraph">
+<p>In <strong>Size</strong> section, insert <strong>1</strong> as we are going to create 1 GiB Persistent Volume for our Pipeline, using RWO Single User access mode.</p>
+</div>
+<div class="paragraph">
+<p>Leave all other default settings, and click <strong>Create</strong>.</p>
+</div>
+<div class="imageblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get builds</code></pre>
+<img src="_images/nationalparks-codechanges-pipeline-pvc.png" alt="Create PVC">
 </div>
 </div>
-<div class="paragraph">
-<p>Once the build and deploy has finished, verify your new image was automatically deployed by viewing the application in your browser:</p>
-</div>
-<div class="paragraph">
-<p><a href="https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/" class="params-link" target="_blank" rel="noopener">National Parks Info Page</a></p>
-</div>
-<div class="paragraph">
-<p>You should now see the new name you have set in the JSON string returned.</p>
-</div>
-<div class="admonitionblock note">
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
-<i class="fa icon-note" title="Note"></i>
+<i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-To see this in the map&#8217;s legend itself, you will need to scale down your parksmap to 0, then back up to 1 to force the app to refresh its cache.
+The <strong>Storage Class</strong> is the type of storage available in the cluster.
 </td>
 </tr>
 </table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="run_the_pipeline"><a class="anchor" href="#run_the_pipeline"></a>Run the Pipeline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We can start now the Pipeline from the Web Console. Switch to <strong>Developer Perspective</strong>, and from left-side menu, click on <strong>Pipeline</strong>, then click on <strong>nationalparks</strong>. From top-right <strong>Actions</strong> list, click on <strong>Start</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-start-1-new.png" alt="Start Pipeline">
+</div>
+</div>
+<div class="paragraph">
+<p>You will be prompted with parameters to add the Pipeline, showing default ones.</p>
+</div>
+<div class="paragraph">
+<p>In <strong>Workspaces</strong>&#8594; <strong>app-source</strong> select <strong>PVC</strong> from the list, then select <strong>app-source-pvc</strong>. This is the shared volume used by Pipeline Tasks in your Pipeline containing the source code and compiled artifacts.</p>
+</div>
+<div class="paragraph">
+<p>Click on <strong>Start</strong> to run your Pipeline.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-start-2-new.png" alt="Add parameters">
+</div>
+</div>
+<div class="paragraph">
+<p>You can follow the Pipeline execution from <strong>Pipeline</strong> section, watching all the steps in rogress. Click on <strong>Pipeline Runs</strong> tab to see it running:</p>
+</div>
+<div class="paragraph">
+<p>image::devops-pipeline-run-1.png[Pipeline runnin</p>
+</div>
+<div class="paragraph">
+<p>In <strong>Workspaces</strong>&#8594; <strong>app-source</strong> select <strong>PVC</strong> from the list, then select <strong>app-source-pvc</strong>. This is the share volume used by Pipeline Tasks in your Pipeline containing the source code and compiled artifacts.</p>
+</div>
+<div class="paragraph">
+<p>Click on <strong>Start</strong> to run your Pipeline.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-start-2.png" alt="Add parameters">
+</div>
+</div>
+<div class="paragraph">
+<p>You can follow the Pipeline execution from <strong>Pipeline</strong> section, watching all the steps in g]</p>
+</div>
+<div class="paragraph">
+<p>The click on the <code>PipelineRun</code> <strong>national-parks-deploy-run-</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-run-2.png" alt="Pipeline running animation">
+</div>
+</div>
+<div class="paragraph">
+<p>Then click on the <strong>Task</strong> running to check logs:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-run-3.png" alt="Pipeline Task log">
+</div>
+</div>
+<div class="paragraph">
+<p>Verify PipelineRun has been completed with success:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-run-4.png" alt="PipelineRun completed">
+</div>
 </div>
 </div>
 </div>

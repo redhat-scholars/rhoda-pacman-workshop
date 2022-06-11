@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Binary Builds :: Deploy Pacman using Red Hat OpenShift Database Access</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/mlbparks-binary-build.html">
-    <link rel="prev" href="mlbparks-templates.html">
-    <link rel="next" href="mlbparks-debugging.html">
+    <title>Nationalparks NodeJS App :: Deploy Pacman using Red Hat OpenShift Database Access</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-javascript.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -204,31 +202,31 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="mlbparks-binary-build.html">Binary Builds</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#moving_on_from_s2i">Moving on From S2I</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#moving_on_from_s2i">Moving on From S2I</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#fast_iterative_code_change_using_binary_deploy">Fast Iterative Code Change Using Binary Deploy</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#fast_iterative_code_change_using_binary_deploy">Fast Iterative Code Change Using Binary Deploy</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="#using_binary_deployment">Exercise: Using Binary Deployment</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#using_binary_deployment">Exercise: Using Binary Deployment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#clone_source">Clone source</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#clone_source">Clone source</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#setup_the_build_of_the_war_file">Setup the Build of the WAR file</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#setup_the_build_of_the_war_file">Setup the Build of the WAR file</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#clone_change">Clone change</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#clone_change">Clone change</a>
   </li>
   <li class="nav-item" data-depth="3">
-    <a class="nav-link" href="#doing_the_binary_build">Doing the Binary Build</a>
+    <a class="nav-link" href="mlbparks-binary-build.html#doing_the_binary_build">Doing the Binary Build</a>
   </li>
 </ul>
   </li>
@@ -291,236 +289,322 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Deploy Pacman using Red Hat OpenShift Database Access</a></li>
-    <li><a href="mlbparks-binary-build.html">Binary Builds</a></li>
+    <li><a href="pacman-javascript.html">Nationalparks NodeJS App</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/mlbparks-binary-build.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-javascript.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Binary Builds</h1>
-<div class="sect1">
-<h2 id="moving_on_from_s2i"><a class="anchor" href="#moving_on_from_s2i"></a>Moving on From S2I</h2>
+<h1 class="page">Nationalparks NodeJS App</h1>
+<div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>As you saw before S2I is a great way to get from source code to a container, but the process is a bit too slow for daily fast iterative
-development. For example, if you want to change some CSS or change one method in a class you don&#8217;t want to go through
-a full git commit and build cycle. In this lab we are going to show you a more efficient method for quick iteration. While
-we are at it we will also show you how to debug your code.</p>
+<p>In this lab, we&#8217;re going to deploy a backend service, developed in NodeJS
+ that will expose 2 main REST endpoints to the visualizer
+application (<code>parksmap</code> web component that was deployed in the previous labs).
+The application will query for national parks information (including it&#8217;s
+coordinates) that is stored in a MongoDB database.  This application will also
+provide an external access point, so that the API provided can be directly used
+by the end user.</p>
 </div>
-<div class="paragraph">
-<p>Now that we built the MLB parks service let&#8217;s go ahead and make some quick changes.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="fast_iterative_code_change_using_binary_deploy"><a class="anchor" href="#fast_iterative_code_change_using_binary_deploy"></a>Fast Iterative Code Change Using Binary Deploy</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The OpenShift command line has the ability to do a deployment from your local machine. In this case we are going to use S2I,
-but we are going to tell OpenShift to just take the war file from our local machine and bake it in the image.</p>
-</div>
-<div class="paragraph">
-<p>Doing this pattern of development lets us do quick builds on our local machine (benefitting from our local cache and
-all the horsepower on our machine) and then just quickly send up the war file.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You could also use this pattern to actually send up your working directory to the S2I builder to have it do the Maven build
-on OpenShift. Using the local directory would relieve you from having Maven or any of the Java toolchain on your local
-machine AND would also not require git commit with a push. Read more in the
-{openshift-docs-url}/builds/basic-build-operations.html#builds-basic-start-source_basic-build-operations[official documentation]
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="using_binary_deployment"><a class="anchor" href="#using_binary_deployment"></a>Exercise: Using Binary Deployment</h2>
-<div class="sectionbody">
-<div class="sect2">
-<h3 id="clone_source"><a class="anchor" href="#clone_source"></a>Clone source</h3>
-<div class="paragraph">
-<p>The first step is to clone the MLB source code from GitHub to your workshop environment:</p>
-</div>
-<div class="listingblock console-input">
+<div class="imageblock text-center">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/openshift-roadshow/mlbparks.git</code></pre>
+<img src="_images/roadshow-app-architecture-nationalparks-1.png" alt="Application architecture" width="800">
 </div>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-We are using Intellij here in the guide for screenshots but this should work regardless of your tool chain. JBoss
-Developer Studio and JBoss Developer Tools have built in functionality that makes this close to seamless right from the IDE.
-</td>
-</tr>
-</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="source_to_image"><a class="anchor" href="#source_to_image"></a>Background: Source-to-Image (S2I)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a previous lab, we learned how to deploy a pre-existing container
+image. Now we will expand on that by learning how OpenShift builds
+container images using source code from an existing repository.  This is accomplished using the Source-to-Image project.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/openshift/source-to-image">Source-to-Image (S2I)</a> is a
+open source project sponsored by Red Hat that has the following goal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Source-to-image (S2I) is a tool for building reproducible container images. S2I
+produces ready-to-run images by injecting source code into a container image and
+assembling a new image which incorporates the builder image and built
+source. The result is then ready to use with docker run. S2I supports
+incremental builds which re-use previously downloaded dependencies, previously
+built artifacts, etc.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>OpenShift is S2I-enabled and can use S2I as one of its build mechanisms (in
+addition to building container images from Dockerfiles, and "custom" builds).</p>
+</div>
+<div class="paragraph">
+<p>OpenShift runs the S2I process inside a special <strong>Pod</strong>, called a Build
+Pod, and thus builds are subject to quotas, limits, resource scheduling, and
+other aspects of OpenShift.</p>
+</div>
+<div class="paragraph">
+<p>A full discussion of S2I is beyond the scope of this class, but you can find
+more information about it either in the
+{openshift-docs-url}/creating_images/s2i.html[OpenShift S2I documentation]
+or on <a href="https://github.com/openshift/source-to-image">GitHub</a>. The only key concept you need to
+remember about S2I is that it&#8217;s magic.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating_nodejs_application"><a class="anchor" href="#creating_nodejs_application"></a>Exercise: Creating a NodeJS application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The backend service that we will be deploying as part of this exercise is
+called <code>nationalparks</code>.  This is a NodeJS application that performs 2D
+geo-spatial queries against a MongoDB database to locate and return map
+coordinates of all National Parks in the world. That was just a fancy way of
+saying that we are going to deploy a webservice that returns a JSON list of
+places.</p>
+</div>
+<div class="sect2">
+<h3 id="add_to_project"><a class="anchor" href="#add_to_project"></a>Add to Project</h3>
+<div class="paragraph">
+<p>Because the <code>nationalparks</code> component is a backend to serve data that our
+existing frontend (parksmap) will consume, we are going to build it inside the existing
+project that we have been working with. To illustrate how you can interact with OpenShift via the CLI or the Web Console, we will deploy the nationalparks component using the web console.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setup_the_build_of_the_war_file"><a class="anchor" href="#setup_the_build_of_the_war_file"></a>Setup the Build of the WAR file</h3>
+<h3 id="using_application_code_on_git_server"><a class="anchor" href="#using_application_code_on_git_server"></a>Using Application Code on Git Server</h3>
 <div class="paragraph">
-<p>If you have Maven all set up on your machine, then you can <code>cd</code> into the <code>mlbparks</code> directory and run <code>mvn package</code></p>
+<p>OpenShift can work with any accessible Git repository. This could be GitHub,
+GitLab, or any other server that speaks Git. You can even register webhooks in
+your Git server to initiate OpenShift builds triggered by any update to the
+application code!</p>
 </div>
-<div id="docker_for_maven" class="admonitionblock tip">
+<div class="paragraph">
+<p><a href="https://github.com/openshift-roadshow/nationalparks-js.git">NationalParks GitHub Repository</a></p>
+</div>
+<div class="paragraph">
+<p>Later in the lab, we want you to make a code change and then rebuild your
+application. This is a fairly simple NodeJS application.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build_code_on_openshift"><a class="anchor" href="#build_code_on_openshift"></a>Build the Code on OpenShift</h3>
+<div class="paragraph">
+<p>Similar to how we used <strong>+Add</strong> before with an existing image, we
+can do the same for specifying a source code repository. Since for this lab you
+have your own git repository, let&#8217;s use it with a simple NodeJS S2I image.</p>
+</div>
+<div class="paragraph">
+<p>In the <strong>Developer Perspective</strong>, click <strong>+Add</strong> in the left navigation and then choose <strong>From Git</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-show-add-options.png" alt="Add to Project">
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>Import from Git</strong> workflow will guide you through the process of deploying your app based on a few selections.</p>
+</div>
+<div class="paragraph">
+<p>Enter the following for Git Repo URL:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">https://github.com/openshift-roadshow/nationalparks-js.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Select <strong>NodeJS</strong> as your Builder Image.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-import-from-git-url-builder-js.png" alt="Import from Git">
+</div>
+</div>
+<div class="paragraph">
+<p>Scroll down to the <strong>General</strong> section. Select:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Application Name</strong> : workshop</p>
+</li>
+<li>
+<p><strong>Name</strong> : nationalparks</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In <strong>Resources</strong> section, select <strong>Deployment</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Inside <strong>Pipeline</strong> section, check <strong>Add pipeline</strong> box. This will create a Tekton Pipeline for us that we will use after in the Pipeline modules.</p>
+</div>
+<div class="admonitionblock tip">
 <table>
 <tr>
 <td class="icon">
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>If you don&#8217;t have Maven on your machine but you are able to run docker, you can instead mount the repo directory and run the build commands from within the container.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>From within the directory that you ran <code>git clone</code> above, run the following command:</p>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run -it --rm --user 0 --name maven_builder -v ~/.kube:/home/jboss/.kube -v $(pwd):/workspaces -w /workspaces registry.access.redhat.com/ubi8/openjdk-11 /bin/bash</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Next, run this command (in the container) to locally install the latest version of <code>oc</code> on the container</p>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p $HOME/bin &amp;&amp; curl -L <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz" class="bare">https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz</a> | \
-    tar -xvzf - -C $HOME/bin/ oc &amp;&amp; chmod 755 $HOME/bin/oc &amp;&amp; ln -s $HOME/bin/oc $HOME/bin/kubectl</code></pre>
-</div>
-</div>
-</li>
-<li>
-<p>Finally, ensure that you are still connected to your OpenShift cluster from within the builder container by running the following and comparing the output:</p>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc whoami --show-server</code></pre>
-</div>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"><a href="https://%CLUSTER_SUBDOMAIN%:30713" class="bare">https://%CLUSTER_SUBDOMAIN%:30713</a></code></pre>
-</div>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Once completed, you should be able to follow the commands as they are outlined below.</p>
-</div>
+Click "Show pipeline visualization" to preview the Pipeline inside Pipeline UI that we are going to use later on.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Expand the Labels section and add 3 labels:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong><em>app</em>=workshop</strong>  (the name we will be giving to the app)</p>
+</li>
+<li>
+<p><strong><em>component</em>=nationalparks</strong>  (the name of this deployment)</p>
+</li>
+<li>
+<p><strong><em>role</em>=backend</strong> (the role this component plays in the overall application)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Now click the <strong>Create</strong> button.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-configure-service-pipelines.png" alt="Runtimes">
+</div>
+</div>
+<div class="paragraph">
+<p>To see the build logs, in Topology view, click the <code>nationalparks</code> entry, then click on <strong>View Logs</strong> in the <strong>Builds</strong> section of the <strong>Resources</strong> tab.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-javascript-new-nodejs-build.png" alt="Nationalparks build">
+</div>
+</div>
+<div class="paragraph">
+<p>The initial build will take a few minutes to download all of the dependencies needed for
+the application. You can see all of this happening in real time!</p>
+</div>
+<div class="paragraph">
+<p>From the command line, you can also see the <strong>Builds</strong>:</p>
+</div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd mlbparks
-mvn package</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get builds</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Pay attention to the output location for the ROOT.war, we will need that directory later.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="code_change"><a class="anchor" href="#code_change"></a>Code Change</h3>
-<div class="paragraph">
-<p>Time for a source code change!</p>
-</div>
-<div class="paragraph">
-<p>Edit <code>BackendController</code> Java class from this path:</p>
+<p>You&#8217;ll see output like:</p>
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">src/main/java/com/openshift/evg/roadshow/rest/BackendController.java</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME              TYPE      FROM          STATUS     STARTED              DURATION
+nationalparks-1   Source    Git@b052ae6   Running    About a minute ago   1m2s</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This is the REST endpoint that gives basic info on the service and can be reached at:</p>
+<p>You can also view the build logs with the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -f builds/nationalparks-1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the build has completed and successfully:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The S2I process will push the resulting container image to the internal OpenShift registry</p>
+</li>
+<li>
+<p>The <strong>Deployment</strong> (D) will detect that the image has changed, and this
+will cause a new deployment to happen.</p>
+</li>
+<li>
+<p>A <strong>ReplicaSet</strong> (RS) will be spawned for this new deployment.</p>
+</li>
+<li>
+<p>The RS will detect no <strong>Pods</strong> are running and will cause one to be deployed, as our default replica count is just 1.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the end, when issuing the <code>oc get pods</code> command, you will see that the build Pod
+has finished (exited) and that an application <strong>Pod</strong> is in a ready and running state:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                    READY     STATUS      RESTARTS   AGE
+nationalparks-1-tkid3   1/1       Running     3          2m
+nationalparks-1-build   0/1       Completed   0          3m
+parksmap-57df75c46d-xltcs        1/1       Running     0          2h</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you look again at the web console, you will notice that, when you create the
+application this way, OpenShift also creates a <strong>Route</strong> for you. You can see the
+URL in the web console, or via the command line:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get routes</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where you should see something like the following:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME            HOST/PORT                                                   PATH      SERVICES        PORT       TERMINATION       WILDCARD
+nationalparks   nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%             nationalparks   8080-tcp
+parksmap        parksmap-%PROJECT%.%CLUSTER_SUBDOMAIN%                  parksmap        8080-tcp        edge        none</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, the URL is:</p>
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http://mlbparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">http://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Please change line 23 to add a <em>AMAZING</em> in front of "MLB Parks" look like this:</p>
+<p>Since this is a back-end application, it doesn&#8217;t actually have a web interface.
+However, it can still be used with a browser. All backends that work with the parksmap
+frontend are required to implement a <code>/ws/info/</code> endpoint. To test, visit this URL in your browser:</p>
+</div>
+<div class="paragraph">
+<p><a href="http://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/" target="_blank" rel="noopener">National Parks Info Page</a>
+You will see a simple JSON string:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">return new Backend("mlbparks", "AMAZING MLB Parks", new Coordinates("39.82", "-98.57"), 5);</code></pre>
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{"id":"nationalparks","displayName":"National Parks (JS)","center":{"latitude":47.039304,"longitude":14.505178},"zoom":4}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Don&#8217;t forget to save the file and run <code>mvn package</code> again from the root of the source folder:</p>
+<p>Earlier we said:</p>
 </div>
-<div class="listingblock console-input">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn package</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="doing_the_binary_build"><a class="anchor" href="#doing_the_binary_build"></a>Doing the Binary Build</h3>
-<div class="paragraph">
-<p>Alright we have our war file built, time to kick off a build using it.</p>
-</div>
-<div class="paragraph">
-<p>If you built your war with Maven:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc start-build bc/mlbparks --from-file=target/ROOT.war --follow</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The --follow is optional if you want to follow the build output in your terminal.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Using labels and a recreate deployment strategy, as soon as the new deployment finishes the map name will be updated. Under a recreate deployment strategy we first tear down the pod before doing our new deployment.
-When the pod is torn down, the parksmap service removes the MLBParks map from the layers. When it comes back up, the layer
-automatically gets added back with our new title.  This would not have happened with a rolling deployment because
-rolling spins up the new version of the pod before it takes down the old one. Rolling strategy enables a zero-downtime deployment.</p>
-</div>
-<div class="paragraph">
-<p>You can follow the deployment in progress from Topology view, and when it is completed, you will see the new content at:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http://mlbparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">This is a NodeJS application that performs 2D geo-spatial queries
+against a MongoDB database</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>So now you have seen how we can speed up the build and deploy process.</p>
+<p>But we don&#8217;t have a database. Yet.</p>
 </div>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="mlbparks-templates.html">MLBParks App</a></span>
-  <span class="next"><a href="mlbparks-debugging.html">Debugging Apps</a></span>
-</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

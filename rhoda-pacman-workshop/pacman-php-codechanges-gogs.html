@@ -3,9 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Workshop Links :: Deploy Pacman using Red Hat OpenShift Database Access</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/common-workshop-links.html">
-    <link rel="prev" href="common-further-resources.html">
+    <title>Untitled :: Deploy Pacman using Red Hat OpenShift Database Access</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-php-codechanges-gogs.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -257,21 +256,21 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="common-further-resources.html">Further Resources</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="common-workshop-links.html">Workshop Links</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#openshift_cluster_url">OpenShift Cluster URL</a>
+    <a class="nav-link" href="common-workshop-links.html#openshift_cluster_url">OpenShift Cluster URL</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#workshop_guides">Workshop Guides</a>
+    <a class="nav-link" href="common-workshop-links.html#workshop_guides">Workshop Guides</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#web_terminal">Web terminal</a>
+    <a class="nav-link" href="common-workshop-links.html#web_terminal">Web terminal</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#git_server">Git Server</a>
+    <a class="nav-link" href="common-workshop-links.html#git_server">Git Server</a>
   </li>
 </ul>
   </li>
@@ -288,54 +287,305 @@
 <button class="nav-toggle"></button>
   <a href="index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
-  <ul>
-    <li><a href="index.html">Deploy Pacman using Red Hat OpenShift Database Access</a></li>
-    <li><a href="common-workshop-links.html">Workshop Links</a></li>
-  </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/common-workshop-links.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-php-codechanges-gogs.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Workshop Links</h1>
-<div id="preamble">
+<div class="sect1">
+<h2 id="_background_web_hooks"><a class="anchor" href="#_background_web_hooks"></a>Background: Web Hooks</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can find all urls, hostnames, usernames and passwords that are needed during the workshop in this page. Note that the urls are also embedded inside the labs so that you don&#8217;t have to go back and forth between this page and the labs.</p>
+<p>Most Git repository servers support the concept of web hooks&#8201;&#8212;&#8201;calling to an
+external source via HTTP(S) when a change in the code repository happens.
+OpenShift provides an API endpoint that supports receiving hooks from
+remote systems in order to trigger builds. By pointing the code repository&#8217;s
+hook at the OpenShift API, automated code/build/deploy pipelines can be
+achieved.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="openshift_cluster_url"><a class="anchor" href="#openshift_cluster_url"></a>OpenShift Cluster URL</h2>
+<h2 id="_exercise_configuring_gogs_web_hooks"><a class="anchor" href="#_exercise_configuring_gogs_web_hooks"></a>Exercise: Configuring Gogs Web Hooks</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Console Address: <a href="https://console-openshift-console.%CLUSTER_SUBDOMAIN%" class="bare">https://console-openshift-console.%CLUSTER_SUBDOMAIN%</a><br></p>
+<p>In this section you can use a build webhook to trigger a pipeline execution every time there is a change in the nationalparks Gogs repository. In the the Developer perspective in the web console, click <strong>Builds</strong> in the left navigation. Click the <code>nationalparks</code> build config and scroll down to the Webhooks section.</p>
 </div>
 <div class="paragraph">
-<p>Username: %USERNAME%<br>
-Password: %PASSWORD%<br></p>
+<p>On this screen you will see webhook information as shown in the following image:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-webhook-config.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>Click <strong>Copy URL with Secret</strong>. Once you have the URL copied to your clipboard, navigate to the code repository
+that you have on Gogs:</p>
+</div>
+<div class="paragraph">
+<p><a href="http://gogs-%INFRA_PROJECT%.%CLUSTER_SUBDOMAIN%/%USERNAME%/nationalparks">Gogs Repository</a></p>
+</div>
+<div class="paragraph">
+<p>Your Gogs credentials are:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">username: %USERNAME%
+password: %GOGS_PASSWORD%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Click the Settings link on the top right of the screen:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-gogs-settings.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>Click on <strong>Webhooks</strong>, then the <strong>Add Webhook</strong> button, and finally select <strong>Gogs</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-gogs-add-webhook.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>In the next screen, paste your link into the "Payload URL" field. You can leave the
+secret token field blank&#8201;&#8212;&#8201;the secret is already in the URL and does not need
+to be in the payload.</p>
+</div>
+<div class="paragraph">
+<p>Change the <code>Content Type</code> to <code>application/x-www-form-urlencoded</code>.</p>
+</div>
+<div class="paragraph">
+<p>Finally, click on <strong>Add Webhook</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-gogs-config-webhook.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>Boom! From now on, every time you commit new source code to your Gogs
+repository, a new build and deploy will occur inside of OpenShift.  Let&#8217;s try
+this out.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="workshop_guides"><a class="anchor" href="#workshop_guides"></a>Workshop Guides</h2>
+<h2 id="_exercise_using_gogs_web_hooks"><a class="anchor" href="#_exercise_using_gogs_web_hooks"></a>Exercise: Using Gogs Web Hooks</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Web: <a href="https://redhat-scholars.github.io/openshift-starter-guides/rhs-openshift-starter-guides/index.html" target="_blank" rel="noopener">Starter Guides</a></p>
+<p>Click the <strong>Files</strong> tab in Gogs. This is Gogs&#8217;s repository view.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Make sure that the drop-down menu at the upper right is set for
+the <strong><code>master</code></strong> branch. Navigate to the
+following path:
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then click on the <code>index.php</code> file.</p>
+</div>
+<div class="paragraph">
+<p>Once you have the file on the screen, click the edit button in the top right
+hand corner as shown here:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-gogs-php-change-code.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>Change line number 26:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-php hljs" data-lang="php">'displayName' =&gt; 'National Parks (PHP)',</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-php hljs" data-lang="php">'displayName' =&gt; 'Amazing National Parks (PHP)',</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Click on Commit changes at the bottom of the screen. Feel free to enter a commit
+message.</p>
+</div>
+<div class="paragraph">
+<p>Once you have committed your changes, a <strong>Build</strong> should almost instantaneously be
+triggered in OpenShift. From the <strong>Topology</strong> view, click <code>nationalparks</code> and look at the <strong>Builds</strong> section of the <strong>Resources</strong> tab, or, run the
+following command to verify:</p>
+</div>
+<div class="listingblock execute-1">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get builds</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see that a new build is running:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME              TYPE      FROM          STATUS     STARTED          DURATION
+nationalparks-1   Source    Git@b052ae6   Complete   18 hours ago     36s
+nationalparks-2   Source    Git@3b26e1a   Running    43 seconds ago</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the build and deploy has finished, verify your new image was
+automatically deployed by viewing the application in your browser:</p>
+</div>
+<div class="paragraph">
+<p><a href="http://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/">National Parks Info Page</a></p>
+</div>
+<div class="paragraph">
+<p>You should now see the new name you have set in the JSON string returned.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+To see this in the map&#8217;s legend itself, you will need to scale down your parksmap to 0, then back up to 1 to force the app to refresh its cache.
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="git_server"><a class="anchor" href="#git_server"></a>Git Server</h2>
+<h2 id="_exercise_rollback"><a class="anchor" href="#_exercise_rollback"></a>Exercise: Rollback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Web: <a href="https://github.com" target="_blank" rel="noopener">GitHub</a></p>
+<p>OpenShift allows you to move between different versions of an application
+without the need to rebuild each time. Every version (past builds) of the
+application exists as an image in the OpenShift registry. Using
+the <code>oc rollback</code> and <code>oc deploy</code> commands you can move back- or forward between
+various versions of applications.</p>
+</div>
+<div class="paragraph">
+<p>In order to perform a rollback, you need to know the name of the <strong>Deployment Config</strong>
+which has deployed the application:</p>
+</div>
+<div class="listingblock execute-1">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get dc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output will be similar to the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                 REVISION   DESIRED   CURRENT   TRIGGERED BY
+mongodb              1          1         1         config,image(mongodb:3.6)
+parksmap             2          1         1         config,image(parksmap:%PARKSMAP_VERSION%)
+nationalparks        9          1         1         config,image(nationalparks:master)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now run the following command to rollback the latest code change:</p>
+</div>
+<div class="listingblock execute-1">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc rollback nationalparks</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will see output like the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">#5 rolled back to nationalparks-3
+Warning: the following images triggers were disabled: nationalparks:live
+  You can re-enable them with: oc set triggers dc/nationalparks --auto</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Once the deploy is complete, verify that the page header is reverted to the
+original header by viewing the application in your browser.</p>
+</div>
+<div class="paragraph">
+<p><a href="http://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/">National Parks Info Page</a></p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Automatic deployment of new images is disabled as part of the rollback
+to prevent unwanted deployments soon after the rollback is complete. To re-enable
+the automatic deployments run this:</p>
+</div>
+<div class="listingblock execute-1">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc set triggers dc/nationalparks --auto</code></pre>
+</div>
+</div>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="common-further-resources.html">Further Resources</a></span>
-</nav>
+<div class="sect1">
+<h2 id="_exercise_rollforward"><a class="anchor" href="#_exercise_rollforward"></a>Exercise: Rollforward</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Just like you performed a rollback, you can also perform a roll-forward using
+the same command. You&#8217;ll notice above that when you requested a <strong>rollback</strong>, it
+caused a new deployment (#3). In essence, we always move forwards in OpenShift,
+even if we are going "back".</p>
+</div>
+<div class="paragraph">
+<p>So, if we want to return to the "new code" version, that is deployment #4.</p>
+</div>
+<div class="listingblock execute-1">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc rollback nationalparks-4</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And you will see the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">#6 rolled back to nationalparks-4
+Warning: the following images triggers were disabled: nationalparks
+  You can re-enable them with: oc set triggers dc/nationalparks --auto</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cool! Once the <strong>rollback</strong> is complete, verify you again see "Amazing
+National Parks".</p>
+</div>
+</div>
+</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
