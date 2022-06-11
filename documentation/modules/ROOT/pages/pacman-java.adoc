@@ -90,7 +90,7 @@ Enter the following for Git Repo URL:
 
 [source,bash,role=copypaste]
 ----
-https://github.com/openshift-roadshow/nationalparks.git
+https://github.com/redhat-scholars/rhoda-pacman-workshop.git
 ----
 
 OpenShift will automatically guess the Git server type and the programming language used by the source code. You will be now asked to select an *Import Strategy*.

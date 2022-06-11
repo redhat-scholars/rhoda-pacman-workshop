@@ -27,6 +27,26 @@ OpenShift's persistent storage mechanism to attach real-world storage (NFS,
 Ceph, EBS, iSCSI, etc) to the *Pods* to give them a persistent place to store their
 data.
 
+[#storage]
+== Background: DBaaS & Present Challenges
+
+image::challenge.png[DBaaS & Present Challenges,800,align="center"]
+
+== Background: Red Hat Solution
+
+More efficient connection, DB utilization
+Faster and easier self-service for developers
+Centralized monitoring, consistent control plane for admins
+
+image::solution.png[Red Hat Solution,800,align="center"]
+
+== Background: Service binding libraries
+The Kubernetes service binding feature was introduced to bring consistency to the way secrets are shared for connecting applications to external services, such as REST APIs, databases, and many other services.
+OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.
+The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.
+Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.
+The volume mount point is exposed as an environment variable. Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.
+
 [#templates]
 == Background: Templates
 
@@ -42,34 +62,43 @@ The great thing about *Templates* is that they can speed up the deployment
 workflow for application development by providing a "recipe" of sorts that can
 be deployed with a single command.  Not only that, they can be loaded into
 OpenShift from an external URL, which will allow you to keep your templates in a
-version control system. 
-
-[#create_mongodb_template]
-== Exercise: Create a MongoDB Template
-
-NOTE: If you are using https://developers.redhat.com/developer-sandbox[Developer Sandbox for Red Hat OpenShift,window='_blank'], you can *skip* this section and jump to the next one called *Exercise: Deploy MongoDB* because MongoDB Template it's already available on Developer Sandbox.
-
-In this step we will create a MongoDB template inside our project, so that is only visible to our user and we can access it from Developer Perspective to create a MongoDB instance.
-
-[.console-input]
-[source,bash,subs="+attributes,macros+"]
-----
-oc create -f +https://raw.githubusercontent.com/openshift-labs/starter-guides/ocp-4.8/mongodb-template.yaml+ -n %PROJECT%
-----
-
-What just happened? What did you just `create`? The item that we passed to the `create`
-command is a *Template*. `create` simply makes the template available in
-your *Project*.
-
-NOTE: If you are runnning OKD the mongodb image is missing and you will need to provide it.
-[.console-input]
-[source,bash,subs="+attributes,macros+"]
-----
-oc import-image mongodb:3.6 --from=registry.access.redhat.com/rhscl/mongodb-36-rhel7 --confirm
-----
+version control system.
 
 [#deploy_mongodb]
 == Exercise: Deploy MongoDB
+
+
+
+== Exercise : Accessing the database access menu for configuring and monitoring
+
+
+
+== Exercise: Find your MongoDB Atlas account credentials
+
+
+
+== Exercise: Accessing the developer workspace and adding a database instance
+
+
+
+== Prerequisites
+In order to run the lab in your cluster, you need to meet the requirements discussed below.
+
+[cols="2*^,2*.",options="header,+attributes"]
+|===
+|**Component**|**Version**
+
+| https://www.openshift.com/try[OpenShift]
+| `{openshift-version}`
+|===
+
+In the following modules you will find out other prerequisites when needed.
+== Installation of the OpenShift Database Access Operator
+== Import at least one cloud-database provider account.
+== Exercise: Connecting an application to a database instance using the topology view
+== Exercise: Exploring RHODA Magic
+== Exercise: Play Pacman and save your high scores
+== Exercise: Working With Labels
 
 As you've seen so far, the web console makes it very easy to deploy things onto
 OpenShift. When we deploy the database, we pass in some values for configuration.
