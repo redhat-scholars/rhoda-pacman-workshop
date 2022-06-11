@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Binary Builds :: Deploy Pacman using Red Hat OpenShift Database Access</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/mlbparks-binary-build.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/course-template">Deploy Pacman using Red Hat OpenShift Database Access</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoda-pacman-workshop" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-workshop-summary.html">Workshop Summary</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html">Explore RHODA</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-explore.html#the_web_console">The Web Console</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#command_line_interface">Command Line Interface</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#download_openshift_cli">Download OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#use_web_terminal">Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#connect_to_the_cluster_with_cli">Connect to the OpenShift Cluster from CLI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="common-explore.html#working_with_proxies">Working with proxies</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="projects.html">Projects</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="projects.html#create_your_first_project">Create your First Project</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-pacman-architecture.html">Pacman Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-further-resources.html">Further Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-workshop-links.html">Workshop Links</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#openshift_cluster_url">OpenShift Cluster URL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#workshop_guides">Workshop Guides</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#web_terminal">Web terminal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#git_server">Git Server</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Deploy Pacman using Red Hat OpenShift Database Access</a></li>
+    <li><a href="mlbparks-binary-build.html">Binary Builds</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/mlbparks-binary-build.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Binary Builds</h1>
+<div class="sect1">
+<h2 id="moving_on_from_s2i"><a class="anchor" href="#moving_on_from_s2i"></a>Moving on From S2I</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As you saw before S2I is a great way to get from source code to a container, but the process is a bit too slow for daily fast iterative
+development. For example, if you want to change some CSS or change one method in a class you don&#8217;t want to go through
+a full git commit and build cycle. In this lab we are going to show you a more efficient method for quick iteration. While
+we are at it we will also show you how to debug your code.</p>
+</div>
+<div class="paragraph">
+<p>Now that we built the MLB parks service let&#8217;s go ahead and make some quick changes.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fast_iterative_code_change_using_binary_deploy"><a class="anchor" href="#fast_iterative_code_change_using_binary_deploy"></a>Fast Iterative Code Change Using Binary Deploy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The OpenShift command line has the ability to do a deployment from your local machine. In this case we are going to use S2I,
+but we are going to tell OpenShift to just take the war file from our local machine and bake it in the image.</p>
+</div>
+<div class="paragraph">
+<p>Doing this pattern of development lets us do quick builds on our local machine (benefitting from our local cache and
+all the horsepower on our machine) and then just quickly send up the war file.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You could also use this pattern to actually send up your working directory to the S2I builder to have it do the Maven build
+on OpenShift. Using the local directory would relieve you from having Maven or any of the Java toolchain on your local
+machine AND would also not require git commit with a push. Read more in the
+{openshift-docs-url}/builds/basic-build-operations.html#builds-basic-start-source_basic-build-operations[official documentation]
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="using_binary_deployment"><a class="anchor" href="#using_binary_deployment"></a>Exercise: Using Binary Deployment</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="clone_source"><a class="anchor" href="#clone_source"></a>Clone source</h3>
+<div class="paragraph">
+<p>The first step is to clone the MLB source code from GitHub to your workshop environment:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">git clone https://github.com/openshift-roadshow/mlbparks.git</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+We are using Intellij here in the guide for screenshots but this should work regardless of your tool chain. JBoss
+Developer Studio and JBoss Developer Tools have built in functionality that makes this close to seamless right from the IDE.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="setup_the_build_of_the_war_file"><a class="anchor" href="#setup_the_build_of_the_war_file"></a>Setup the Build of the WAR file</h3>
+<div class="paragraph">
+<p>If you have Maven all set up on your machine, then you can <code>cd</code> into the <code>mlbparks</code> directory and run <code>mvn package</code></p>
+</div>
+<div id="docker_for_maven" class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If you don&#8217;t have Maven on your machine but you are able to run docker, you can instead mount the repo directory and run the build commands from within the container.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From within the directory that you ran <code>git clone</code> above, run the following command:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">docker run -it --rm --user 0 --name maven_builder -v ~/.kube:/home/jboss/.kube -v $(pwd):/workspaces -w /workspaces registry.access.redhat.com/ubi8/openjdk-11 /bin/bash</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Next, run this command (in the container) to locally install the latest version of <code>oc</code> on the container</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mkdir -p $HOME/bin &amp;&amp; curl -L <a href="https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz" class="bare">https://mirror.openshift.com/pub/openshift-v4/clients/ocp/latest/openshift-client-linux.tar.gz</a> | \
+    tar -xvzf - -C $HOME/bin/ oc &amp;&amp; chmod 755 $HOME/bin/oc &amp;&amp; ln -s $HOME/bin/oc $HOME/bin/kubectl</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>Finally, ensure that you are still connected to your OpenShift cluster from within the builder container by running the following and comparing the output:</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc whoami --show-server</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash"><a href="https://%CLUSTER_SUBDOMAIN%:30713" class="bare">https://%CLUSTER_SUBDOMAIN%:30713</a></code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Once completed, you should be able to follow the commands as they are outlined below.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">cd mlbparks
+mvn package</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pay attention to the output location for the ROOT.war, we will need that directory later.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="code_change"><a class="anchor" href="#code_change"></a>Code Change</h3>
+<div class="paragraph">
+<p>Time for a source code change!</p>
+</div>
+<div class="paragraph">
+<p>Edit <code>BackendController</code> Java class from this path:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">src/main/java/com/openshift/evg/roadshow/rest/BackendController.java</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This is the REST endpoint that gives basic info on the service and can be reached at:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http://mlbparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Please change line 23 to add a <em>AMAZING</em> in front of "MLB Parks" look like this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">return new Backend("mlbparks", "AMAZING MLB Parks", new Coordinates("39.82", "-98.57"), 5);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Don&#8217;t forget to save the file and run <code>mvn package</code> again from the root of the source folder:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">mvn package</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="doing_the_binary_build"><a class="anchor" href="#doing_the_binary_build"></a>Doing the Binary Build</h3>
+<div class="paragraph">
+<p>Alright we have our war file built, time to kick off a build using it.</p>
+</div>
+<div class="paragraph">
+<p>If you built your war with Maven:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc start-build bc/mlbparks --from-file=target/ROOT.war --follow</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The --follow is optional if you want to follow the build output in your terminal.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Using labels and a recreate deployment strategy, as soon as the new deployment finishes the map name will be updated. Under a recreate deployment strategy we first tear down the pod before doing our new deployment.
+When the pod is torn down, the parksmap service removes the MLBParks map from the layers. When it comes back up, the layer
+automatically gets added back with our new title.  This would not have happened with a rolling deployment because
+rolling spins up the new version of the pod before it takes down the old one. Rolling strategy enables a zero-downtime deployment.</p>
+</div>
+<div class="paragraph">
+<p>You can follow the deployment in progress from Topology view, and when it is completed, you will see the new content at:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">http://mlbparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>So now you have seen how we can speed up the build and deploy process.</p>
+</div>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Untitled :: Deploy Pacman using Red Hat OpenShift Database Access</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/mlbparks-clustering.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/course-template">Deploy Pacman using Red Hat OpenShift Database Access</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoda-pacman-workshop" data-version="master">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-workshop-summary.html">Workshop Summary</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html">Explore RHODA</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-explore.html#the_web_console">The Web Console</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#command_line_interface">Command Line Interface</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#download_openshift_cli">Download OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#use_web_terminal">Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#connect_to_the_cluster_with_cli">Connect to the OpenShift Cluster from CLI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="common-explore.html#working_with_proxies">Working with proxies</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="projects.html">Projects</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="projects.html#create_your_first_project">Create your First Project</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-pacman-architecture.html">Pacman Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-further-resources.html">Further Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-workshop-links.html">Workshop Links</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#openshift_cluster_url">OpenShift Cluster URL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#workshop_guides">Workshop Guides</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#web_terminal">Web terminal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#git_server">Git Server</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/mlbparks-clustering.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<div class="sect1">
+<h2 id="_jboss_eap_clustering"><a class="anchor" href="#_jboss_eap_clustering"></a>JBoss EAP Clustering</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Clustering in JBoss EAP is achieved using the Kubernetes discovery mechanism for
+finding other JBoss EAP containers and forming a cluster. This is done by
+configuring the JGroups protocol stack in <code>standalone-openshift.xml</code> with
+<code>&lt;openshift.KUBE_PING/&gt;</code> elements.</p>
+</div>
+<div class="paragraph">
+<p>For <code>KUBE_PING</code> to work, the following steps must be taken:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The <code>OPENSHIFT_KUBE_PING_NAMESPACE</code> environment variable must be set. If not
+set, the server will act as if it is a single-node cluster (a "cluster of
+one").</p>
+</li>
+<li>
+<p>The <code>OPENSHIFT_KUBE_PING_LABELS</code> environment variables should be set. If not
+set, pods outside of your application (albeit in your namespace) will try to
+join.</p>
+</li>
+<li>
+<p>Authorization must be granted to the service account the pod is running under
+to be allowed to access Kubernetes' REST api.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You have already configured the default service account to have access to
+Kubernetes' REST API during previous labs. Now you can scale up the <strong>mlbparks</strong>
+pod to two by clicking on the upper arrows on the console. Alternatively, you
+can use the command line to scale up the pods and form a two-member cluster.</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc scale dc/mlbparks --replicas=2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For pods based on Java images, the web console also exposes access to a
+hawt.io-based JVM console for viewing and managing any relevant Java components.
+A link is displayed in the pod&#8217;s details on the <strong>Workloads &#8594; Pods</strong> page,
+provided the container has a port named jolokia. On the console, click on
+mlbparks pods, then on any of the two pods deployed. On the <strong>Details</strong> tab, click
+on <strong>Open Java Console</strong>.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/mlbparks-clustering-details.png" alt="Java Console Link" width="880">
+</div>
+</div>
+<div class="paragraph">
+<p>In the Java Console, use the <strong>JMX</strong> browser and click on <strong>jgroups &rarr; channel
+&rarr; ee</strong>. The right pane shows the list of clustering JMX attributes including
+<strong>view</strong> which is the current state of the cluster. This attribute shows the name
+of two pods which are currently members of the cluster. When <strong>mlbparks</strong> pod gets
+scaled up or down, JBoss EAP gets notified by calling Kubernetes' REST API and
+updates the cluster status based on the number of pods available.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/mlbparks-clustering-hawtio.png" alt="Java Console - Clustering" width="1000">
+</div>
+</div>
+</div>
+</div>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../_/js/vendor/clipboard.js"></script>
+<script src="../_/js/site.js"></script>
+<script async src="../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
