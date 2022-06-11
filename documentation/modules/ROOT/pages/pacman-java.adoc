@@ -2,7 +2,7 @@
 :navtitle: Pacman Java App
 
 In this section, we're going to deploy a backend service, developed in Java that will expose 2 main REST endpoints to the visualizer
-application (`parksmap` web component that was deployed in the previous labs).
+application (`pacman` web component that was deployed in the previous labs).
 The application will query for national parks information (including its
 coordinates) that is stored in a MongoDB database.  This application will also
 provide an external access point, so that the API provided can be directly used

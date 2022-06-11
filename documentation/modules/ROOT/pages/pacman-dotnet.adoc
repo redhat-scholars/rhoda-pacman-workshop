@@ -1,5 +1,5 @@
-= Nationalparks .NET App
-:navtitle: Nationalparks .NET App
+= Pacman .NET App
+:navtitle: Pacman .NET App
 
 In this lab, we're going to deploy a backend service, developed in .NET
  that will expose 2 main REST endpoints to the visualizer
