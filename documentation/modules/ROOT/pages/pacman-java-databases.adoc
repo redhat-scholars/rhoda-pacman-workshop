@@ -24,7 +24,7 @@ We are going to use the MongoDB image that is included with OpenShift.
 By default, this will use *EmptyDir* for data storage, which means if the *Pod*
 disappears the data does as well. In a real application you would use
 OpenShift's persistent storage mechanism to attach real-world storage (NFS,
-Ceph, EBS, iSCSI, etc) to the *Pods* to give them a persistent place to store their
+Ceph, EBS, iSCSI, etc.) to the *Pods* to give them a persistent place to store their
 data.
 
 [#challenges_dbaas]
@@ -220,54 +220,6 @@ image::rhoda_dev_entry_point_single_page_all_steps.png[Single page screenshot of
 Upon a successful connection, you are taken to the xref:connecting-an-application-to-a-database-instance-using-the-topology-view_{context}[**Topology**] page.
 
 
-= Accessing the developer workspace and adding a database instance
-
-[role="_abstract"]
-You can access the developer workspace in the OpenShift console to manage connectivity between database instances and applications.
-
-.Prerequisites
-
-* xref:installing-the-red-hat-openshift-database-access-add-on_{context}[Installation] of the OpenShift Database Access add-on.
-* xref:accessing-the-database-access-menu-for-configuring-and-monitoring_{context}[Import] at least one cloud-database provider account.
-
-.Procedure
-
-. Log into the OpenShift console.
-
-. Access the developer workspace, and select or create your project, then select a cloud-hosted database provider to add to your project:
-+
-image::rhoda_dev_entry_point_single_page_all_steps.png[Single page screenshot of the developer's entry point]
-
-.. Select the **Developer** perspective image:1st_Callout_Bullet.png[First callout].
-
-.. Click **+Add** image:2nd_Callout_Bullet.png[Second callout].
-
-.. Click the **Project** dropdown menu image:3rd_Callout_Bullet.png[Third callout].
-
-.. Create a new project or search for your application’s project image:4th_Callout_Bullet.png[Fourth callout].
-
-.. Select the **Cloud-Hosted Databases** tile to connect to a cloud-database provider image:5th_Callout_Bullet.png[Fifth callout].
-
-. Select your cloud-hosted database provider tile.
-
-. Click **Add to Topology**.
-
-. Select a previously configured **Provider Account** for this database instance from the dropdown menu.
-
-. Select the database instance ID you want to use, and then click **Add to Topology**.
-
-. Click **Continue**.
-Upon a successful connection, you are taken to the xref:connecting-an-application-to-a-database-instance-using-the-topology-view_{context}[**Topology**] page.
-
-
-
-
-
-
-
-
-
-
 [#explore_rhoda_magic]
 == Exercise: Navigate through Data Services Console
 
@@ -277,17 +229,6 @@ Upon a successful connection, you are taken to the xref:connecting-an-applicatio
 
 
 
-
-
-
-
-
-
-
-
-
-[#explore_rhoda_magic]
-== Exercise: Navigate through Data Services Console
 
 
 
@@ -307,4 +248,4 @@ Upon a successful connection, you are taken to the xref:connecting-an-applicatio
 
 Pacman URL : https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/
 
-image::pacman.png.png[Pacman Game,800,align="center"]
+image::pacman.png[Pacman Game,800,align="center"]
