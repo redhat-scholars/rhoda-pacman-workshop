@@ -113,6 +113,53 @@ In the following modules you will find out other prerequisites when needed.
 [#access_mongodb]
 == Exercise : Accessing the database access menu for configuring and monitoring
 
+You can access the Red Hat OpenShift Database Access page from the OpenShift console navigation menu to select the correct project namespace for importing a cloud-database provider account.
+
+[IMPORTANT]
+====
+If using MongoDB Atlas as a cloud-database provider, then you must add the IP address of the application pod to MongoDB Atlas' **IP Access List**.
+If the IP address is not in the **IP Access List**, then a `504 gateway timeout error` occurs.
+Visit the MongoDB Atlas link:https://docs.atlas.mongodb.com/security/ip-access-list/[website] for more details on adding an IP address to your database project.
+====
+
+.Prerequisites
+
+* A service account with either the link:https://www.mongodb.com/atlas/database[MongoDB Atlas], or link:https://www.crunchydata.com[Crunchy Data Bridge], or link:https://www.cockroachlabs.com[CockroachDB] cloud database provider.
+
+.Procedure
+
+. Log into the OpenShift console.
+
+. To select the correct project namespace follow these sub-steps.
++
+image::rhoda_admin_entry_point_single_page_all_steps.png[Single page screenshot of the administrator's entry point]
+
+.. Select the **Administrator** perspective image:1st_Callout_Bullet.png[First callout].
+
+.. Expand the **Data Services** navigation menu, and click **Database Access** image:2nd_Callout_Bullet.png[Second callout].
++
+NOTE: You might need to scroll down the navigation menu.
+
+.. Click the **Project** dropdown menu and then enable the **Show default projects** switch image:3rd_Callout_Bullet.png[Third callout].
+
+.. Type **dbaas** in the search field.
+
+.. Select **redhat-dbaas-operator** or **openshift-dbaas-operator** project namespace image:4th_Callout_Bullet.png[Fourth callout].
++
+From the database inventory page you can monitor the database environment, import cloud-hosted database provider accounts, or create new database instances.
++
+image::rhoda_admin_entry_point_inventory_page.png[Database inventory landing page]
+
+////
+[role="_additional-resources"]
+.Additional Resources
+
+* See link:{rhoda-prod-doc-url}#finding-your-cloud-database-provider-account-credentials[_Appendix A_] in the _Red Hat OpenShift Database Access Quick Start Guide_ for help in finding your provider account information.
+* The MongoDB Atlas link:https://www.mongodb.com/cloud/atlas[home page].
+* The Crunchy Data Bridge link:https://www.crunchydata.com[home page].
+* The CockroachDB link:https://www.cockroachlabs.com[home page].
+////
+
 
 
 
