@@ -140,16 +140,13 @@
     <a class="nav-link" href="#sol_rh_dbaas">Background: Red Hat Solution</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#bg_sb_lib">Background:Red Hat Solution</a>
-  </li>
-  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#sol_rh_dbaas">Background: Service binding libraries</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#deploy_mongodb">Exercise: Deploy MongoDB</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#access_mongodb">Exercise : Accessing the database access menu for configuring and monitoring</a>
+    <a class="nav-link" href="#access_mongodb">Exercise: Accessing the database access menu for configuring and monitoring</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#find_mongodb_creds">Exercise: Find your MongoDB Atlas account credentials</a>
@@ -159,6 +156,9 @@
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#explore_rhoda_magic">Exercise: Navigate through Data Services Console</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#play_pacman">Exercise: Play Pacman and save your high scores</a>
   </li>
 </ul>
   </li>
@@ -374,6 +374,35 @@ The volume mount point is exposed as an environment variable. Developer framewor
 </div>
 </div>
 <div class="sect1">
+<h2 id="prereq_rhoda"><a class="anchor" href="#prereq_rhoda"></a>Prerequisites: Things to Do befor configuring MongoDB Atlas</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to run the lab in your cluster, you need to meet the requirements discussed below.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Component</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Version</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://www.openshift.com/try">OpenShift</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>{openshift-version}</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In the following modules you will find out other prerequisites when needed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="deploy_mongodb"><a class="anchor" href="#deploy_mongodb"></a>Exercise: Deploy MongoDB</h2>
 <div class="sectionbody">
 
@@ -404,264 +433,13 @@ The volume mount point is exposed as an environment variable. Developer framewor
 </div>
 </div>
 <div class="sect1">
-<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<h2 id="exploring_openshift_magic"><a class="anchor" href="#exploring_openshift_magic"></a>Exercise: Exploring OpenShift Magic</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>In order to run the lab in your cluster, you need to meet the requirements discussed below.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 50%;">
-<col style="width: 50%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-center valign-top"><strong>Component</strong></th>
-<th class="tableblock halign-center valign-top"><strong>Version</strong></th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://www.openshift.com/try">OpenShift</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>{openshift-version}</code></p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p>In the following modules you will find out other prerequisites when needed.
-== Installation of the OpenShift Database Access Operator
-== Import at least one cloud-database provider account.
-== Exercise: Connecting an application to a database instance using the topology view
-== Exercise: Exploring RHODA Magic
-== Exercise: Play Pacman and save your high scores
-== Exercise: Working With Labels</p>
-</div>
-<div class="paragraph">
-<p>As you&#8217;ve seen so far, the web console makes it very easy to deploy things onto
-OpenShift. When we deploy the database, we pass in some values for configuration.
-These values are used to set the username, password, and name of
-the database.</p>
-</div>
-<div class="paragraph">
-<p>The database image is built in a way that it will automatically configure itself
-using the supplied information (assuming there is no data already present in the
-persistent storage!). The image will ensure that:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>A database exists with the specified name</p>
-</li>
-<li>
-<p>A user exists with the specified name</p>
-</li>
-<li>
-<p>The user can access the specified database with the specified password</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>In the Developer Perspective in your <code>%PROJECT%</code> project,
-click <strong>+Add</strong> and then <strong>Database</strong>. In the Databases view, you can click <strong>Mongo</strong> to filter for just MongoDB.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Make sure to uncheck <strong>Operator Backed</strong> option from <strong>Type</strong> section
-</td>
-</tr>
-</table>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-databases-catalog-databases.png" alt="Data Stores">
-</div>
-</div>
-<div class="paragraph">
-<p>Alternatively, you could type <code>mongodb</code> in the search box. Once you have drilled down to see MongoDB, find the <strong>MongoDB (Ephemeral)</strong> template and select it.  You will notice that there are multiple
-MongoDB templates available.  We do not need a database with persistent storage, so the ephemeral Mongo
-template is what you should choose.  Go ahead and select the ephemeral template and click the <strong>Instantiate Template</strong> button.</p>
-</div>
-<div class="paragraph">
-<p>When we performed the application build, there was no template. Rather, we selected the
-builder image directly and OpenShift presented only the standard build workflow.
-Now we are using a template - a preconfigured set of resources that includes
-parameters that can be customized. In our case, the parameters we are concerned
-with are&#8201;&#8212;&#8201;user, password, database, and
-admin password.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-databases-catalog-databases-mongodb-config.png" alt="MongoDB Deploy">
-</div>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Make sure you name your database service name <strong>mongodb-pacman</strong>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>You can see that some of the fields say <strong>"generated if empty"</strong>. This is a
-feature of <strong>Templates</strong> in OpenShift. For
-now, be sure to use the following values in their respective fields:</p>
-</div>
-<div class="paragraph">
-<p><strong>Database Service Name</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb-nationalparks</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>MongoDB Connection Username</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>MongoDB Connection Password</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>MongoDB Database Name</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p><strong>MongoDB Admin Password</strong>:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">mongodb</code></pre>
-</div>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Make sure to have configured the <strong><code>MongoDB Database Name</code></strong> parameter with the appropriate value as by default it will already have a value of <code>sampledb</code>.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Once you have entered in the above information, click on <strong>Create</strong> to go to the next step which will allow us to add a binding.</p>
-</div>
-<div class="paragraph">
-<p>From left-side menu, click to <strong>Secrets</strong>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-databases-list-secrets.png" alt="List Secrets">
-</div>
-</div>
-<div class="paragraph">
-<p>Click the secret name listed that we will use for <strong>Parameters</strong>. The secret can be used in other components, such as the <code>nationalparks</code> backend, to authenticate to the database.</p>
-</div>
-<div class="paragraph">
-<p>Now that the connection and authentication information stored in a secret in our project, we need to add it to the <code>nationalparks</code> backend. Click the <strong>Add Secret to Workload</strong> button.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-databases-binding-view-secret.png" alt="National Parks Binding">
-</div>
-</div>
-<div class="paragraph">
-<p>Select the <code>nationalparks</code> workload and click <strong>Save</strong>.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-databases-binding-add-binding-to-nationalparks.png" alt="Add binding to application">
-</div>
-</div>
-<div class="paragraph">
-<p>This change in configuration will trigger a new deployment of the <code>nationalparks</code> application with the environment variables properly injected.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Back in the <strong>Topology</strong> view, if your <code>mongodb-nationalparks</code> component is not already in the light gray area that denotes the <code>workshop</code> application, click and drag the component whilst holding down kbd:[Shift] to add it to the group with the other two components (as shown below)</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-databases-add-mongodb-to-workshop-app.png" alt="Add mongodb to the workshop app">
-</div>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Next, let&#8217;s fix the labels assigned to the <code>mongodb-nationalparks</code> deployment. Currently, we cannot set labels when using the database template from the catalog, so we will fix these labels manually.</p>
-</div>
-<div class="paragraph">
-<p>Like before, we&#8217;ll add 3 labels:</p>
-</div>
-<div class="paragraph">
-<p>The name of the Application group:</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">app=workshop</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Next the name of this deployment.</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">component=nationalparks</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>And finally, the role this component plays in the overall application.</p>
-</div>
-<div class="listingblock copypaste">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">role=database</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Execute the following command:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc label dc/mongodb-nationalparks svc/mongodb-nationalparks app=workshop component=nationalparks role=database --overwrite</code></pre>
-</div>
-</div>
+
 </div>
 </div>
 <div class="sect1">
-<h2 id="exploring_openshift_magic"><a class="anchor" href="#exploring_openshift_magic"></a>Exercise: Exploring OpenShift Magic</h2>
+<h2 id="play_pacman"><a class="anchor" href="#play_pacman"></a>Exercise: Play Pacman and save your high scores</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>As soon as we attached the Secret to the <strong>Deployment</strong>, some
