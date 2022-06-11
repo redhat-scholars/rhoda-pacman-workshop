@@ -328,6 +328,43 @@ data.</p>
 </div>
 </div>
 <div class="sect1">
+<h2 id="storage"><a class="anchor" href="#storage"></a>Background: DBaaS &amp; Present Challenges</h2>
+<div class="sectionbody">
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/challenge.png" alt="DBaaS &amp; Present Challenges" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_background_red_hat_solution"><a class="anchor" href="#_background_red_hat_solution"></a>Background: Red Hat Solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>More efficient connection, DB utilization
+Faster and easier self-service for developers
+Centralized monitoring, consistent control plane for admins</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/solution.png" alt="Red Hat Solution" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_background_service_binding_libraries"><a class="anchor" href="#_background_service_binding_libraries"></a>Background: Service binding libraries</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The Kubernetes service binding feature was introduced to bring consistency to the way secrets are shared for connecting applications to external services, such as REST APIs, databases, and many other services.
+OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.
+The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.
+Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.
+The volume mount point is exposed as an environment variable. Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
 <h2 id="templates"><a class="anchor" href="#templates"></a>Background: Templates</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -350,55 +387,62 @@ version control system.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="create_mongodb_template"><a class="anchor" href="#create_mongodb_template"></a>Exercise: Create a MongoDB Template</h2>
+<h2 id="deploy_mongodb"><a class="anchor" href="#deploy_mongodb"></a>Exercise: Deploy MongoDB</h2>
 <div class="sectionbody">
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you are using <a href="https://developers.redhat.com/developer-sandbox" target="_blank" rel="noopener">Developer Sandbox for Red Hat OpenShift</a>, you can <strong>skip</strong> this section and jump to the next one called <strong>Exercise: Deploy MongoDB</strong> because MongoDB Template it&#8217;s already available on Developer Sandbox.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>In this step we will create a MongoDB template inside our project, so that is only visible to our user and we can access it from Developer Perspective to create a MongoDB instance.</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f https://raw.githubusercontent.com/openshift-labs/starter-guides/ocp-4.8/mongodb-template.yaml -n %PROJECT%</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>What just happened? What did you just <code>create</code>? The item that we passed to the <code>create</code>
-command is a <strong>Template</strong>. <code>create</code> simply makes the template available in
-your <strong>Project</strong>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you are runnning OKD the mongodb image is missing and you will need to provide it.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc import-image mongodb:3.6 --from=registry.access.redhat.com/rhscl/mongodb-36-rhel7 --confirm</code></pre>
-</div>
-</div>
+
 </div>
 </div>
 <div class="sect1">
-<h2 id="deploy_mongodb"><a class="anchor" href="#deploy_mongodb"></a>Exercise: Deploy MongoDB</h2>
+<h2 id="_exercise_accessing_the_database_access_menu_for_configuring_and_monitoring"><a class="anchor" href="#_exercise_accessing_the_database_access_menu_for_configuring_and_monitoring"></a>Exercise : Accessing the database access menu for configuring and monitoring</h2>
 <div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercise_find_your_mongodb_atlas_account_credentials"><a class="anchor" href="#_exercise_find_your_mongodb_atlas_account_credentials"></a>Exercise: Find your MongoDB Atlas account credentials</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exercise_accessing_the_developer_workspace_and_adding_a_database_instance"><a class="anchor" href="#_exercise_accessing_the_developer_workspace_and_adding_a_database_instance"></a>Exercise: Accessing the developer workspace and adding a database instance</h2>
+<div class="sectionbody">
+
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In order to run the lab in your cluster, you need to meet the requirements discussed below.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Component</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Version</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://www.openshift.com/try">OpenShift</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>{openshift-version}</code></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>In the following modules you will find out other prerequisites when needed.
+== Installation of the OpenShift Database Access Operator
+== Import at least one cloud-database provider account.
+== Exercise: Connecting an application to a database instance using the topology view
+== Exercise: Exploring RHODA Magic
+== Exercise: Play Pacman and save your high scores
+== Exercise: Working With Labels</p>
+</div>
 <div class="paragraph">
 <p>As you&#8217;ve seen so far, the web console makes it very easy to deploy things onto
 OpenShift. When we deploy the database, we pass in some values for configuration.
