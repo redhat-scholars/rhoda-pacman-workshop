@@ -1,10 +1,14 @@
 = Pacman using Red Hat OpenShift Database Access
 :!sectids:
+
+////
 ifndef::lab[]
 :lab-name: Pacman
 endif::[]
+////
 
-== Developing {lab-name}  on OpenShift using Managed Database in the Cloud - Workshop
+
+== Deploying Pacman on OpenShift using Managed Database in the Cloud - Workshop
 
 While organizations continue to evolve by deploying apps in container platforms,. the growing popularity of database cloud service offerings has also simplified the development and deployment of stateful cloud native applications. But developers often access these database services in many different ways, dealing with a myriad of security credentials and those credentials are often shared ad-hoc where developers end up setting up DBaaS connections manually which can be time-consuming and error-prone. In organizations where many development teams are building and deploying diverse applications across a large container estate, it is inefficient and risky to have each team independently connect applications to different DBaaS offerings. For the cluster administrators, the proliferation of instances and types of database cloud services makes it difficult for them to get a consolidated view of the consumption by different users.
 
