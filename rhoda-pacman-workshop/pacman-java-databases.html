@@ -334,7 +334,7 @@ talk to the database using environment variables via a secret.</p>
 <p>By default, this will use <strong>EmptyDir</strong> for data storage, which means if the <strong>Pod</strong>
 disappears the data does as well. In a real application you would use
 OpenShift&#8217;s persistent storage mechanism to attach real-world storage (NFS,
-Ceph, EBS, iSCSI, etc) to the <strong>Pods</strong> to give them a persistent place to store their
+Ceph, EBS, iSCSI, etc.) to the <strong>Pods</strong> to give them a persistent place to store their
 data.</p>
 </div>
 </div>
@@ -456,7 +456,7 @@ Developer frameworks, such as Quarkus, are service binding aware, and can automa
 <tbody>
 <tr>
 <td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://www.openshift.com/try">OpenShift</a></p></td>
-<td class="tableblock halign-center valign-top"><p class="tableblock"><code>{openshift-version}</code></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>4.9</code></p></td>
 </tr>
 </tbody>
 </table>
@@ -645,78 +645,6 @@ Upon a successful connection, you are taken to the <a href="#connecting-an-appli
 </div>
 </div>
 </div>
-<h1 id="_accessing_the_developer_workspace_and_adding_a_database_instance" class="sect0"><a class="anchor" href="#_accessing_the_developer_workspace_and_adding_a_database_instance"></a>Accessing the developer workspace and adding a database instance</h1>
-<div class="paragraph _abstract">
-<p>You can access the developer workspace in the OpenShift console to manage connectivity between database instances and applications.</p>
-</div>
-<div class="ulist">
-<div class="title">Prerequisites</div>
-<ul>
-<li>
-<p><a href="#installing-the-red-hat-openshift-database-access-add-on_{context}">Installation</a> of the OpenShift Database Access add-on.</p>
-</li>
-<li>
-<p><a href="#accessing-the-database-access-menu-for-configuring-and-monitoring_{context}">Import</a> at least one cloud-database provider account.</p>
-</li>
-</ul>
-</div>
-<div class="olist arabic">
-<div class="title">Procedure</div>
-<ol class="arabic">
-<li>
-<p>Log into the OpenShift console.</p>
-</li>
-<li>
-<p>Access the developer workspace, and select or create your project, then select a cloud-hosted database provider to add to your project:</p>
-<div class="imageblock">
-<div class="content">
-<img src="_images/rhoda_dev_entry_point_single_page_all_steps.png" alt="Single page screenshot of the developer&#8217;s entry point">
-</div>
-</div>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Select the <strong>Developer</strong> perspective <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
-</li>
-<li>
-<p>Click <strong>+Add</strong> <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
-</li>
-<li>
-<p>Click the <strong>Project</strong> dropdown menu <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span>.</p>
-</li>
-<li>
-<p>Create a new project or search for your application’s project <span class="image"><img src="_images/4th_Callout_Bullet.png" alt="Fourth callout"></span>.</p>
-</li>
-<li>
-<p>Select the <strong>Cloud-Hosted Databases</strong> tile to connect to a cloud-database provider <span class="image"><img src="_images/5th_Callout_Bullet.png" alt="Fifth callout"></span>.</p>
-</li>
-</ol>
-</div>
-</li>
-<li>
-<p>Select your cloud-hosted database provider tile.</p>
-</li>
-<li>
-<p>Click <strong>Add to Topology</strong>.</p>
-</li>
-<li>
-<p>Select a previously configured <strong>Provider Account</strong> for this database instance from the dropdown menu.</p>
-</li>
-<li>
-<p>Select the database instance ID you want to use, and then click <strong>Add to Topology</strong>.</p>
-</li>
-<li>
-<p>Click <strong>Continue</strong>.
-Upon a successful connection, you are taken to the <a href="#connecting-an-application-to-a-database-instance-using-the-topology-view_{context}"><strong>Topology</strong></a> page.</p>
-</li>
-</ol>
-</div>
-<div class="sect1">
-<h2 id="explore_rhoda_magic"><a class="anchor" href="#explore_rhoda_magic"></a>Exercise: Navigate through Data Services Console</h2>
-<div class="sectionbody">
-
-</div>
-</div>
 <div class="sect1">
 <h2 id="explore_rhoda_magic"><a class="anchor" href="#explore_rhoda_magic"></a>Exercise: Navigate through Data Services Console</h2>
 <div class="sectionbody">
@@ -729,9 +657,9 @@ Upon a successful connection, you are taken to the <a href="#connecting-an-appli
 <div class="paragraph">
 <p>Pacman URL : <a href="https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/" class="bare">https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/</a></p>
 </div>
-<div class="imageblock text-center unresolved">
+<div class="imageblock text-center">
 <div class="content">
-<img src="pacman.png.png" alt="Pacman Game" width="800">
+<img src="_images/pacman.png" alt="Pacman Game" width="800">
 </div>
 </div>
 </div>
