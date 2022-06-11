@@ -1,20 +1,14 @@
-= Welcome to Template Tutorial
-:page-layout: home
+= Pacman using Red Hat OpenShift Database Access
 :!sectids:
+ifndef::lab[]
+:lab-name: Pacman
+endif::[]
 
-[.text-center.strong]
-== Publish Services to Kubernetes
+== Developing {lab-name}  on OpenShift using Managed Database in the Cloud - Workshop
 
-A Kubernetes tutorial to show how you can deploy a Java service to a Kubernetes cluster as it was a child game.
+While organizations continue to evolve by deploying apps in container platforms,. the growing popularity of database cloud service offerings has also simplified the development and deployment of stateful cloud native applications. But developers often access these database services in many different ways, dealing with a myriad of security credentials and those credentials are often shared ad-hoc where developers end up setting up DBaaS connections manually which can be time-consuming and error-prone. In organizations where many development teams are building and deploying diverse applications across a large container estate, it is inefficient and risky to have each team independently connect applications to different DBaaS offerings. For the cluster administrators, the proliferation of instances and types of database cloud services makes it difficult for them to get a consolidated view of the consumption by different users.
 
-[.tiles.browse]
-== Browse modules
 
-[.tile]
-.xref:01-setup.adoc[Get Started]
-* xref:01-setup.adoc#minikube[Minikube]
+== High Level Architecture
 
-[.tile]
-.xref:02-deploy.adoc[Deploying]
-* xref:02-deploy.adoc#package[Package the Application]
-* xref:02-deploy.adoc#deploy[Deploy the Application]
+image::rhoda-arch.png[RHODA Architecture]

@@ -1,5 +1,5 @@
-name: template-tutorial
-title: Template Tutorial
+name: rhoda-pacman-workshop
+title: Pacman using Red Hat OpenShift Database Access
 version: master
 nav:
   - modules/ROOT/nav.adoc
