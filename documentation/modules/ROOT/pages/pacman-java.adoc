@@ -1,5 +1,5 @@
-= Nationalparks Java App
-:navtitle: Nationalparks Java App
+= Pacman Java App
+:navtitle: Pacman Java App
 
 In this section, we're going to deploy a backend service, developed in Java that will expose 2 main REST endpoints to the visualizer
 application (`parksmap` web component that was deployed in the previous labs).
