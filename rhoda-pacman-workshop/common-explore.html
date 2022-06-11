@@ -610,18 +610,101 @@ source oc_zsh_completion.sh</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$cli_instructions_common.adoc[]</p>
+<p>From top right menu bar, click to the little white question mark icon, then click to <strong>Command Line Tools</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/prerequisites_cli_links.png" alt="Download CLI">
+</div>
 </div>
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$cli_instructions.adoc[]</p>
+<p>Scroll down to <code>oc - OpenShift Command Line Interface (CLI)</code> and click on the link appropriate to your OS</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/prerequisites_cli_binaries.png" alt="CLI Binaries">
+</div>
 </div>
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$cli_test_oc.adoc[]</p>
+<p>Once the file has been downloaded, you will need to extract the contents as it
+is a compressed archive. It is recommended that this file is saved to the following
+directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">~/OpenShift</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open up a terminal window and change to the directory where you downloaded the
+file.  Once you are in the directory, enter in the following command:</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+The name of the oc packaged archive may vary. Adjust accordingly.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tar zxvf oc-macosx.tar.gz</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The tar.gz file name needs to be replaced by the entire name that was downloaded in the previous step.</p>
+</div>
+<div class="paragraph">
+<p>Now you can add the OpenShift CLI tools to your PATH.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PATH=$PATH:~/OpenShift</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, we should have the oc tool available for use. Let&#8217;s test this
+out by printing the version of the <code>oc</code> command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the following (or something similar):</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client Version: 4.7.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you get an error message, you may not have not updated your path correctly. If after checking your <code>PATH</code> you
+still cannot get the <code>oc</code> command to work, contact your lab instructor for assistence.</p>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_windows">
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$cli_instructions_common.adoc[]</p>
+<p>From top right menu bar, click to the little white question mark icon, then click to <strong>Command Line Tools</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/prerequisites_cli_links.png" alt="Download CLI">
+</div>
+</div>
+<div class="paragraph">
+<p>Scroll down to <code>oc - OpenShift Command Line Interface (CLI)</code> and click on the link appropriate to your OS</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/prerequisites_cli_binaries.png" alt="CLI Binaries">
+</div>
 </div>
 <div class="paragraph">
 <p>The CLI for Windows is provided as a zip archive. Download and unzip the archive with a ZIP program and move the oc binary to a directory on your PATH. To check your PATH, open the Command Prompt and run:</p>
@@ -635,18 +718,106 @@ source oc_zsh_completion.sh</code></pre>
 <p>Checkout this blog post if you&#8217;d like to set it up with <a href="https://www.openshift.com/blog/installing-oc-tools-windows" target="_blank" rel="noopener">Powershell</a></p>
 </div>
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$cli_test_oc.adoc[]</p>
+<p>At this point, we should have the oc tool available for use. Let&#8217;s test this
+out by printing the version of the <code>oc</code> command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the following (or something similar):</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client Version: 4.7.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you get an error message, you may not have not updated your path correctly. If after checking your <code>PATH</code> you
+still cannot get the <code>oc</code> command to work, contact your lab instructor for assistence.</p>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset2_linux">
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$cli_instructions_common.adoc[]</p>
+<p>From top right menu bar, click to the little white question mark icon, then click to <strong>Command Line Tools</strong>:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/prerequisites_cli_links.png" alt="Download CLI">
+</div>
 </div>
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$cli_instructions.adoc[]</p>
+<p>Scroll down to <code>oc - OpenShift Command Line Interface (CLI)</code> and click on the link appropriate to your OS</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/prerequisites_cli_binaries.png" alt="CLI Binaries">
+</div>
 </div>
 <div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$cli_test_oc.adoc[]</p>
+<p>Once the file has been downloaded, you will need to extract the contents as it
+is a compressed archive. It is recommended that this file is saved to the following
+directory:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">~/OpenShift</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open up a terminal window and change to the directory where you downloaded the
+file.  Once you are in the directory, enter in the following command:</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+The name of the oc packaged archive may vary. Adjust accordingly.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tar zxvf oc-linux.tar.gz</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The tar.gz file name needs to be replaced by the entire name that was downloaded in the previous step.</p>
+</div>
+<div class="paragraph">
+<p>Now you can add the OpenShift CLI tools to your PATH.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PATH=$PATH:~/OpenShift</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>At this point, we should have the oc tool available for use. Let&#8217;s test this
+out by printing the version of the <code>oc</code> command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see the following (or something similar):</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client Version: 4.7.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you get an error message, you may not have not updated your path correctly. If after checking your <code>PATH</code> you
+still cannot get the <code>oc</code> command to work, contact your lab instructor for assistence.</p>
 </div>
 </div>
 </div>
@@ -779,8 +950,23 @@ some additional environment variables for the oc command line to work.  Select t
 </div>
 <div class="content">
 <div class="tab-pane" aria-labelledby="tabset3_mac-os-x">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$common_proxy_instructions.adoc[]</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Replace the proxy server with the one for your environment/machine.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export https_proxy=http://proxy-server.mycorp.com:3128/
+export HTTPS_PROXY=http://proxy-server.mycorp.com:3128/</code></pre>
+</div>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset3_windows">
@@ -808,8 +994,23 @@ HTTPS_PROXY=http://proxy-server.mycorp.com:3128/</code></pre>
 </div>
 </div>
 <div class="tab-pane" aria-labelledby="tabset3_linux">
-<div class="paragraph">
-<p>Unresolved include directive in modules/ROOT/pages/common-explore.adoc - include::partial$common_proxy_instructions.adoc[]</p>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+Replace the proxy server with the one for your environment/machine.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export https_proxy=http://proxy-server.mycorp.com:3128/
+export HTTPS_PROXY=http://proxy-server.mycorp.com:3128/</code></pre>
+</div>
 </div>
 </div>
 </div>
