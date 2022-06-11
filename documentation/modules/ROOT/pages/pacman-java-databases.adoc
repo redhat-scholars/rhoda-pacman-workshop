@@ -50,6 +50,21 @@ The service binding feature enables developers to connect their applications to 
 Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.
 The volume mount point is exposed as an environment variable. Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.
 
+[#prereq_rhoda]
+== Prerequisites: Things to Do befor configuring MongoDB Atlas
+
+In order to run the lab in your cluster, you need to meet the requirements discussed below.
+
+[cols="2*^,2*.",options="header,+attributes"]
+|===
+|**Component**|**Version**
+
+| https://www.openshift.com/try[OpenShift]
+| `{openshift-version}`
+|===
+
+In the following modules you will find out other prerequisites when needed.
+
 
 [#deploy_mongodb]
 == Exercise: Deploy MongoDB
@@ -69,155 +84,12 @@ The volume mount point is exposed as an environment variable. Developer framewor
 [#explore_rhoda_magic]
 == Exercise: Navigate through Data Services Console
 
-== Prerequisites
-In order to run the lab in your cluster, you need to meet the requirements discussed below.
-
-[cols="2*^,2*.",options="header,+attributes"]
-|===
-|**Component**|**Version**
-
-| https://www.openshift.com/try[OpenShift]
-| `{openshift-version}`
-|===
-
-In the following modules you will find out other prerequisites when needed.
-== Installation of the OpenShift Database Access Operator
-== Import at least one cloud-database provider account.
-== Exercise: Connecting an application to a database instance using the topology view
-== Exercise: Exploring RHODA Magic
-== Exercise: Play Pacman and save your high scores
-== Exercise: Working With Labels
-
-As you've seen so far, the web console makes it very easy to deploy things onto
-OpenShift. When we deploy the database, we pass in some values for configuration.
-These values are used to set the username, password, and name of
-the database.
-
-The database image is built in a way that it will automatically configure itself
-using the supplied information (assuming there is no data already present in the
-persistent storage!). The image will ensure that:
-
-- A database exists with the specified name
-- A user exists with the specified name
-- The user can access the specified database with the specified password
-
-In the Developer Perspective in your `%PROJECT%` project,
-click *+Add* and then *Database*. In the Databases view, you can click *Mongo* to filter for just MongoDB.
-
-NOTE: Make sure to uncheck *Operator Backed* option from *Type* section
-
-image::nationalparks-databases-catalog-databases.png[Data Stores]
-
-Alternatively, you could type `mongodb` in the search box. Once you have drilled down to see MongoDB, find the *MongoDB (Ephemeral)* template and select it.  You will notice that there are multiple
-MongoDB templates available.  We do not need a database with persistent storage, so the ephemeral Mongo
-template is what you should choose.  Go ahead and select the ephemeral template and click the *Instantiate Template* button.
-
-When we performed the application build, there was no template. Rather, we selected the
-builder image directly and OpenShift presented only the standard build workflow.
-Now we are using a template - a preconfigured set of resources that includes
-parameters that can be customized. In our case, the parameters we are concerned
-with are -- user, password, database, and
-admin password.
-
-image::nationalparks-databases-catalog-databases-mongodb-config.png[MongoDB Deploy]
-
-CAUTION: Make sure you name your database service name *mongodb-pacman*
-
-You can see that some of the fields say *"generated if empty"*. This is a
-feature of *Templates* in OpenShift. For
-now, be sure to use the following values in their respective fields:
-
-*Database Service Name*:
-[source,role=copypaste]
-----
-mongodb-nationalparks
-----
-
-*MongoDB Connection Username*:
-[source,role=copypaste]
-----
-mongodb
-----
-
-*MongoDB Connection Password*:
-[source,role=copypaste]
-----
-mongodb
-----
-
-*MongoDB Database Name*:
-[source,role=copypaste]
-----
-mongodb
-----
-
-*MongoDB Admin Password*:
-[source,role=copypaste]
-----
-mongodb
-----
-
-CAUTION: Make sure to have configured the *`MongoDB Database Name`* parameter with the appropriate value as by default it will already have a value of `sampledb`.
-
-Once you have entered in the above information, click on *Create* to go to the next step which will allow us to add a binding.
-
-From left-side menu, click to *Secrets*.
-
-image::nationalparks-databases-list-secrets.png[List Secrets]
-
-Click the secret name listed that we will use for *Parameters*. The secret can be used in other components, such as the `nationalparks` backend, to authenticate to the database.
-
-Now that the connection and authentication information stored in a secret in our project, we need to add it to the `nationalparks` backend. Click the *Add Secret to Workload* button.
-
-image::nationalparks-databases-binding-view-secret.png[National Parks Binding]
-
-Select the `nationalparks` workload and click *Save*.
-
-image::nationalparks-databases-binding-add-binding-to-nationalparks.png[Add binding to application]
-
-This change in configuration will trigger a new deployment of the `nationalparks` application with the environment variables properly injected.
-
-[TIP]
-====
-Back in the *Topology* view, if your `mongodb-nationalparks` component is not already in the light gray area that denotes the `workshop` application, click and drag the component whilst holding down kbd:[Shift] to add it to the group with the other two components (as shown below)
-
-image::nationalparks-databases-add-mongodb-to-workshop-app.png[Add mongodb to the workshop app]
-====
-
-Next, let's fix the labels assigned to the `mongodb-nationalparks` deployment. Currently, we cannot set labels when using the database template from the catalog, so we will fix these labels manually. 
-
-Like before, we'll add 3 labels:
-
-The name of the Application group:
-
-[source,role=copypaste]
-----
-app=workshop
-----
-
-Next the name of this deployment.
-
-[source,role=copypaste]
-----
-component=nationalparks
-----
-
-And finally, the role this component plays in the overall application.
-
-[source,role=copypaste]
-----
-role=database
-----
-
-Execute the following command:
-[.console-input]
-[source,bash,subs="+attributes,macros+"]
-----
-oc label dc/mongodb-nationalparks svc/mongodb-nationalparks app=workshop component=nationalparks role=database --overwrite
-----
-
 [#exploring_openshift_magic]
 == Exercise: Exploring OpenShift Magic
+
+[#play_pacman]
+== Exercise: Play Pacman and save your high scores
+
 
 As soon as we attached the Secret to the *Deployment*, some
 magic happened. OpenShift decided that this was a significant enough change to
