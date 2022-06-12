@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Connecting to a Database :: Pacman using RHODA</title>
     <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-nodejs-databases.html">
-    <link rel="prev" href="common-workshop-summary.html">
-    <link rel="next" href="common-environment.html">
+    <link rel="prev" href="pacman-nodejs.html">
+    <link rel="next" href="pacman-application-health.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -56,16 +56,16 @@
     <a class="nav-link" href="common-workshop-summary.html">Workshop Summary</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#storage">Background: Storage</a>
+    <a class="nav-link" href="pacman-nodejs-bg.html#storage">Background: Storage</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#challenges_dbaas">Background: DBaaS &amp; Present Challenges</a>
+    <a class="nav-link" href="pacman-nodejs-bg.html#challenges_dbaas">Background: DBaaS &amp; Present Challenges</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#sol_rh_dbaas">Background: Red Hat Solution</a>
+    <a class="nav-link" href="pacman-nodejs-bg.html#sol_rh_dbaas">Background: Red Hat Solution</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#bg_sb_lib">Background: Service binding libraries</a>
+    <a class="nav-link" href="pacman-nodejs-bg.html#bg_sb_lib">Background: Service binding libraries</a>
   </li>
 </ul>
   </li>
@@ -291,8 +291,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="common-workshop-summary.html">Workshop Summary</a></li>
-    <li><a href="#storage">Background: Storage</a></li>
+    <li><a href="pacman-nodejs-databases.html">Connecting to a Database</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-nodejs-databases.adoc">Edit this Page</a></div>
@@ -316,98 +315,6 @@ automatically.</p>
 <div class="content">
 <img src="_images/roadshow-app-architecture-nationalparks-2.png" alt="Application architecture" width="800">
 </div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="storage"><a class="anchor" href="#storage"></a>Background: Storage</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Most useful applications are "stateful" or "dynamic" in some way, and this is
-usually achieved with a database or other data storage. In this lab we are
-going to add MongoDB to our <code>nationalparks</code> application and then rewire it to
-talk to the database using environment variables via a secret.</p>
-</div>
-<div class="paragraph">
-<p>We are going to use the MongoDB image that is included with OpenShift.</p>
-</div>
-<div class="paragraph">
-<p>By default, this will use <strong>EmptyDir</strong> for data storage, which means if the <strong>Pod</strong>
-disappears the data does as well. In a real application you would use
-OpenShift&#8217;s persistent storage mechanism to attach real-world storage (NFS,
-Ceph, EBS, iSCSI, etc) to the <strong>Pods</strong> to give them a persistent place to store their
-data.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="challenges_dbaas"><a class="anchor" href="#challenges_dbaas"></a>Background: DBaaS &amp; Present Challenges</h2>
-<div class="sectionbody">
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/challenge.png" alt="DBaaS &amp; Present Challenges" width="800">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="sol_rh_dbaas"><a class="anchor" href="#sol_rh_dbaas"></a>Background: Red Hat Solution</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>More efficient connection, DB utilization
-Faster and easier self-service for developers
-Centralized monitoring, consistent control plane for admins</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/solution.png" alt="Red Hat Solution" width="800">
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="bg_sb_lib"><a class="anchor" href="#bg_sb_lib"></a>Background: Service binding libraries</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The Kubernetes service binding feature was introduced to bring consistency to the way secrets are shared for connecting applications to external services, such as REST APIs, databases, and many other services.
-OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.
-The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.
-Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.
-The volume mount point is exposed as an environment variable.
-Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.</p>
-</div>
-<div class="paragraph">
-<p>Here are some application examples on how to use a service binding library:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/RHEcosystemAppEng/mongo-quickstart">Mongo Quarkus application</a></p>
-</li>
-<li>
-<p><a href="https://github.com/RHEcosystemAppEng/postgresql-orm-quickstart">Crunchy Postgres Quarkus application</a></p>
-</li>
-<li>
-<p><a href="https://github.com/myeung18/postgresql-orm-demo-app">CockroachDB Postgres Quarkus application</a></p>
-</li>
-<li>
-<p><a href="https://github.com/myeung18/cockroachdb-go-quickstart">CockroachDB Postgres Go application</a></p>
-</li>
-<li>
-<p><a href="https://github.com/RHODA-lab/rhoda-qa-python/blob/main/run-test.py">Crunchy Postgres Python test program</a></p>
-</li>
-<li>
-<p><a href="https://github.com/RHODA-lab/rhoda-qa-python/blob/main/test-cockroachdb.py">CockroachDB Postgres Python test program</a></p>
-</li>
-</ul>
-</div>
-<div class="ulist _additional-resources">
-<div class="title">Additional resources</div>
-<ul>
-<li>
-<p>See the <a href="https://github.com/servicebinding/spec#workload-projection">Kubernetes GitHub project</a> for more details on service bindings.</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
@@ -747,8 +654,8 @@ Upon a successful connection, you are taken to the <a href="#connecting-an-appli
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="common-workshop-summary.html">Workshop Summary</a></span>
-  <span class="next"><a href="common-environment.html">OpenShift Architecture</a></span>
+  <span class="prev"><a href="pacman-nodejs.html">Pacman App</a></span>
+  <span class="next"><a href="pacman-application-health.html">Application Healthchecks</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
