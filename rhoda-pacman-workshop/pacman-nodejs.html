@@ -480,14 +480,14 @@ You could also use Dockerfile, the repo contains a multi-stage Dockerfile. For t
 <p>Verify that <strong>Java</strong> has been selected as your Builder Image, and be sure to select version <strong>openjdk-11-ubi8</strong> to have OpenJDK 11.</p>
 </div>
 <div class="paragraph">
-<p>Scroll down to the <strong>General</strong> section. Add the followin:</p>
+<p>Scroll down to the <strong>General</strong> section. Add the following:</p>
 </div>
 <div class="paragraph">
 <p><strong>Application Name</strong> :</p>
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">workshop</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">pacman</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -495,7 +495,7 @@ You could also use Dockerfile, the repo contains a multi-stage Dockerfile. For t
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">nationalparks</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">pacman</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -539,7 +539,7 @@ If present, leave Pipeline section empty here as we will implement it in the nex
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">app=workshop</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">app=pacman</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -547,7 +547,7 @@ If present, leave Pipeline section empty here as we will implement it in the nex
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">component=nationalparks</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">component=pacman</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -555,7 +555,7 @@ If present, leave Pipeline section empty here as we will implement it in the nex
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">role=backend</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">role=ui</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -659,6 +659,11 @@ URL in the web console, or via the command line:</p>
 <div class="listingblock console-input">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get routes</code></pre>
+</div>
+</div>
+<div class="imageblock unresolved">
+<div class="content">
+<img src="pcman-ui.png" alt="Pacman Console">
 </div>
 </div>
 <div class="paragraph">
