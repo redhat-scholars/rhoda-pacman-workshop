@@ -25,7 +25,7 @@ asciidoc:
     release-version: rosa
     roks-login-url: https://cloud.ibm.com/authorize/devcluster
     page-pagination: true
-    lab: java
+    lab: nodejs
     lab-name: Pacman
     rhoda-version: 0.1.5
   extensions:

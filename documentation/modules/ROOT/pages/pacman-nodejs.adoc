@@ -43,7 +43,7 @@ more information about it either in the
 or on https://github.com/openshift/source-to-image[GitHub]. The only key concept you need to
 remember about S2I is that it's magic.
 
-[#creating_java_application]
+[#creating_pacman-nodejs_application]
 == Exercise: Creating a Pacman application
 
 The backend service that we will be deploying as part of this exercise is
