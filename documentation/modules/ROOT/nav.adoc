@@ -1,4 +1,5 @@
 * xref:common-workshop-summary.adoc[Workshop Summary]
+* xref:pacman-nodejs-bg.adoc[Background around storage and relevant aspects]
 ** xref:pacman-{lab}-bg.adoc#storage[Background: Storage]
 ** xref:pacman-{lab}-bg.adoc#challenges_dbaas[Background: DBaaS & Present Challenges]
 ** xref:pacman-{lab}-bg.adoc#sol_rh_dbaas[Background: Red Hat Solution]

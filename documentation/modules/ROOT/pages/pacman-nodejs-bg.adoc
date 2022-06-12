@@ -1,3 +1,5 @@
+= Background
+:navtitle: Background around storage and relevant aspects
 [#storage]
 == Background: Storage
 Most useful applications are "stateful" or "dynamic" in some way, and this is
