@@ -20,13 +20,14 @@ asciidoc:
     parksmap-version: latest
     parksmap-image: quay.io/openshiftroadshow/parksmap
     openshift-docs-url: https://docs.openshift.com/container-platform/4.9
-    openshift-version: 4.9
+    openshift-version: 4.10
     project-namespace: workshop
     release-version: rosa
     roks-login-url: https://cloud.ibm.com/authorize/devcluster
     page-pagination: true
     lab: java
-    lab-name: Java
+    lab-name: Pacman
+    rhoda-version: 0.1.5
   extensions:
     - ./lib/tab-block.js
     - ./lib/remote-include-processor.js

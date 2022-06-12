@@ -44,7 +44,7 @@ or on https://github.com/openshift/source-to-image[GitHub]. The only key concept
 remember about S2I is that it's magic.
 
 [#creating_java_application]
-== Exercise: Creating a Java application
+== Exercise: Creating a Pacman application
 
 The backend service that we will be deploying as part of this exercise is
 called `pacman`.  This is a Java Spring Boot application that performs 2D
@@ -67,7 +67,7 @@ GitLab, or any other server that speaks Git. You can even register webhooks in
 your Git server to initiate OpenShift builds triggered by any update to the
 application code!
 
-link:https://github.com/openshift-roadshow/nationalparks.git[NationalParks GitHub Repository]
+link:https://github.com/veniceofcode/pacman.git[Pacman GitHub Repository]
 
 
 Later in the lab, we want you to make a code change and then rebuild your
@@ -90,7 +90,7 @@ Enter the following for Git Repo URL:
 
 [source,bash,role=copypaste]
 ----
-https://github.com/redhat-scholars/rhoda-pacman-workshop.git
+https://github.com/veniceofcode/pacman.git
 ----
 
 OpenShift will automatically guess the Git server type and the programming language used by the source code. You will be now asked to select an *Import Strategy*.

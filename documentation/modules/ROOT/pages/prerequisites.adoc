@@ -11,7 +11,7 @@ In order to run the lab in your cluster, you need to meet the requirements discu
 | `{openshift-version}`
 
 | https://access.redhat.com/articles/6365391[RHODA]
-| `{openshift-version}`
+| `{rhoda-version}`
 |===
 
 In the following modules you will find out other prerequisites when needed.
