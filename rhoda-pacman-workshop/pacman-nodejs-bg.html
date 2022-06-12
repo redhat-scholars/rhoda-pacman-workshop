@@ -314,10 +314,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Database is one of the key building blocks for a variety of applications. At the moment most openshift customers run their databases on the same cluster, manage it themselves and provide access to developers. Database as a service makes this much simpler, allowing databases to run at a central location managed by database administrators allowing business to focus on their applications.</p>
+<p>As you may know , Database is one of the key building blocks for a variety of applications. At the moment, most openshift customers run their databases on the same cluster, manage it themselves and provide access to developers. Database as a service makes this much simpler, allowing databases to run at a central location managed by database administrators allowing business to focus on their applications.</p>
 </div>
 <div class="paragraph">
-<p>As database cloud service offerings continue to evolve, it has simplified the development and deployment of stateful cloud native applications. But developers often access these database services in different ways, For example, developer often receives security credentials from their IT counterparts. These credentials are often shared ad-hoc where developers end up configuring DBaaS connections manually which can be time-consuming and error-prone.</p>
+<p>As database cloud service offerings continue to evolve, it has simplified the development and deployment of stateful cloud native applications. But developers often access these database services in different ways, For example, developer often receives security credentials from their platform teams. These credentials are often shared on-demand where developers end up configuring DBaaS connections manually that can be time-consuming and error-prone.</p>
 </div>
 <div class="paragraph">
 <p>In organizations going through their journey with containerization in hybrid cloud environments, it is inefficient and risky to have each team independently connect applications to different DBaaS offerings.</p>
@@ -333,18 +333,7 @@
 <div class="paragraph">
 <p>Most useful applications are "stateful" or "dynamic" in some way, and this is
 usually achieved with a database or other data storage. In this lab we are
-going to add MongoDB to our <code>pacman</code> application and then rewire it to
-talk to the database using environment variables via a secret.</p>
-</div>
-<div class="paragraph">
-<p>We are going to use the MongoDB image that is included with OpenShift.</p>
-</div>
-<div class="paragraph">
-<p>By default, this will use <strong>EmptyDir</strong> for data storage, which means if the <strong>Pod</strong>
-disappears the data does as well. In a real application you would use
-OpenShift&#8217;s persistent storage mechanism to attach real-world storage (NFS,
-Ceph, EBS, iSCSI, etc) to the <strong>Pods</strong> to give them a persistent place to store their
-data.</p>
+going to add MongoDB Atlas instance to our <code>pacman</code> application with help of RHODA Operator.</p>
 </div>
 </div>
 </div>
@@ -353,7 +342,7 @@ data.</p>
 <div class="sectionbody">
 <div class="imageblock text-center">
 <div class="content">
-<img src="_images/challenge.png" alt="DBaaS &amp; Present Challenges" width="800">
+<img src="_images/challenge.png" alt="DBaaS &amp; Present Challenges" width="500">
 </div>
 </div>
 </div>
@@ -368,7 +357,7 @@ Centralized monitoring, consistent control plane for admins</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="_images/solution.png" alt="Red Hat Solution" width="800">
+<img src="_images/solution.png" alt="Red Hat Solution" width="500">
 </div>
 </div>
 </div>
@@ -376,13 +365,27 @@ Centralized monitoring, consistent control plane for admins</p>
 <div class="sect1">
 <h2 id="bg_sb_lib"><a class="anchor" href="#bg_sb_lib"></a>Service binding libraries</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>The Kubernetes service binding feature was introduced to bring consistency to the way secrets are shared for connecting applications to external services, such as REST APIs, databases, and many other services.
-OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.
-The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.
-Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.
-The volume mount point is exposed as an environment variable.
-Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>The Kubernetes service binding feature was introduced to bring consistency to the way secrets are shared for connecting applications to external services, such as REST APIs, databases, and many other services.</p>
+</li>
+<li>
+<p>OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.</p>
+</li>
+<li>
+<p>The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.</p>
+</li>
+<li>
+<p>Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.</p>
+</li>
+<li>
+<p>The volume mount point is exposed as an environment variable.</p>
+</li>
+<li>
+<p>Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Here are some application examples on how to use a service binding library:</p>
