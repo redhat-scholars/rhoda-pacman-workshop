@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Command Line Interface :: Pacman using RHODA</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/common-cli.html">
+    <title>Automation with Pipelines :: Pacman using RHODA</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-nodejs-pipeline-codechanges-github.html">
+    <link rel="prev" href="pacman-nodejs-pipeline.html">
+    <link rel="next" href="common-further-resources.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -232,24 +234,24 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html">Webhooks with Pipelines</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#prerequisite_github_account">Prerequisite: GitHub Account</a>
+    <a class="nav-link" href="#prerequisite_github_account">Prerequisite: GitHub Account</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#webhooks">Web Hooks</a>
+    <a class="nav-link" href="#webhooks">Web Hooks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#adding_triggers_to_your_pipeline">Adding Triggers to your Pipeline</a>
+    <a class="nav-link" href="#adding_triggers_to_your_pipeline">Adding Triggers to your Pipeline</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#configuring_github_webhooks">Exercise: Configuring GitHub Web Hooks</a>
+    <a class="nav-link" href="#configuring_github_webhooks">Exercise: Configuring GitHub Web Hooks</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#using_github_webhooks">Exercise: Using GitHub Web Hooks</a>
+    <a class="nav-link" href="#using_github_webhooks">Exercise: Using GitHub Web Hooks</a>
   </li>
 </ul>
   </li>
@@ -289,319 +291,250 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="common-cli.html">Command Line Interface</a></li>
+    <li><a href="pacman-nodejs-pipeline-codechanges-github.html">Webhooks with Pipelines</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/common-cli.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-nodejs-pipeline-codechanges-github.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Command Line Interface</h1>
+<h1 class="page">Automation with Pipelines</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>OpenShift ships with a feature rich web console as well as command line tools
-to provide users with a nice interface to work with applications deployed to the
-platform.  The OpenShift tools are a single executable written in the Go
-programming language and is available for the following operating systems:</p>
+<p>In addition to the OpenShift built-in components, OpenShift Pipelines provide additional triggers and automation to pipelines thanks to <strong>Tekton Triggers</strong>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prerequisite_github_account"><a class="anchor" href="#prerequisite_github_account"></a>Prerequisite: GitHub Account</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>We will demonstrate the automation capability with OpenShift, and in order to do this, we need you to have an account on <a href="https://github.com">GitHub</a>.</p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t have an account on GitHub, please create one <a href="https://github.com/join">here</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="webhooks"><a class="anchor" href="#webhooks"></a>Background: Web Hooks</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Most Git repository servers support the concept of web hooks&#8201;&#8212;&#8201;calling to an
+external source via HTTP(S) when a change in the code repository happens.
+OpenShift provides an API endpoint that supports receiving hooks from
+remote systems in order to trigger builds. By pointing the code repository&#8217;s
+hook at the OpenShift Pipelines resources, automated code/build/deploy pipelines can be
+achieved.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="adding_triggers_to_your_pipeline"><a class="anchor" href="#adding_triggers_to_your_pipeline"></a>Adding Triggers to your Pipeline</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tekton <strong>Triggers</strong> enable us to configure Pipelines to respond to external events (Git push events, pull requests etc) such as Web Hooks.</p>
+</div>
+<div class="paragraph">
+<p>Adding triggering support requires the creation of a <code>TriggerTemplate</code>, <code>TriggerBinding</code>, and an <code>EventListener</code> in our project.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-triggers.png" alt="Triggers">
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s see each component in detail:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Microsoft Windows</p>
+<p><strong>TriggerTemplate</strong>: a trigger template is a template for newly created resources. It supports parameters to create specific <code>PipelineResources</code> and <code>PipelineRuns</code>.</p>
 </li>
 <li>
-<p>Mac OS X</p>
+<p><strong>TriggerBinding</strong>: validates events and extracts payload fields</p>
 </li>
 <li>
-<p>Linux</p>
+<p><strong>EventListener</strong>: connects <code>TriggerBindings</code> and <code>TriggerTemplates</code> into an addressable endpoint (the event sink). It uses the extracted event parameters from each TriggerBinding (and any supplied static parameters) to create the resources specified in the corresponding TriggerTemplate. It also optionally allows an external service to pre-process the event payload via the interceptor field.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>You might already have the OpenShift CLI available on your environment. You can verify
-it by running an <code>oc</code> command:</p>
+<p>Now let&#8217;s create them all together for our Pipeline:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc create -f https://raw.githubusercontent.com/openshift-roadshow/nationalparks/master/pipeline/nationalparks-triggers.yaml -n %PROJECT%</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You should see the following (or something similar):</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client Version: openshift-clients-4.5.0-202006231303.p0-9-ge40bd2dd9
-Server Version: 4.5.11
-Kubernetes Version: v1.18.3+b0068a8</code></pre>
-</div>
+<p>This will create a new Pod with a Route that we can use to setup our Webhook on GitHub to trigger the automatic start of the Pipeline.</p>
 </div>
 <div class="paragraph">
-<p>If the <code>oc</code> doesn&#8217;t exist or you have an older version of the OpenShift CLI, follow
-the next sections to install or update the OpenShift CLI. Otherwise, skip to the
-next lab.</p>
-</div>
-<div id="download_openshift_cli" class="paragraph">
-<p>From top right menu bar, click to the little white question mark icon, then click to <strong>Command Line Tools</strong>:</p>
+<p>From left side menu, click on <strong>Topology</strong> to verify if a new Deployment <strong>el-nationalparks</strong> for the <code>EventListener</code> has ben created:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/prerequisites_cli_links.png" alt="Download CLI">
+<img src="_images/devops-pipeline-triggers-eventlistener.png" alt="EventListener created">
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="fork_repository_from_GitHub"><a class="anchor" href="#fork_repository_from_GitHub"></a>Exercise: Fork NationalParks repository from GitHub</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>A <a href="https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo" target="_blank" rel="noopener">fork</a> is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.</p>
 </div>
 <div class="paragraph">
-<p>Scroll down to <strong>oc - OpenShift Command Line Interface (CLI)</strong></p>
+<p>In this step we will fork the original <code>nationalparks</code> repository to apply our changes and automatically trigger the Pipeline through a <a href="https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/about-webhooks" target="_blank" rel="noopener">GitHub Webhook</a> that we&#8217;re going to configure.</p>
+</div>
+<div class="paragraph">
+<p>Go to <a href="https://github.com/openshift-roadshow/nationalparks" target="_blank" rel="noopener">Nationalparks</a> repository. From top-right side, click to <strong>Fork</strong> to start forking it into your account.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/prerequisites_cli_binaries.png" alt="CLI Binaries">
+<img src="_images/nationalparks-codechanges-github-fork-1.png" alt="Fork Repository">
 </div>
+</div>
+<div class="paragraph">
+<p>Select your account, and click <strong>Fork</strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-github-fork-2.png" alt="Fork in progress">
+</div>
+</div>
+<div class="paragraph">
+<p>Your repository is forked now, we can start adding our automation to that.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="download_and_install_openshift_cli_on_linux"><a class="anchor" href="#download_and_install_openshift_cli_on_linux"></a>Download and Install OpenShift CLI on Linux</h2>
+<h2 id="configuring_github_webhooks"><a class="anchor" href="#configuring_github_webhooks"></a>Exercise: Configuring GitHub Web Hooks</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Once the file has been downloaded, you will need to extract the contents as it
-is a compressed archive. I would suggest saving this file to the following
-directories:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">~/OpenShift</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Open up a terminal window and change to the directory where you downloaded the
-file.  Once you are in the directory, enter in the following command:</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-The name of the oc packaged archive may vary. Adjust accordingly.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tar zxvf oc-linux.tar.gz</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The tar.gz file name needs to be replaced by the entire name that was downloaded in the previous step.</p>
-</div>
-<div class="paragraph">
-<p>Now you can add the OpenShift CLI tools to your PATH.</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PATH=$PATH:~/openShift</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>At this point, we should have the oc tool available for use. Let&#8217;s test this
-out by printing the version of the oc command:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You should see the following (or something similar):</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client Version: openshift-clients-4.5.0-202006231303.p0-9-ge40bd2dd9</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you get an error message, you have not updated your path correctly. If you
-need help, contact your lab instructor for assistence.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="download_and_install_openshift_cli_on_mac"><a class="anchor" href="#download_and_install_openshift_cli_on_mac"></a>Download and Install OpenShift CLI on Mac</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Once the file has been downloaded, you will need to extract the contents as it
-is a compressed archive. I would suggest saving this file to the following
-directories:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">~/OpenShift</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Open up a terminal window and change to the directory where you downloaded the
-file. Once you are in the directory, enter in the following command:</p>
-</div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-The name of the oc packaged archive may vary. Adjust accordingly.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">tar zxvf oc-macosx.tar.gz</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The tar.gz file name needs to be replaced by the entire name that was downloaded in the previous step.</p>
-</div>
-<div class="paragraph">
-<p>Now you can add the OpenShift CLI tools to your PATH.</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export PATH=$PATH:~/openShift</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>At this point, we should have the oc tool available for use. Let&#8217;s test this
-out by printing the version of the oc command:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You should see the following (or something similar):</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client Version: openshift-clients-4.5.0-202006231303.p0-9-ge40bd2dd9</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you get an error message, you have not updated your path correctly. If you
-need help, contact your lab instructor for assistence.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="download_and_install_openshift_cli_on_windows"><a class="anchor" href="#download_and_install_openshift_cli_on_windows"></a>Download and Install OpenShift CLI on Windows</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The CLI for Windows is provided as a zip archive. Download and unzip the archive with a ZIP program and move the oc binary to a directory on your PATH. To check your PATH, open the Command Prompt and run:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">path</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Checkout this blog post if you&#8217;d like to set it up with <a href="https://www.openshift.com/blog/installing-oc-tools-windows">Powershell</a></p>
-</div>
-<div class="paragraph">
-<p>At this point, we should have the oc tool available for use. Let&#8217;s test this
-out by printing the version of the oc command:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc version</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>You should see the following (or something similar):</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Client Version: openshift-clients-4.5.0-202006231303.p0-9-ge40bd2dd9</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you get an error message, you have not updated your path correctly. If you
-need help, contact your lab instructor for assistence.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="tab_completion"><a class="anchor" href="#tab_completion"></a>Tab Completion</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The OpenShift command line tool supports the ability to use tab completion for the popular zsh and bash shells.  This suits the needs of users using either Linux or OS X.  If you are using Microsoft Windows, never fear, we will discuss some ways to get tab completion working on that operating system as well.</p>
-</div>
-<div class="sect2">
-<h3 id="tab_completion_on_mac_and_linux"><a class="anchor" href="#tab_completion_on_mac_and_linux"></a>Tab completion on Mac and Linux</h3>
-<div class="paragraph">
-<p>If you are on the Mac operating system, you will need to ensure that you have the <strong>bash-completion</strong> project installed. This can be accomplished using the popular brew system:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">brew install bash-completion</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you&#8217;re on Linux, ensure you have <strong>bash-completion</strong> installed using your package manager (dnf, yum apt-get,&#8230;&#8203;)</p>
-</div>
-<div class="paragraph">
-<p>Once <strong>bash-completion</strong> package is available in your machine, to enable tab completion in your shell, you can simply enter in the following command from your terminal</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc completion bash &gt;&gt; oc_completion.sh
-source oc_completion.sh</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Alternatively, you can add this to your .bashrc file.</p>
-</div>
-<div class="paragraph">
-<p>If you are using zsh, you can run the following command:</p>
-</div>
-<div class="listingblock console-input">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">source &lt;(oc completion zsh)</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Alternatively, you can add this to your .zshrc file.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="tab_completion_on_windows"><a class="anchor" href="#tab_completion_on_windows"></a>Tab completion on Windows</h3>
-<div class="paragraph">
-<p>For Windows users, things become a bit more tricky.  You could of course use the Linux Subsystem for Windows but you may want to consider using a combination of babun and cmder.  For a full list of instructions, you can check out the following blog post:</p>
-</div>
-<div class="ulist">
+<div class="tabset is-loading">
+<div class="ulist tabs">
 <ul>
 <li>
-<p><a href="https://blog.openshift.com/openshift-3-tab-completion-for-windows/">https://blog.openshift.com/openshift-3-tab-completion-for-windows/</a></p>
+<p><a id="tabset1_roks-rosa-aro-ocp"></a>ROKS/ROSA/ARO/OCP</p>
+</li>
+<li>
+<p><a id="tabset1_crc"></a>CRC</p>
 </li>
 </ul>
 </div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_roks-rosa-aro-ocp">
+<div class="paragraph">
+<p>From Topology, click to <code>el-nationalparks</code> Deployment, go into <strong>Routes</strong> section and and copy the <strong>el-nationparks</strong> Route URL.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-triggers-route.png" alt="EventListener created">
+</div>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_crc">
+<div class="paragraph">
+<p>When using <a href="https://developers.redhat.com/products/codeready-containers/overview" target="_blank" rel="noopener">CRC</a>, your OpenShift cluster is running in your computer and it is not externally accessible. In order to let GitHub trigger our Pipeline via a Web Hook, we can use <a href="https://ngrok.com" target="_blank" rel="noopener">Ngrok</a>, an online service that exposes local servers to public internet over secure tunnels.</p>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s use a template to launch an Ngrok instance inside our project to link to our Tekton Eventlistener <code>el-nationalparks</code>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc new-app -f https://raw.githubusercontent.com/csrwng/ngrok/master/openshift/ngrok-template.yaml -p HOST=el-nationalparks -p PORT=8080 -n %PROJECT%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You should see an output like this:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">--&gt; Deploying template "%PROJECT%/ngrok" for "https://raw.githubusercontent.com/csrwng/ngrok/master/openshift/ngrok-template.yaml" to project %PROJECT%
+
+     * With parameters:
+        * Host=el-nationalparks
+        * Port=8080
+
+--&gt; Creating resources ...
+    service "ngrok" created
+    deploymentconfig.apps.openshift.io "ngrok" created
+    route.route.openshift.io "ngrok" created
+    imagestream.image.openshift.io "ngrok" created
+--&gt; Success
+    Access your application via route 'ngrok-%PROJECT%.%CLUSTER_SUBDOMAIN%'
+    Run 'oc status' to view your app.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Get the Ngrok Route URL:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get route ngrok -n %PROJECT%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Open it in the browser to get the Ngrok tunnel URL that we can use and copy the HTTP URL you see in the webpage as shown below, this will be the one we will use to configure the Github Webhook.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/devops-pipeline-triggers-ngrok.png" alt="Ngrok tunnels">
+</div>
+</div>
+<div class="paragraph">
+<p>Verify that it is working, when opening in the browser you should get the response from the <strong>EventListener</strong> we are exposing through an Ngrok tunnel:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">{"eventListener":"nationalparks","namespace":"%PROJECT%","eventID":"vzkx5"}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Once you have the URL copied to your clipboard, navigate to the code repository fork that you have on GitHub.</p>
+</div>
+<div class="paragraph">
+<p>From your fork page top-right menu, click <strong>Settings</strong>. Then from result left-side menu, click <strong>Webhook</strong>, then from right side click <strong>Add webhooks</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-github-webhook-settings.png" alt="Add Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>In the next screen, paste your link into the "Payload URL" field. You can leave the
+secret token field blank&#8201;&#8212;&#8201;the secret is already in the URL and does not need
+to be in the payload.</p>
+</div>
+<div class="paragraph">
+<p>Change the <code>Content Type</code> to <code>application/json</code>.</p>
+</div>
+<div class="paragraph">
+<p>Finally, click on <strong>Add Webhook</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-github-add-webhook.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>Boom! From now on, every time you commit new source code to your GitHub
+repository, a new build and deploy will occur inside of OpenShift.  Let&#8217;s try
+this out.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="working_with_proxies"><a class="anchor" href="#working_with_proxies"></a>Working with proxies</h2>
+<h2 id="using_github_webhooks"><a class="anchor" href="#using_github_webhooks"></a>Exercise: Using GitHub Web Hooks</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>It might happen that you&#8217;re behind a corporate proxy to access the internet. In this case, you&#8217;ll need to set
-some additional environment variables for the oc command line to work.</p>
-</div>
-<div class="paragraph">
-<p><strong>Windows:</strong>
-Follow previous section&#8217;s instructions on how to set an Environment Variable on Windows. The variables you&#8217;ll need
-to set are:</p>
+<p>Click the <strong>Code</strong> tab in GitHub. This is GitHub&#8217;s repository view.</p>
 </div>
 <div class="admonitionblock caution">
 <table>
@@ -610,58 +543,66 @@ to set are:</p>
 <i class="fa icon-caution" title="Caution"></i>
 </td>
 <td class="content">
-Replace the proxy server with the one for your environment/machine.
+Make sure that the drop-down menu at the upper right is set for
+the <strong><code>master</code></strong> branch. Navigate to the
+following path:
 </td>
 </tr>
 </table>
 </div>
-<div class="listingblock console-input">
+<div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">https_proxy=http://proxy-server.mycorp.com:3128/
-HTTPS_PROXY=http://proxy-server.mycorp.com:3128/</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">src/main/java/com/openshift/evg/roadshow/parks/rest/</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>macOS:</strong></p>
+<p>Then click on the <code>BackendController.java</code> file.</p>
 </div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Replace the proxy server with the one for your environment/machine.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Once you have the file on the screen, click the edit button in the top right
+hand corner as shown here:</p>
 </div>
-<div class="listingblock console-input">
+<div class="imageblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export https_proxy=http://proxy-server.mycorp.com:3128/
-export HTTPS_PROXY=http://proxy-server.mycorp.com:3128/</code></pre>
+<img src="_images/nationalparks-codechanges-github-change-code.png" alt="Webhook">
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Linux:</strong></p>
+<p>Change line number 20 to:</p>
 </div>
-<div class="admonitionblock caution">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-caution" title="Caution"></i>
-</td>
-<td class="content">
-Replace the proxy server with the one for your environment/machine.
-</td>
-</tr>
-</table>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">return new Backend("nationalparks","Amazing National Parks", new Coordinates("47.039304", "14.505178"), 4);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Click on <strong>Commit changes</strong> at the bottom of the screen. Feel free to enter a commit message.</p>
+</div>
+<div class="paragraph">
+<p>Once you have committed your changes, a new <strong>PipelineRun</strong> should almost instantaneously be
+triggered in OpenShift. Click <strong>Pipeline</strong> in the left navigation menu then <code>nationalparks-pipeline</code>. You should see a new one running:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-codechanges-pipeline-running.png" alt="Webhook">
+</div>
+</div>
+<div class="paragraph">
+<p>or run the following command to verify:</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">export https_proxy=http://proxy-server.mycorp.com:3128/
-export HTTPS_PROXY=http://proxy-server.mycorp.com:3128/</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pipelineruns</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Once the build and deploy has finished, verify your new image was automatically deployed by viewing the application in your browser:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/" class="params-link" target="_blank" rel="noopener">National Parks Info Page</a></p>
+</div>
+<div class="paragraph">
+<p>You should now see the new name you have set in the JSON string returned.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -670,22 +611,17 @@ export HTTPS_PROXY=http://proxy-server.mycorp.com:3128/</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-<div class="paragraph">
-<p>If the proxy is secured, make sure to use the following URL pattern, replacing the contents with the
-appropriate values:</p>
-</div>
-<div class="paragraph">
-<p>export https_proxy=http://USERNAME:PASSOWRD@proxy-server.mycorp.com:3128/</p>
-</div>
-<div class="paragraph">
-<p><em>Special Characters</em>: If your password contains special characters, you must replace them with ASCII codes, for example the at sign @ must be replaced by the %40 code, e.g. p@ssword = p%40ssword.</p>
-</div>
+To see this in the map&#8217;s legend itself, you will need to scale down your parksmap to 0, then back up to 1 to force the app to refresh its cache.
 </td>
 </tr>
 </table>
 </div>
 </div>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="pacman-nodejs-pipeline.html">Continuous Integration and Pipelines</a></span>
+  <span class="next"><a href="common-further-resources.html">Further Resources</a></span>
+</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

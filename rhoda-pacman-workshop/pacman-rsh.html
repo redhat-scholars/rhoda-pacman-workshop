@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Further Resources :: Pacman using RHODA</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/common-further-resources.html">
-    <link rel="prev" href="pacman-nodejs-pipeline-codechanges-github.html">
-    <link rel="next" href="common-workshop-links.html">
+    <title>Connecting to a Containers :: Pacman using RHODA</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-rsh.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -255,7 +253,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="common-further-resources.html">Further Resources</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -291,118 +289,211 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="common-further-resources.html">Further Resources</a></li>
+    <li><a href="pacman-rsh.html">Connecting to a Containers</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/common-further-resources.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-rsh.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Further Resources</h1>
+<h1 class="page">Connecting to a Containers</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The exercises in this workshop have shown you how OpenShift can be used not only for deploying
-stateless web applications, but also be able to connect to managed database services in the cloud.</p>
+<p>Containers are treated as immutable infrastructure and therefore it is generally
+not recommended to modify the content of a container through SSH or running custom
+commands inside the container. Nevertheless, in some use-cases, such as debugging
+an application, it might be beneficial to get into a container and inspect the
+application.</p>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remote_shell_to_container_using_cli"><a class="anchor" href="#remote_shell_to_container_using_cli"></a>Exercise: Remote Shell Session to a Container Using the CLI</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>This flexibility makes OpenShift an ideal platform for deploying both web
-applications and databases.</p>
+<p>OpenShift allows establishing remote shell sessions to a container without the
+need to run an SSH service inside each container. In order to establish an
+interactive session inside a container, you can use the <code>oc rsh</code> command. First
+get the list of available pods:</p>
 </div>
-<div class="paragraph">
-<p>If you have finished this workshop early and want to experiment some more,
-we have additional exercises you can try out using our online interactive
-learning environment.</p>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods</code></pre>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://learn.openshift.com/">OpenShift Interactive Learning
-Portal</a></strong> - An online interactive learning environment where you can run
-through various scenarios related to using OpenShift.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The online interactive learning environment is always available so you
-can continue to work on those exercises even after the workshop is over.</p>
-</div>
-<div class="paragraph">
-<p>Below you will find further resources for learning about OpenShift and
-running OpenShift on your own computer, as well as details about OpenShift
-Online or other OpenShift related products and services.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://docs.openshift.com">OpenShift Documentation</a></strong> - The landing page for OpenShift documentation.</p>
-</li>
-<li>
-<p><strong><a href="https://developers.redhat.com/openshift/">OpenShift Resources on developers.redhat.com</a></strong> - A collection of resources for developers who are building and deploying applications on OpenShift.</p>
-</li>
-<li>
-<p><strong><a href="https://developers.redhat.com/products/codeready-containers/overview">CodeReady Containers</a></strong> - A tool which can
-be used to install a local OpenShift cluster on your own computer, running
-in a virtual machine.</p>
-</li>
-<li>
-<p><strong><a href="https://www.openshift.com/dedicated">OpenShift Dedicated</a></strong> - A
-dedicated hosting environment for running your applications, managed and
-supported for you by Red Hat.</p>
-</li>
-<li>
-<p><strong><a href="https://www.openshift.com/">OpenShift Container Platform</a></strong> - The Red
-Hat supported OpenShift product for installation on premise or in hosted
-cloud environments.</p>
-</li>
-<li>
-<p><strong><a href="https://commons.openshift.org">OpenShift Commons</a></strong> - A community for users, partners, customers, and contributors to come together to collaborate and work together on OpenShift.</p>
-</li>
-</ul>
 </div>
 <div class="paragraph">
-<p>The following free online eBooks are also available for download related to
-OpenShift.</p>
+<p>You should an output similar to the following:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://www.openshift.com/for-developers/">OpenShift
-for Developers</a></strong></p>
-</li>
-</ul>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                        READY   STATUS    RESTARTS   AGE
+parksmap-65c4f8b676-fxcrq   1/1     Running   0          52m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now you can establish a remote shell session into the pod by using the pod name:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc rsh parksmap-65c4f8b676-fxcrq</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You would see the following output:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">sh-4.2$</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The default shell used by <code>oc rsh</code> is <code>/bin/sh</code>. If the deployed container does
+not have <strong>sh</strong> installed and uses another shell, (e.g. <strong>A Shell</strong>) the shell command
+can be specified after the pod name in the issued command.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Run the following command to list the files in the top folder:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">ls /</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">anaconda-post.log  bin  dev  etc  home  lib  lib64  lost+found  media  mnt  opt  parksmap.jar  proc  root  run  sbin  srv  sys  tmp  usr  var</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="remote_shell_session_to_container_using_webconsole"><a class="anchor" href="#remote_shell_session_to_container_using_webconsole"></a>Exercise: Remote Shell Session to a Container Using the Web Console</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The OpenShift Web Console also provides a convenient way to access a terminal session on the container without having to use the CLI.</p>
+</div>
+<div class="paragraph">
+<p>In order to access a pod&#8217;s terminal via the Web Console, go to the Topology view in the Developer Perspective, click the <code>parksmap</code> entry, and then click on the <strong>Pod</strong>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/further-resources-openshift-for-developers.png" alt="OpenShift for Developers">
+<img src="_images/parksmap-rsh-dev-console-pod.png" alt="Pod in Dev Console">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://developers.redhat.com/books/openshift-developers-guide-impatient-beginners/old">DevOps with OpenShift</a></strong></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Once you are viewing the information for the selected pod, click on the <strong>Terminal</strong> tab to open up a shell session.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/further-resources-devops-with-openshift.png" alt="DevOps with OpenShift">
+<img src="_images/parksmap-rsh-applications-pods-terminal.png" alt="Pod List">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://developers.redhat.com/books/deploying-openshift/old">Deploying with OpenShift</a></strong></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Go ahead and execute the same commands you did when using the CLI to see how the Web Console based terminal behaves.</p>
 </div>
-<div class="imageblock">
+<div class="paragraph">
+<p>Before proceeding, close the connection to the pod.</p>
+</div>
+<div class="listingblock console-input">
 <div class="content">
-<img src="_images/further-resources-deploying-to-openshift.png" alt="Deploying to OpenShift">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">exit</code></pre>
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="pacman-nodejs-pipeline-codechanges-github.html">Webhooks with Pipelines</a></span>
-  <span class="next"><a href="common-workshop-links.html">Workshop Links</a></span>
-</nav>
+</div>
+</div>
+<div class="sect1">
+<h2 id="execute_command_in_container"><a class="anchor" href="#execute_command_in_container"></a>Exercise: Execute a Command in a Container</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In addition to remote shell, it is also possible to run a command remotely in an
+already running container using the <code>oc exec</code> command. This does not require
+that a shell is installed, but only that the desired command is present and in
+the executable path.</p>
+</div>
+<div class="paragraph">
+<p>In order to show just the JAR file, run the following:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc exec parksmap-65c4f8b676-fxcrq -- ls -l /parksmap.jar</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You would see something like the following:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">-rw-r--r--. 1 root root 39138901 Apr  1 16:54 /parksmap.jar</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The <code>--</code> syntax in the <code>oc exec</code> command delineates where exec&#8217;s options
+end and where the actual command to execute begins. Take a look at <code>oc exec
+--help</code> for more details.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You can also specify the shell commands to run directly with the <strong>oc rsh</strong> command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc rsh parksmap-65c4f8b676-fxcrq whoami</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You would see something like:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">1000580000</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>It is important to understand that, for security reasons, OpenShift does not run containers as the user specified in the Dockerfile by default. In fact,
+when OpenShift launches a container its user is actually randomized.</p>
+</div>
+<div class="paragraph">
+<p>If you want or need to allow OpenShift users to deploy container images that do
+expect to run as root (or any specific user), a small configuration change is
+needed. You can learn more about the
+<a href="https://docs.openshift.com/container-platform/4.9/openshift_images/create-images.html#images-create-guide-general_create-images">container image guidelines</a>
+for OpenShift.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

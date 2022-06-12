@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Further Resources :: Pacman using RHODA</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/common-further-resources.html">
-    <link rel="prev" href="pacman-nodejs-pipeline-codechanges-github.html">
-    <link rel="next" href="common-workshop-links.html">
+    <title>Permissions :: Pacman using RHODA</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-permissions.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -255,7 +253,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="common-further-resources.html">Further Resources</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -291,118 +289,176 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="common-further-resources.html">Further Resources</a></li>
+    <li><a href="pacman-permissions.html">Permissions</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/common-further-resources.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-permissions.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Further Resources</h1>
+<h1 class="page">Permissions</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
-<p>The exercises in this workshop have shown you how OpenShift can be used not only for deploying
-stateless web applications, but also be able to connect to managed database services in the cloud.</p>
-</div>
-<div class="paragraph">
-<p>This flexibility makes OpenShift an ideal platform for deploying both web
-applications and databases.</p>
+<p>Almost every interaction with an OpenShift environment that you can think of
+requires going through the OpenShift&#8217;s control plane API. All API interactions are both authenticated (AuthN - who are you?) and authorized (AuthZ - are you allowed to do what you are asking?).</p>
 </div>
 <div class="paragraph">
-<p>If you have finished this workshop early and want to experiment some more,
-we have additional exercises you can try out using our online interactive
-learning environment.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://learn.openshift.com/">OpenShift Interactive Learning
-Portal</a></strong> - An online interactive learning environment where you can run
-through various scenarios related to using OpenShift.</p>
-</li>
-</ul>
+<p>In the log aggregation lab we saw that there was an
+error in reference to a <strong>Service Account</strong>.</p>
 </div>
 <div class="paragraph">
-<p>The online interactive learning environment is always available so you
-can continue to work on those exercises even after the workshop is over.</p>
+<p>As OpenShift is a declarative platform, some actions will be performed by the platform and not by the end user (when he or she issues a command). These actions are performed using a <strong>Service Account</strong> which is a special type of <code>user</code> that the platform will use internally.</p>
 </div>
 <div class="paragraph">
-<p>Below you will find further resources for learning about OpenShift and
-running OpenShift on your own computer, as well as details about OpenShift
-Online or other OpenShift related products and services.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://docs.openshift.com">OpenShift Documentation</a></strong> - The landing page for OpenShift documentation.</p>
-</li>
-<li>
-<p><strong><a href="https://developers.redhat.com/openshift/">OpenShift Resources on developers.redhat.com</a></strong> - A collection of resources for developers who are building and deploying applications on OpenShift.</p>
-</li>
-<li>
-<p><strong><a href="https://developers.redhat.com/products/codeready-containers/overview">CodeReady Containers</a></strong> - A tool which can
-be used to install a local OpenShift cluster on your own computer, running
-in a virtual machine.</p>
-</li>
-<li>
-<p><strong><a href="https://www.openshift.com/dedicated">OpenShift Dedicated</a></strong> - A
-dedicated hosting environment for running your applications, managed and
-supported for you by Red Hat.</p>
-</li>
-<li>
-<p><strong><a href="https://www.openshift.com/">OpenShift Container Platform</a></strong> - The Red
-Hat supported OpenShift product for installation on premise or in hosted
-cloud environments.</p>
-</li>
-<li>
-<p><strong><a href="https://commons.openshift.org">OpenShift Commons</a></strong> - A community for users, partners, customers, and contributors to come together to collaborate and work together on OpenShift.</p>
-</li>
-</ul>
+<p>OpenShift automatically creates a few special service accounts in every project.
+The <strong>default</strong> service account is the one taking the responsibility of running the pods, and OpenShift uses and injects this service account into
+every pod that is launched. By changing the permissions for that service
+account, we can do interesting things.</p>
 </div>
 <div class="paragraph">
-<p>The following free online eBooks are also available for download related to
-OpenShift.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://www.openshift.com/for-developers/">OpenShift
-for Developers</a></strong></p>
-</li>
-</ul>
+<p>You can view current permissions in the web console, go to the Topology view in the Developer Perspective, click the <code>parksmap</code> entry, go to the <strong>Details</strong> tab, and then click the <strong>Namespace</strong>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/further-resources-openshift-for-developers.png" alt="OpenShift for Developers">
+<img src="_images/parksmap-permissions-namespace.png" alt="Namespace">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://developers.redhat.com/books/openshift-developers-guide-impatient-beginners/old">DevOps with OpenShift</a></strong></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Then, select <strong>Role Bindings</strong> tab and filter by <strong>Namespace Role Binding</strong> so see all permissions for selected project.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/further-resources-devops-with-openshift.png" alt="DevOps with OpenShift">
+<img src="_images/parksmap-permissions-membership.png" alt="Membership">
 </div>
 </div>
-<div class="ulist">
+</div>
+</div>
+<div class="sect1">
+<h2 id="grant_serviceaccount_view_permissions"><a class="anchor" href="#grant_serviceaccount_view_permissions"></a>Exercise: Grant Service Account View Permissions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The parksmap application wants to talk to the OpenShift API to learn about other
+<strong>Pods</strong>, <strong>Services</strong>, and resources within the <strong>Project</strong>. You&#8217;ll soon learn why!</p>
+</div>
+<div class="paragraph">
+<p>The parksmap application runs as a <strong>Service Account</strong> in our project on the cluster: namely the <code>default</code> <strong>Service Account</strong>.  It is to this <strong>Service Account</strong> that we can grant the necessary `view``access that will allow it to query the API to see what resources are within the <strong>Project</strong>. This also has the added benefit of addressing the cause of the error message we witnessed previously in the logs.</p>
+</div>
+<div class="paragraph">
+<p>Choose an approach represented by the following tabs to update the <code>default</code> <strong>Service Account</strong> in the <code>%PROJECT%</code> project</p>
+</div>
+<div class="tabset is-loading">
+<div class="ulist tabs">
 <ul>
 <li>
-<p><strong><a href="https://developers.redhat.com/books/deploying-openshift/old">Deploying with OpenShift</a></strong></p>
+<p><a id="tabset1_openshift-console"></a>OpenShift Console</p>
+</li>
+<li>
+<p><a id="tabset1_code-oc-code-command-line"></a><code>oc</code> Command Line</p>
 </li>
 </ul>
 </div>
+<div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_openshift-console">
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>From the <strong>Workloads &#8594; Deployments</strong> page, click on the <strong>Namespace</strong>, then <strong>Role Bindings</strong> and then the <strong>Create Binding</strong> button.</p>
 <div class="imageblock">
 <div class="content">
-<img src="_images/further-resources-deploying-to-openshift.png" alt="Deploying to OpenShift">
+<img src="_images/parksmap-permissions-membership-serviceaccount-list.png" alt="Service account list">
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="pacman-nodejs-pipeline-codechanges-github.html">Webhooks with Pipelines</a></span>
-  <span class="next"><a href="common-workshop-links.html">Workshop Links</a></span>
-</nav>
+</li>
+<li>
+<p>Select <strong>view</strong> for the Role Binding Name <strong>%PROJECT%</strong> for the Namespace, <strong>view</strong> for the Role Name, <strong>Service Account</strong> for the Subject, <strong>%PROJECT%</strong> for the Subject Namespace, and <strong>default</strong> for the Subject Name.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/parksmap-permissions-membership-serviceaccount-edit.png" alt="Service account edit">
+</div>
+</div>
+</li>
+<li>
+<p>Once you&#8217;re finished editing permissions, click on the <strong>Create</strong> button.  You should then be able to see it on the <code>Role Bindings</code> list for the <code>%PROJECT%</code> project`</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/parksmap-permissions-membership-serviceaccount-done.png" alt="Service account changed">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="tab-pane" aria-labelledby="tabset1_code-oc-code-command-line">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc project %PROJECT%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then use the <code>oc policy add-role-to-user</code> command to give the predefined <code>view</code> <em>role</em> to the user:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc policy add-role-to-user view -z default</code></pre>
+</div>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="title">What does the <code>-z</code> flag do?</div>
+<div class="paragraph">
+<p>From the <code>-h</code> output on <code>oc policy</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">-z, --serviceaccount=[]: service account in the current namespace to use as a user</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>-z</code> syntax is a special one that saves us from having to type out the
+entire string, which, in this case, is
+<code>system:serviceaccount:%PROJECT%:default</code>. It&#8217;s a nifty shortcut.</p>
+</div>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>-z</code> flag will only work for service accounts in the <strong>current</strong> project.  If you&#8217;re referring to a service account in a different project, use the `-n &lt;project&gt;`switch.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="redeploy_application"><a class="anchor" href="#redeploy_application"></a>Exercise: Redeploy Application</h2>
+<div class="sectionbody">
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc rollout restart deployment/parksmap</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A new deployment is immediately started. Return to Topology view and click the <code>parksmap</code> entry again to watch it happen. You might not be fast enough! But it will be reflected in the <strong>ReplicaSet</strong> number.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/parksmap-permissions-redeployed.png" alt="Application deployed">
+</div>
+</div>
+<div class="paragraph">
+<p>If you look at the logs for the application now, you should see no errors.  That&#8217;s great.</p>
+</div>
+</div>
+</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>

@@ -3,10 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Further Resources :: Pacman using RHODA</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/common-further-resources.html">
-    <link rel="prev" href="pacman-nodejs-pipeline-codechanges-github.html">
-    <link rel="next" href="common-workshop-links.html">
+    <title>Scaling Apps :: Pacman using RHODA</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-scaling.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -255,7 +253,7 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <a class="nav-link" href="common-further-resources.html">Further Resources</a>
   </li>
   <li class="nav-item" data-depth="1">
@@ -291,118 +289,303 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="common-further-resources.html">Further Resources</a></li>
+    <li><a href="pacman-scaling.html">Scaling Apps</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/common-further-resources.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-scaling.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Further Resources</h1>
+<h1 class="page">Scaling Apps</h1>
+<div class="sect1">
+<h2 id="deployments_and_replication_controllers"><a class="anchor" href="#deployments_and_replication_controllers"></a>Background: Deployments and ReplicaSets</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>The exercises in this workshop have shown you how OpenShift can be used not only for deploying
-stateless web applications, but also be able to connect to managed database services in the cloud.</p>
-</div>
-<div class="paragraph">
-<p>This flexibility makes OpenShift an ideal platform for deploying both web
-applications and databases.</p>
-</div>
-<div class="paragraph">
-<p>If you have finished this workshop early and want to experiment some more,
-we have additional exercises you can try out using our online interactive
-learning environment.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://learn.openshift.com/">OpenShift Interactive Learning
-Portal</a></strong> - An online interactive learning environment where you can run
-through various scenarios related to using OpenShift.</p>
-</li>
-</ul>
+<p>While <strong>Services</strong> provide routing and load balancing for <strong>Pods</strong>, which may go in and
+out of existence, <strong>ReplicaSet</strong> (RS) and <strong>ReplicationController</strong> (RC) are used to specify and then
+ensure the desired number of <strong>Pods</strong> (replicas) are in existence. For example, if
+you always want your application server to be scaled to 3 <strong>Pods</strong> (instances), a
+<strong>ReplicaSet</strong> is needed. Without an RS, any <strong>Pods</strong> that are killed or
+somehow die/exit are not automatically restarted. <strong>ReplicaSets</strong> and <strong>ReplicationController</strong> are how OpenShift "self heals" and while <strong>Deployments</strong> control <strong>ReplicaSets</strong>, <strong>ReplicationController</strong> here are controlled by <strong>DeploymentConfigs</strong>.</p>
 </div>
 <div class="paragraph">
-<p>The online interactive learning environment is always available so you
-can continue to work on those exercises even after the workshop is over.</p>
+<p>From the <a href="https://docs.openshift.com/container-platform/4.9/applications/deployments/what-deployments-are.html">deployments documentation</a>:</p>
+</div>
+<div class="quoteblock">
+<blockquote>
+<em>
+Similar to a replication controller, a ReplicaSet is a native Kubernetes API object that ensures a specified number of pod replicas are running at any given time. The difference between a replica set and a replication controller is that a replica set supports set-based selector requirements whereas a replication controller only supports equality-based selector requirements.
+</em>
+</blockquote>
 </div>
 <div class="paragraph">
-<p>Below you will find further resources for learning about OpenShift and
-running OpenShift on your own computer, as well as details about OpenShift
-Online or other OpenShift related products and services.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://docs.openshift.com">OpenShift Documentation</a></strong> - The landing page for OpenShift documentation.</p>
-</li>
-<li>
-<p><strong><a href="https://developers.redhat.com/openshift/">OpenShift Resources on developers.redhat.com</a></strong> - A collection of resources for developers who are building and deploying applications on OpenShift.</p>
-</li>
-<li>
-<p><strong><a href="https://developers.redhat.com/products/codeready-containers/overview">CodeReady Containers</a></strong> - A tool which can
-be used to install a local OpenShift cluster on your own computer, running
-in a virtual machine.</p>
-</li>
-<li>
-<p><strong><a href="https://www.openshift.com/dedicated">OpenShift Dedicated</a></strong> - A
-dedicated hosting environment for running your applications, managed and
-supported for you by Red Hat.</p>
-</li>
-<li>
-<p><strong><a href="https://www.openshift.com/">OpenShift Container Platform</a></strong> - The Red
-Hat supported OpenShift product for installation on premise or in hosted
-cloud environments.</p>
-</li>
-<li>
-<p><strong><a href="https://commons.openshift.org">OpenShift Commons</a></strong> - A community for users, partners, customers, and contributors to come together to collaborate and work together on OpenShift.</p>
-</li>
-</ul>
+<p>In Kubernetes, a <strong>Deployment</strong> (D) defines how something should be deployed. In almost all cases, you will end up using the <strong>Pod</strong>, <strong>Service</strong>,
+<strong>ReplicaSet</strong> and <strong>Deployment</strong> resources together. And, in
+almost all of those cases, OpenShift will create all of them for you.</p>
 </div>
 <div class="paragraph">
-<p>The following free online eBooks are also available for download related to
-OpenShift.</p>
+<p>There are some edge cases where you might want some <strong>Pods</strong> and an <strong>RS</strong> without a <strong>D</strong>
+or a <strong>Service</strong>, and others, so feel free to ask us about them after the labs.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://www.openshift.com/for-developers/">OpenShift
-for Developers</a></strong></p>
-</li>
-</ul>
+</div>
+</div>
+<div class="sect1">
+<h2 id="exploring_deployment_related_objects"><a class="anchor" href="#exploring_deployment_related_objects"></a>Exercise: Exploring Deployment-related Objects</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Now that we know the background of what a <strong>ReplicaSet</strong> and
+<strong>Deployment</strong> are, we can explore how they work and are related. Take a
+look at the <strong>Deployment</strong> (D) that was created for you when you told
+OpenShift to stand up the <code>parksmap</code> image:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get deployment</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME       READY   UP-TO-DATE   AVAILABLE   AGE
+parksmap   1/1     1            1           20m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To get more details, we can look into the <strong>ReplicaSet</strong> (<strong>RS</strong>).</p>
+</div>
+<div class="paragraph">
+<p>Take a look at the <strong>ReplicaSet</strong> (RS) that was created for you when
+you told OpenShift to stand up the <code>parksmap</code> image:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get rs</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                  DESIRED   CURRENT   READY   AGE
+parksmap-65c4f8b676   1         1         1       21m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This lets us know that, right now, we expect one <strong>Pod</strong> to be deployed
+(<code>Desired</code>), and we have one <strong>Pod</strong> actually deployed (<code>Current</code>). By changing
+the desired number, we can tell OpenShift that we want more or less <strong>Pods</strong>.</p>
+</div>
+<div class="paragraph">
+<p>OpenShift&#8217;s <strong>HorizontalPodAutoscaler</strong> effectively monitors the CPU usage of a
+set of instances and then manipulates the RCs accordingly.</p>
+</div>
+<div class="paragraph">
+<p>You can learn more about the CPU-based
+<a href="https://docs.openshift.com/container-platform/4.9/nodes/pods/nodes-pods-autoscaling.html#nodes-pods-autoscaling-about_nodes-pods-autoscaling">Horizontal Pod Autoscaler here</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scaling_the_application"><a class="anchor" href="#scaling_the_application"></a>Exercise: Scaling the Application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Let&#8217;s scale our parksmap "application" up to 2 instances. We can do this with
+the <code>scale</code> command. You could also do this by incrementing the Desired Count in the OpenShift web console. Pick one of these methods; it&#8217;s your choice.</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc scale --replicas=2 deployment/parksmap</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also scale up to two pods in the <strong>Developer Perspective</strong>. From the Topology view, first click the <code>parksmap</code> deployment config and select the <strong>Details</strong> tab:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/further-resources-openshift-for-developers.png" alt="OpenShift for Developers">
+<img src="_images/parksmap-details.png" alt="Details">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://developers.redhat.com/books/openshift-developers-guide-impatient-beginners/old">DevOps with OpenShift</a></strong></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Next, click the <strong>^</strong> icon next to the Pod visualization to scale up to 2 pods.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/further-resources-devops-with-openshift.png" alt="DevOps with OpenShift">
+<img src="_images/parksmap-scaleup.png" alt="Scaling Up">
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><a href="https://developers.redhat.com/books/deploying-openshift/old">Deploying with OpenShift</a></strong></p>
-</li>
-</ul>
+<div class="paragraph">
+<p>To verify that we changed the number of replicas, issue the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get rs</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                  DESIRED   CURRENT   READY   AGE
+parksmap-65c4f8b676   2         2         2       23m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can see that we now have 2 replicas. Let&#8217;s verify the number of pods with
+the <code>oc get pods</code> command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get pods</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                        READY   STATUS    RESTARTS   AGE
+parksmap-65c4f8b676-fxcrq   1/1     Running   0          92s
+parksmap-65c4f8b676-k5gkk   1/1     Running   0          24m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And lastly, let&#8217;s verify that the <strong>Service</strong> that we learned about in the
+previous lab accurately reflects two endpoints:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc describe svc parksmap</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will see something like the following output:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">Name:              parksmap
+Namespace:         user1
+Labels:            app=workshop
+                   app.kubernetes.io/component=parksmap
+                   app.kubernetes.io/instance=parksmap
+                   app.kubernetes.io/part-of=workshop
+                   component=parksmap
+                   role=frontend
+Annotations:       openshift.io/generated-by: OpenShiftWebConsole
+Selector:          app=parksmap,deploymentconfig=parksmap
+Type:              ClusterIP
+IP:                172.30.22.209
+Port:              8080-tcp  8080/TCP
+TargetPort:        8080/TCP
+Endpoints:         10.128.2.90:8080,10.131.0.40:8080
+Session Affinity:  None
+Events:            &lt;none&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Another way to look at a <strong>Service</strong>'s endpoints is with the following:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get endpoints parksmap</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And you will see something like the following:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME       ENDPOINTS                           AGE
+parksmap   10.128.2.90:8080,10.131.0.40:8080   45m</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Your IP addresses will likely be different, as each pod receives a unique IP
+within the OpenShift environment. The endpoint list is a quick way to see how
+many pods are behind a service.</p>
+</div>
+<div class="paragraph">
+<p>You can also see that both <strong>Pods</strong> are running in the Developer Perspective:</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/further-resources-deploying-to-openshift.png" alt="Deploying to OpenShift">
+<img src="_images/parksmap-scaled.png" alt="Scaled">
 </div>
 </div>
-<nav class="pagination">
-  <span class="prev"><a href="pacman-nodejs-pipeline-codechanges-github.html">Webhooks with Pipelines</a></span>
-  <span class="next"><a href="common-workshop-links.html">Workshop Links</a></span>
-</nav>
+<div class="paragraph">
+<p>Overall, that&#8217;s how simple it is to scale an application (<strong>Pods</strong> in a
+<strong>Service</strong>). Application scaling can happen extremely quickly because OpenShift
+is just launching new instances of an existing image, especially if that image
+is already cached on the node.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="application_self_healing"><a class="anchor" href="#application_self_healing"></a>Application "Self Healing"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Because OpenShift&#8217;s <strong>RSs</strong> are constantly monitoring to see that the desired number
+of <strong>Pods</strong> actually are running, you might also expect that OpenShift will "fix" the
+situation if it is ever not right. You would be correct!</p>
+</div>
+<div class="paragraph">
+<p>Since we have two <strong>Pods</strong> running right now, let&#8217;s see what happens if we
+"accidentally" kill one. Run the <code>oc get pods</code> command again, and choose a <strong>Pod</strong>
+name. Then, do the following:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc delete pod parksmap-65c4f8b676-k5gkk &amp;&amp; oc get pods</code></pre>
+</div>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">pod "parksmap-65c4f8b676-k5gkk" deleted
+NAME                        READY   STATUS    RESTARTS   AGE
+parksmap-65c4f8b676-bjz5g   1/1     Running   0          13s
+parksmap-65c4f8b676-fxcrq   1/1     Running   0          4m48s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Did you notice anything? One container has been deleted, and there&#8217;s a new container already being created.</p>
+</div>
+<div class="paragraph">
+<p>Also, the names of the <strong>Pods</strong> are slightly changed.
+That&#8217;s because OpenShift almost immediately detected that the current state (1
+<strong>Pod</strong>) didn&#8217;t match the desired state (2 <strong>Pods</strong>), and it fixed it by scheduling
+another <strong>Pod</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Additionally, OpenShift provides rudimentary capabilities around checking the
+liveness and/or readiness of application instances. If the basic checks are
+insufficient, OpenShift also allows you to run a command inside the container in
+order to perform the check. That command could be a complicated script that uses
+any installed language.</p>
+</div>
+<div class="paragraph">
+<p>Based on these health checks, if OpenShift decided that our <code>parksmap</code>
+application instance wasn&#8217;t alive, it would kill the instance and then restart
+it, always ensuring that the desired number of replicas was in place.</p>
+</div>
+<div class="paragraph">
+<p>More information on probing applications is available in the
+<a href="https://docs.openshift.com/container-platform/4.9/applications/application-health.html">Application
+Health</a> section of the documentation and later in this guide.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="scale_down"><a class="anchor" href="#scale_down"></a>Exercise: Scale Down</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before we continue, go ahead and scale your application down to a single
+instance. Feel free to do this using whatever method you like.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Don&#8217;t forget to scale down back to 1 instance your <code>parksmap</code> component as otherwise you might experience some weird behavior in later labs. This is due to how the application has been coded and not to OpenShift itself.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
