@@ -1,13 +1,13 @@
-= Connecting to a Managed Database
+= Connecting Pacman to MongoDB Atlas Cloud Database Instance
 :navtitle: Connecting to MongoDB Atlas Cloud Database
 
 In this section we will deploy and connect to a MongoDB Atlas Cloud Database where the
 `pacman` application will store information such as high scores and user stats.
 
-image::rhoda-arch.png[RHODA Architecture]
+//image::rhoda-arch.png[RHODA Architecture]
 
 [#prereq_rhoda]
-== Prerequisites: Things to be in place already before configuring MongoDB Atlas
+== Prerequisites
 
 * A Red Hat user account to access the link:https://console.redhat.com/[Red Hat Hybrid Cloud Console].
 * An instance of OpenShift Container Platform (OCP) 4.9 or higher running on Red Hat OpenShift Dedicated (OSD), or Red Hat OpenShift Service on AWS (ROSA).
@@ -26,22 +26,6 @@ In order to run the lab in your cluster, you need to meet the requirements discu
 | `{openshift-version}`
 |===
 
-In the Developer Perspective, click add and select connect database from the list of available options on each cluster.
-
-image::rhoda22.png[Application architecture,800,align="center"]
-
-Once above step is performed, you would be able to see as shown below in developer perspective
-
-image::rhoda33.png[Application architecture,800,align="center"]
-
-Finally, to connect application to the database, we need to create a service binding by doing a drag and drop from the application to the connected database which will prompt a message as shown below
-
-image::rhoda44.png[Application architecture,800,align="center"]
-
-After successfully creating the service binding application will be connected to the database
-
-image::rhoda55.png[Application architecture,800,align="center"]
-
 [#access_mongodb]
 == Exercise : Accessing the database access menu for configuring and monitoring
 
@@ -58,11 +42,11 @@ Visit the MongoDB Atlas link:https://docs.atlas.mongodb.com/security/ip-access-l
 
 * A service account with either the link:https://www.mongodb.com/atlas/database[MongoDB Atlas], or link:https://www.crunchydata.com[Crunchy Data Bridge], or link:https://www.cockroachlabs.com[CockroachDB] cloud database provider.
 
-.Procedure
+* Procedure
 
-. Log into the OpenShift console.
+* Log into the OpenShift console.
 
-. To select the correct project namespace follow these sub-steps.
+* To select the correct project namespace follow these sub-steps.
 +
 image::rhoda_admin_entry_point_single_page_all_steps.png[Single page screenshot of the administrator's entry point]
 
@@ -72,11 +56,11 @@ image::rhoda_admin_entry_point_single_page_all_steps.png[Single page screenshot 
 +
 NOTE: You might need to scroll down the navigation menu.
 
-.. Click the **Project** dropdown menu and then enable the **Show default projects** switch image:3rd_Callout_Bullet.png[Third callout].
+* Click the **Project** dropdown menu and then enable the **Show default projects** switch image:3rd_Callout_Bullet.png[Third callout].
 
-.. Type **dbaas** in the search field.
+* Type **dbaas** in the search field.
 
-.. Select **redhat-dbaas-operator** or **openshift-dbaas-operator** project namespace image:4th_Callout_Bullet.png[Fourth callout].
+* Select **redhat-dbaas-operator** or **openshift-dbaas-operator** project namespace image:4th_Callout_Bullet.png[Fourth callout].
 +
 From the database inventory page you can monitor the database environment, import cloud-hosted database provider accounts, or create new database instances.
 +
@@ -96,15 +80,15 @@ Visit the MongoDB Atlas link:https://docs.atlas.mongodb.com/security/ip-access-l
 
 .Procedure
 
-. From the MongoDB Atlas link:https://www.mongodb.com/[home page], **Sign In** to your account.
+* From the MongoDB Atlas link:https://www.mongodb.com/[home page], **Sign In** to your account.
 
-. From your account home page:
+* From your account home page:
 +
 image::mongodb_first_single_screen_all_step.png[Single screenshot for finding your Organization ID value]
 
-.. Select **Organization** from the dropdown menu image:1st_Callout_Bullet.png[First callout].
+* Select **Organization** from the dropdown menu image:1st_Callout_Bullet.png[First callout].
 
-.. Click **Settings** from the Organization navigation menu image:2nd_Callout_Bullet.png[Second callout].
+* Click **Settings** from the Organization navigation menu image:2nd_Callout_Bullet.png[Second callout].
 
 .. Copy the Organization ID value image:3rd_Callout_Bullet.png[Third callout].
 +
@@ -114,25 +98,75 @@ NOTE: In some cases your organization ID may be hidden by default.
 +
 image::mongodb_second_single_screen_all_step.png[Single screenshot for finding your API keys]
 
-.. Click **Access Manager** from the **Organization** navigation menu image:1st_Callout_Bullet.png[First callout].
+* Click **Access Manager** from the **Organization** navigation menu image:1st_Callout_Bullet.png[First callout].
 
-.. Click **API Keys** image:2nd_Callout_Bullet.png[Second callout].
+* Click **API Keys** image:2nd_Callout_Bullet.png[Second callout].
 
 .. If you have existing API keys, you can find them listed here.
 Copy the API public and private keys for the import provider account fields.
 Also, verify that your API keys have the **Organization Owner** and **Organization Member** permissions image:3rd_Callout_Bullet.png[Third callout] image:4th_Callout_Bullet.png[Fourth callout].
 
-. If you need new API keys, click **Create API Key**, and proceed to the next step.
+* If you need new API keys, click **Create API Key**, and proceed to the next step.
+
 +
-//image::rhoda_mongodb_create_api_key_button.png[Create API Key button]
+image::rhoda_mongodb_create_api_key_button.png[Create API Key button]
 
 . On the **Create API Key** page, enter a **Description**, and under the **Organization Permissions** dropdown box select the **Organization Owner** and **Organization Member** permissions.
 Click **Next**.
 +
-//image::rhoda_mongodb_create_api_dialog_permissions.png[Create API Key permissions]
+image::rhoda_mongodb_create_api_dialog_permissions.png[Create API Key permissions]
 
-. Copy the API public and private keys for the import provider account fields.
+* Copy the API public and private keys for the import provider account fields.
 
+
+[#dev_add_db]
+== Exercise: Exercise: Accessing the developer workspace and adding a database instance
+
+* Log into the OpenShift console.
+
+* Access the developer workspace, and select or create your project, then select a cloud-hosted database provider to add to your project:
+
++
+image::rhoda_dev_entry_point_single_page_all_steps.png[Single page screenshot of the developer's entry point]
+
+* Select the **Developer** perspective image:1st_Callout_Bullet.png[First callout].
+
+* Click **+Add** image:2nd_Callout_Bullet.png[Second callout].
+
+* Click the **Project** dropdown menu image:3rd_Callout_Bullet.png[Third callout].
+
+* Create a new project or search for your application’s project image:4th_Callout_Bullet.png[Fourth callout].
+
+* Select the **Cloud-Hosted Databases** tile to connect to a cloud-database provider image:5th_Callout_Bullet.png[Fifth callout].
+
+* Select your cloud-hosted database provider tile.
+
+* Click **Add to Topology**.
+
+* Select a previously configured **Provider Account** for this database instance from the dropdown menu.
+
+* Select the database instance ID you want to use, and then click **Add to Topology**.
+
+* Click **Continue**.
+Upon a successful connection, you are taken to the xref:connecting-an-application-to-a-database-instance-using-the-topology-view[**Topology**] page.
+
+* In the Developer Perspective, click add and select connect database from the list of available options on each cluster.
+
+image::rhoda22.png[Application architecture,800,align="center"]
+
+* Once above step is performed, you would be able to see as shown below in developer perspective
+
+image::rhoda33.png[Application architecture,800,align="center"]
+
+* Finally, to connect application to the database, we need to create a service binding by doing a drag and drop from the application to the connected database which will prompt a message as shown below
+
+image::rhoda44.png[Application architecture,800,align="center"]
+
+* After successfully creating the service binding application will be connected to the database
+
+image::rhoda55.png[Application architecture,800,align="center"]
+
+////
 [#dev_add_db]
 == Exercise: Accessing the developer workspace and adding a database instance
 
@@ -145,34 +179,9 @@ You can access the developer workspace in the OpenShift console to manage connec
 
 .Procedure
 
-. Log into the OpenShift console.
+////
 
-. Access the developer workspace, and select or create your project, then select a cloud-hosted database provider to add to your project:
-+
-image::rhoda_dev_entry_point_single_page_all_steps.png[Single page screenshot of the developer's entry point]
-
-.. Select the **Developer** perspective image:1st_Callout_Bullet.png[First callout].
-
-.. Click **+Add** image:2nd_Callout_Bullet.png[Second callout].
-
-.. Click the **Project** dropdown menu image:3rd_Callout_Bullet.png[Third callout].
-
-.. Create a new project or search for your application’s project image:4th_Callout_Bullet.png[Fourth callout].
-
-.. Select the **Cloud-Hosted Databases** tile to connect to a cloud-database provider image:5th_Callout_Bullet.png[Fifth callout].
-
-. Select your cloud-hosted database provider tile.
-
-. Click **Add to Topology**.
-
-. Select a previously configured **Provider Account** for this database instance from the dropdown menu.
-
-. Select the database instance ID you want to use, and then click **Add to Topology**.
-
-. Click **Continue**.
-Upon a successful connection, you are taken to the xref:connecting-an-application-to-a-database-instance-using-the-topology-view[**Topology**] page.
-
-
+////
 [#explore_rhoda_magic]
 == Exercise: Navigate through Data Services Console
 You can access the Red Hat OpenShift Database Access page from the OpenShift console navigation menu to select the correct project namespace for importing a cloud-database provider account.
@@ -211,29 +220,11 @@ NOTE: You might need to scroll down the navigation menu.
 From the database inventory page you can monitor the database environment, import cloud-hosted database provider accounts, or create new database instances.
 +
 image::rhoda_admin_entry_point_inventory_page.png[Database inventory landing page]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+////
 
 [#play_pacman]
 == Exercise: Play Pacman and save your high scores
 
-Pacman URL : https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/
+To play Pacman, please click on the URL : https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/
 
 image::pacman.png[Pacman Game,800,align="center"]
