@@ -113,7 +113,7 @@
     <a class="nav-link" href="projects.html">Projects</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="projects.html#create_your_first_project">Create your First Project</a>
+    <a class="nav-link" href="projects.html#create_pacman_project">Create Pacman Project</a>
   </li>
 </ul>
   </li>
@@ -640,7 +640,88 @@ Upon a successful connection, you are taken to the <a href="#connecting-an-appli
 <div class="sect1">
 <h2 id="explore_rhoda_magic"><a class="anchor" href="#explore_rhoda_magic"></a>Exercise: Navigate through Data Services Console</h2>
 <div class="sectionbody">
-
+<div class="paragraph">
+<p>You can access the Red Hat OpenShift Database Access page from the OpenShift console navigation menu to select the correct project namespace for importing a cloud-database provider account.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If using MongoDB Atlas as a cloud-database provider, then you must add the IP address of the application pod to MongoDB Atlas' <strong>IP Access List</strong>.
+If the IP address is not in the <strong>IP Access List</strong>, then a <code>504 gateway timeout error</code> occurs.
+Visit the MongoDB Atlas <a href="https://docs.atlas.mongodb.com/security/ip-access-list/">website</a> for more details on adding an IP address to your database project.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A service account with either the <a href="https://www.mongodb.com/atlas/database">MongoDB Atlas</a>, or <a href="https://www.crunchydata.com">Crunchy Data Bridge</a>, or <a href="https://www.cockroachlabs.com">CockroachDB</a> cloud database provider.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>Log into the OpenShift console.</p>
+</li>
+<li>
+<p>To select the correct project namespace follow these sub-steps.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_admin_entry_point_single_page_all_steps.png" alt="Single page screenshot of the administrator&#8217;s entry point">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select the <strong>Administrator</strong> perspective <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Expand the <strong>Data Services</strong> navigation menu, and click <strong>Database Access</strong> <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You might need to scroll down the navigation menu.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Click the <strong>Project</strong> dropdown menu and then enable the <strong>Show default projects</strong> switch <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span>.</p>
+</li>
+<li>
+<p>Type <strong>dbaas</strong> in the search field.</p>
+</li>
+<li>
+<p>Select <strong>redhat-dbaas-operator</strong> or <strong>openshift-dbaas-operator</strong> project namespace <span class="image"><img src="_images/4th_Callout_Bullet.png" alt="Fourth callout"></span>.</p>
+<div class="paragraph">
+<p>From the database inventory page you can monitor the database environment, import cloud-hosted database provider accounts, or create new database instances.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_admin_entry_point_inventory_page.png" alt="Database inventory landing page">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
 </div>
 </div>
 <div class="sect1">
