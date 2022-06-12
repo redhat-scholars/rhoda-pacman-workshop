@@ -13,3 +13,5 @@ In order to run the lab in your cluster, you need to meet the requirements discu
 | https://access.redhat.com/articles/6365391[RHODA]
 | `{rhoda-version}`
 |===
+
+In the next session, you would be able to go through the steps that are needed to install RHODA on OpenShift Clusters.

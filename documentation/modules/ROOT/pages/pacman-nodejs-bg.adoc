@@ -1,5 +1,5 @@
-= Storage & DBaaS
-:navtitle: Key considerations for Red Hat OpenShift Database Access
+= Before we begin
+:navtitle: Motivation for Red Hat OpenShift Database Access
 
 Database is one of the key building blocks for a variety of applications. At the moment most openshift customers run their databases on the same cluster, manage it themselves and provide access to developers. Database as a service makes this much simpler, allowing databases to run at a central location managed by database administrators allowing business to focus on their applications.
 
