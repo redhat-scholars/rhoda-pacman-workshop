@@ -12,8 +12,8 @@ During this lab, we are going to use a few different commands to make sure that
 things in the environment are working as expected.  Don't worry if you don't
 understand all of the terminology as we will cover it in detail in later labs.
 
-[#create_your_first_project]
-== Create your first Project
+[#create_pacman_project]
+== Create Pacman Project
 
 NOTE: If you are using link:https://developers.redhat.com/developer-sandbox[Developer Sandbox for OpenShift], a project has been already created for you and you can *skip* this chapter.
 

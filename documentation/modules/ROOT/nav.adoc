@@ -14,7 +14,7 @@
 **** xref:common-explore.adoc#working_with_proxies[Working with proxies]
 * xref:prerequisites.adoc[Prerequisites]
 * xref:projects.adoc[Projects]
-** xref:projects#create_your_first_project[Create your First Project]
+** xref:projects#create_pacman_project[Create Pacman Project]
 * xref:common-pacman-architecture.adoc[Pacman Architecture]
 ifdef::lab[]
 * xref:pacman-nodejs.adoc[Pacman App]

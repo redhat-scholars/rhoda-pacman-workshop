@@ -17,9 +17,9 @@ content:
 asciidoc:
   attributes:
     experimental: true
-    parksmap-version: latest
-    parksmap-image: quay.io/openshiftroadshow/parksmap
-    openshift-docs-url: https://docs.openshift.com/container-platform/4.9
+    pacman-version: latest
+    pacman-image: quay.io/openshiftroadshow/parksmap
+    openshift-docs-url: https://docs.openshift.com/container-platform/4.10
     openshift-version: 4.10
     project-namespace: workshop
     release-version: rosa
