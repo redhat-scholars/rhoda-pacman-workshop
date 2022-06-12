@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Parksmap App :: Pacman using RHODA</title>
+    <title>Pacman App :: Pacman using RHODA</title>
     <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-container-image.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
@@ -53,6 +53,9 @@
     <a class="nav-link" href="common-workshop-summary.html">Workshop</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="pacman-nodejs-bg.html">Storage &amp; DBaaS</a>
 <ul class="nav-list">
@@ -69,9 +72,6 @@
     <a class="nav-link" href="pacman-nodejs-bg.html#bg_sb_lib">Service binding libraries</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -157,9 +157,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pacman-nodejs-databases.html#prereq_rhoda">Prerequisites: Things to be in place already before configuring MongoDB Atlas</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="pacman-nodejs-databases.html#deploy_rhoda">Exercise: Deploy RHODA</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pacman-nodejs-databases.html#access_mongodb">Exercise: Accessing the database access menu for configuring and monitoring</a>
@@ -301,14 +298,14 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="pacman-container-image.html">Parksmap App</a></li>
+    <li><a href="pacman-container-image.html">Pacman App</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/pacman-container-image.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Parksmap App</h1>
+<h1 class="page">Pacman App</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
@@ -346,7 +343,7 @@ With OpenShift it can be done directly from the web console.</p>
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-none hljs">{parksmap-image}:{parksmap-version}</code></pre>
+<pre class="highlightjs highlight"><code class="language-none hljs">quay.io/openshiftroadshow/parksmap:latest</code></pre>
 </div>
 </div>
 <div class="paragraph">

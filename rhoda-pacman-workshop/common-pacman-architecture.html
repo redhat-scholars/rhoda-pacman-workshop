@@ -55,6 +55,9 @@
     <a class="nav-link" href="common-workshop-summary.html">Workshop</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="pacman-nodejs-bg.html">Storage &amp; DBaaS</a>
 <ul class="nav-list">
@@ -71,9 +74,6 @@
     <a class="nav-link" href="pacman-nodejs-bg.html#bg_sb_lib">Service binding libraries</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -159,9 +159,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pacman-nodejs-databases.html#prereq_rhoda">Prerequisites: Things to be in place already before configuring MongoDB Atlas</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="pacman-nodejs-databases.html#deploy_rhoda">Exercise: Deploy RHODA</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pacman-nodejs-databases.html#access_mongodb">Exercise: Accessing the database access menu for configuring and monitoring</a>
@@ -312,7 +309,7 @@
 <article class="doc">
 <h1 class="page">Pacman Architecture</h1>
 <div class="paragraph">
-<p>This lab introduces you to the architecture of the Pacman application used throughout this workshop, to get a better understanding of the things you&#8217;ll be doing from a developer perspective. ParksMap is a polyglot geo-spatial data visualization application built using the microservices architecture and is composed of a set of services which are developed using different programming languages and frameworks.</p>
+<p>This lab introduces you to the architecture of the Pacman application used throughout this workshop, to get a better understanding of the things you&#8217;ll be doing from a developer perspective. Pacman is an application built using the microservices architecture and is composed of a set of services which are developed using different programming languages and frameworks.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
@@ -320,26 +317,10 @@
 </div>
 </div>
 <div class="paragraph">
-<p>The main service is a web application which has a server-side component in charge of aggregating the geo-spatial APIs provided by multiple independent backend services and a client-side component in JavaScript that is responsible for visualizing the geo-spatial data on the map. The client-side component which runs in your browser communicates with the server-side via WebSockets protocol in order to update the map in real-time.</p>
+<p>The main service is a web application which allows you to play the game from a browser. It is connected to the MongoAtlas Database.</p>
 </div>
 <div class="paragraph">
-<p>There will be a set of independent backend services deployed that will provide different mapping and geo-spatial information. The set of available backend services that provide geo-spatial information are:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>WorldWide National Parks</p>
-</li>
-<li>
-<p>Major League Baseball Stadiums in North America</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The original source code for this application is located <a href="https://github.com/openshift-roadshow/">here</a>.</p>
-</div>
-<div class="paragraph">
-<p>The server-side component of the ParksMap web application acts as a communication gateway to all the available backends. These backends will be dynamically discovered by using service discovery mechanisms provided by OpenShift which will be discussed in more details in the following labs.</p>
+<p>The original source code for this application is located <a href="https://github.com/RHODA-lab/pacman.git/">here</a>.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="projects.html">Projects</a></span>

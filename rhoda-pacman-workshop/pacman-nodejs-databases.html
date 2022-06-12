@@ -55,6 +55,9 @@
     <a class="nav-link" href="common-workshop-summary.html">Workshop</a>
   </li>
   <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="pacman-nodejs-bg.html">Storage &amp; DBaaS</a>
 <ul class="nav-list">
@@ -71,9 +74,6 @@
     <a class="nav-link" href="pacman-nodejs-bg.html#bg_sb_lib">Service binding libraries</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
@@ -159,9 +159,6 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#prereq_rhoda">Prerequisites: Things to be in place already before configuring MongoDB Atlas</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#deploy_rhoda">Exercise: Deploy RHODA</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#access_mongodb">Exercise: Accessing the database access menu for configuring and monitoring</a>
@@ -374,130 +371,6 @@
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>In the following modules you will find out other prerequisites when needed.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="deploy_rhoda"><a class="anchor" href="#deploy_rhoda"></a>Exercise: Deploy RHODA</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Normally operators can be deployed from Operator Hub by selecting the Operator from Operator Hub and we can also use Ansible to deploy Operators depending on deployment techniques that are already adopted by the teams.</p>
-</div>
-<div class="paragraph">
-<p>Using CLI
-Install Web Terminal Operator and  and launch terminal from OpenShift Console
-To install Web Terminal, please follow the following instructions : <a href="https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html" class="bare">https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html</a></p>
-</div>
-<div class="paragraph">
-<p>Create the RHODA catalog source by running the following commands.</p>
-</div>
-<div class="paragraph">
-<p>Note: The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo. For Service Preview release we will use RHODA SRE/OSD addon release image repo.</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/rhoda1.png" alt="Application architecture" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Verify that the catalog source is added with the following command</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc get catalogsource dbaas-operator -n openshift-marketplace</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify that dbaas-operator catalog source is in READY state, It might take a few minutes before the catalog source is ready. If the below command does not return READY, wait a few minutes and try to verify the status again. You can also check this by going into openshift-marketplace namespace dbass-operator catalog pod</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc get catalogsource -n openshift-marketplace  dbaas-operator -o jsonpath='{.status.connectionState.lastObservedState} {"\n"}'</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify if required any other details with below command (optional)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc describe packagemanifests dbaas-operator -n openshift-marketplace</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Verify if required any other details with below command (optional)</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc describe packagemanifests dbaas-operator -n openshift-marketplace</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Go to Operator Hub and look for OpenShift Database Access Operator</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/rhoda5.png" alt="Application architecture" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Once Selected the OpenShift Database Access Operator,</p>
-</div>
-<div class="paragraph">
-<p>Navigate in the web console to the Operators → OperatorHub page.
-Type a keyword into the Filter by keyword box OpenShift Database Access Operator.
-Select the OpenShift Database Access Operator  to display additional information.</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/rhoda6.png" alt="Application architecture" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>On the Install Operator page. The RHODA operator is cluster scope and the default installed namespace is openshift-dbaas-operator and use the same default settings.</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/rhoda7.png" alt="Application architecture" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/rhoda8.png" alt="Application architecture" width="800">
-</div>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/rhoda9.png" alt="Application architecture" width="800">
-</div>
-</div>
-<div class="paragraph">
-<p>Verify the installation completion logs</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/rhoda11.png" alt="Application architecture" width="800">
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Repeat Steps above from 1 -7 in the ARO and ROSA Clusters as well to ensure we have RHODA installed on all of the three clusters</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Create a Provider Account depending on the the managed database that the application needs to connect to</pre>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>To create a Provide Account, please refer to the documentation :</pre>
-</div>
-</div>
 <div class="paragraph">
 <p>In the Developer Perspective, click add and select connect database from the list of available options on each cluster.</p>
 </div>
