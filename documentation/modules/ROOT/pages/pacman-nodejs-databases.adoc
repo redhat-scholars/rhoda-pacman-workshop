@@ -181,8 +181,8 @@ You can access the developer workspace in the OpenShift console to manage connec
 
 .Prerequisites
 
-* xref:installing-the-red-hat-openshift-database-access-add-on_{context}[Installation] of the OpenShift Database Access add-on.
-* xref:accessing-the-database-access-menu-for-configuring-and-monitoring_{context}[Import] at least one cloud-database provider account.
+* xref:installing-the-red-hat-openshift-database-access-add-on[Installation] of the OpenShift Database Access add-on.
+* xref:accessing-the-database-access-menu-for-configuring-and-monitoring_[Import] at least one cloud-database provider account.
 
 .Procedure
 
@@ -211,7 +211,7 @@ image::rhoda_dev_entry_point_single_page_all_steps.png[Single page screenshot of
 . Select the database instance ID you want to use, and then click **Add to Topology**.
 
 . Click **Continue**.
-Upon a successful connection, you are taken to the xref:connecting-an-application-to-a-database-instance-using-the-topology-view_{context}[**Topology**] page.
+Upon a successful connection, you are taken to the xref:connecting-an-application-to-a-database-instance-using-the-topology-view[**Topology**] page.
 
 
 [#explore_rhoda_magic]

@@ -22,7 +22,7 @@ achieved.
 
 [#webhooks_with_openshift]
 == Exercise: Webhooks with OpenShift
-In this lab you can use a build webhook to trigger a build execution every time there is a change in your copy of the nationalparks GitHub repository. In the OpenShift web console, navigate to your **%PROJECT%** project, and then click to **Builds**. Click the `nationalparks` BuildConfig and then go to the **Webhooks** section.
+In this lab you can use a build webhook to trigger a build execution every time there is a change in your copy of the pacman GitHub repository. In the OpenShift web console, navigate to your **%PROJECT%** project, and then click to **Builds**. Click the `pacman` BuildConfig and then go to the **Webhooks** section.
 
 On this screen you will see the option to copy the GitHub webhook URL, click to **Copy URL with Secret** as shown in the following image:
 
@@ -30,11 +30,11 @@ image::nationalparks-codechanges-webhook-config.png[Webhook]
 
 
 [#fork_repository_from_github]
-== Exercise: Fork NationalParks repository from GitHub
+== Exercise: Fork pacman repository from GitHub
 
 A link:https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo[fork,window='_blank'] is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.
 
-In this step we will fork the original `nationalparks` repository to apply our changes and automatically trigger the Pipeline through a link:https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/about-webhooks[GitHub Webhook,window='_blank'] that we're going to configure.
+In this step we will fork the original `pacman` repository to apply our changes and automatically trigger the Pipeline through a link:https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/about-webhooks[GitHub Webhook,window='_blank'] that we're going to configure.
 
 Go to link:https://github.com/openshift-roadshow/nationalparks[Nationalparks,window='_blank'] repository. From top-right side, click to *Fork* to start forking it into your account.
 

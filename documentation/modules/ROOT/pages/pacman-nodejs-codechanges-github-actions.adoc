@@ -1,14 +1,14 @@
 = GitHub Actions with OpenShift
 :navtitle: GitHub Actions with OpenShift
 
-OpenShift includes comprehensive features for automation in-cluster as seen in xref:nationalparks-{lab}-codechanges-github.adoc[Webhooks with OpenShift] and as you will see in the next chapter xref:nationalparks-{lab}-pipeline.adoc[Continuous Integration and Pipelines]. In addition to that, it provides great interoperability and integrations for external CI/CD systems such as Jenkins, GitLab, Azure DevOps and *GitHub Actions*.
+OpenShift includes comprehensive features for automation in-cluster as seen in xref:pacman-{lab}-codechanges-github.adoc[Webhooks with OpenShift] and as you will see in the next chapter xref:pacman-{lab}-pipeline.adoc[Continuous Integration and Pipelines]. In addition to that, it provides great interoperability and integrations for external CI/CD systems such as Jenkins, GitLab, Azure DevOps and *GitHub Actions*.
 
 image::openshift-cicd-integrations.png[OpenShift CI/CD Offering]
 
 
 link:https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions#overview[GitHub Actions,window='_blank'] are event-driven automation tasks available for any GitHub repository. An event automatically triggers the workflow, which contains a job. The job then uses steps to control the order in which actions are run. These actions are the commands that automate software build, test and deploy.
 
-In this chapter, you will add a GitHub Action for building the Nationalparks backend container image, and pushing it to the link:https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry[GitHub Container Registry,window='_blank']. Any change to your fork will trigger the container image build and push outside OpenShift this time, and this will be used afterwards to deploy the new container image to OpenShift.
+In this chapter, you will add a GitHub Action for building the pacman backend container image, and pushing it to the link:https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry[GitHub Container Registry,window='_blank']. Any change to your fork will trigger the container image build and push outside OpenShift this time, and this will be used afterwards to deploy the new container image to OpenShift.
 
 [#disable_github_webhook]
 == Disable GitHub Webhook
@@ -16,7 +16,7 @@ In this chapter, you will add a GitHub Action for building the Nationalparks bac
 In the previous chapter we also used Webhooks to trigger the container image build and deploy through the BuildConfig automation.
 At this point, we need to disable or cancel it because we will use GitHub Actions for that.
 
-Come back to your Nationalparks fork page on GitHub. From top-right menu, click *Settings*. Then from result left-side menu, click *Webhook*, then click *Delete* next to your previously created Webhook.
+Come back to your pacman fork page on GitHub. From top-right menu, click *Settings*. Then from result left-side menu, click *Webhook*, then click *Delete* next to your previously created Webhook.
 
 TIP: You can also just disable it, by clicking on *Edit* and then navigate to the bottom of the section to uncheck *Active* box. 
 
@@ -39,7 +39,7 @@ GitHub Actions workflows run into link:https://docs.github.com/en/actions/refere
 
 In this step, you will add a new Environment named `development`.
 
-From your previously forked Nationalparks repository on GitHub, go to the top-right menu, click *Settings*. Then from result left-side menu, click *Environments*, then from right side click *New environment*.
+From your previously forked pacman repository on GitHub, go to the top-right menu, click *Settings*. Then from result left-side menu, click *Environments*, then from right side click *New environment*.
 
 image::nationalparks-codechanges-github-actions-env.png[Environment]
 
@@ -94,9 +94,9 @@ image::nationalparks-codechanges-github-actions-env-secrets.png[Added Environmen
 
 Everything is now ready to start your automation with GitHub Action and OpenShift. GitHub actions workflows and jobs are defined with a YAML file containing all the needed steps.
 
-Review the follow workflow that will be used to trigger build of the Nationalparks backend on GitHub, and then deploy it to OpenShift referencing container image from the already created Deployment `nationalparks`. 
+Review the follow workflow that will be used to trigger build of the pacman backend on GitHub, and then deploy it to OpenShift referencing container image from the already created Deployment `pacman`. 
 
-*Copy* the YAML file to be added in your Nationalparks fork repository on GitHub.
+*Copy* the YAML file to be added in your pacman fork repository on GitHub.
 
 
 [source,yaml,role="copypaste"]
@@ -107,7 +107,7 @@ env: <2>
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ github.token }}
-  APP_NAME: nationalparks
+  APP_NAME: pacman
   IMAGE_TAGS: latest ${{ github.sha }}
   
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
