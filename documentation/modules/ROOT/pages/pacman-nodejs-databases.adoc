@@ -4,8 +4,6 @@
 In this section we will deploy and connect to a MongoDB Atlas Cloud Database where the
 `pacman` application will store information such as high scores and user stats.
 
-//image::rhoda-arch.png[RHODA Architecture]
-
 [#prereq_rhoda]
 == Prerequisites
 
@@ -118,6 +116,9 @@ image::rhoda_mongodb_create_api_dialog_permissions.png[Create API Key permission
 
 * Copy the API public and private keys for the import provider account fields.
 
+**View Provider Accounter in the Console **
+
+image::provideracct.png[Provider Account]
 
 [#dev_add_db]
 == Exercise: Exercise: Accessing the developer workspace and adding a database instance
@@ -165,6 +166,13 @@ image::rhoda44.png[Application architecture,800,align="center"]
 * After successfully creating the service binding application will be connected to the database
 
 image::rhoda55.png[Application architecture,800,align="center"]
+
+[#play_pacman]
+== Exercise: Play Pacman and save your high scores
+
+To play Pacman, please click on the URL : https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/
+
+image::pacman.png[Pacman Game,800,align="center"]
 
 ////
 [#dev_add_db]
@@ -221,10 +229,3 @@ From the database inventory page you can monitor the database environment, impor
 +
 image::rhoda_admin_entry_point_inventory_page.png[Database inventory landing page]
 ////
-
-[#play_pacman]
-== Exercise: Play Pacman and save your high scores
-
-To play Pacman, please click on the URL : https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/
-
-image::pacman.png[Pacman Game,800,align="center"]

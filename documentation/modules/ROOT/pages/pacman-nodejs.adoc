@@ -115,18 +115,18 @@ TIP: You could also use Dockerfile, the repo contains a multi-stage Dockerfile. 
 
 Verify that *Java* has been selected as your Builder Image, and be sure to select version *openjdk-11-ubi8* to have OpenJDK 11.
 
-Scroll down to the *General* section. Add the followin:
+Scroll down to the *General* section. Add the following:
 
 *Application Name* :
 [source,role=copypaste]
 ----
-workshop
+pacman
 ----
 
 *Name* :
 [source,role=copypaste]
 ----
-nationalparks
+pacman
 ----
 
 In *Resources* section, select *Deployment*.
@@ -151,21 +151,21 @@ The name of the Application group:
 
 [source,role=copypaste]
 ----
-app=workshop
+app=pacman
 ----
 
 Next the name of this deployment.
 
 [source,role=copypaste]
 ----
-component=nationalparks
+component=pacman
 ----
 
 And finally, the role this component plays in the overall application.
 
 [source,role=copypaste]
 ----
-role=backend
+role=ui
 ----
 
 Click *Create* to submit.
@@ -204,6 +204,7 @@ NAME              TYPE      FROM          STATUS     STARTED              DURATI
 nationalparks-1   Source    Git@b052ae6   Running    About a minute ago   1m2s
 ----
 
+
 You can also view the build logs with the following command:
 
 [.console-input]
@@ -241,6 +242,8 @@ URL in the web console, or via the command line:
 ----
 oc get routes
 ----
+
+image::pcman-ui.png[Pacman Console]
 
 Where you should see something like the following:
 
