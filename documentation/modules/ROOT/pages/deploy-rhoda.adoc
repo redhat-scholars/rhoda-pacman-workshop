@@ -1,15 +1,14 @@
 = Installing Red Hat OpenShift Database Access
-:navtitle: Deploy RHODA 
+:navtitle: Install RHODA 
 
 [#deploy_rhoda]
-== Deploy RHODA
+== Install RHODA
 
 Normally operators can be deployed from Operator Hub by selecting the Operator from Operator Hub and we can also use Ansible to deploy Operators depending on deployment techniques that are already adopted by the teams.
 
 *Using CLI*
 Install Web Terminal Operator and  and launch terminal from OpenShift Console
 To install Web Terminal, please follow the following instructions : https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html
-
 
 Create the RHODA catalog source by running the following commands.
 
@@ -23,7 +22,6 @@ Verify that the catalog source is added with the following command
 ----
 oc get catalogsource dbaas-operator -n openshift-marketplace
 ----
-
 
 Verify that dbaas-operator catalog source is in READY state, It might take a few minutes before the catalog source is ready. If the below command does not return READY, wait a few minutes and try to verify the status again. You can also check this by going into openshift-marketplace namespace dbass-operator catalog pod
 
