@@ -1,12 +1,14 @@
 = OpenShift Architecture
 :navtitle: OpenShift Architecture
 
-image::ocp1.png[OpenShift Architecture]
+//image::ocp1.png[OpenShift Architecture]
 
 image::ocp2.png[OpenShift Architecture]
 
-The workshop is hosted in an OpenShift environment that is running on a
-public cloud. The environment consists of the following systems:
+The workshop can be run on an OpenShift environment that is running on a
+public cloud. 
+
+The environment consists of the following components:
 
 * Master node(s)
 * Worker or "application" nodes
