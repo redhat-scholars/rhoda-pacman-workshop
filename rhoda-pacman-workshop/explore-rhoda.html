@@ -3,9 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Workshop Links :: Pacman using RHODA</title>
-    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/common-workshop-links.html">
-    <link rel="prev" href="common-further-resources.html">
+    <title>Exploring Red Hat OpenShift Database Access :: Pacman using RHODA</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/explore-rhoda.html">
+    <link rel="prev" href="deploy-rhoda.html">
+    <link rel="next" href="projects.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -110,12 +111,12 @@
   </li>
 </ul>
   </li>
-  <li class="nav-item" data-depth="1">
+  <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="explore-rhoda.html">Explore RHODA</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="explore-rhoda.html#explore_rhoda">Explore RHODA)</a>
+    <a class="nav-link" href="#explore_rhoda">Explore RHODA)</a>
   </li>
 </ul>
   </li>
@@ -269,21 +270,21 @@
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="common-further-resources.html">Further Resources</a>
   </li>
-  <li class="nav-item is-current-page" data-depth="1">
+  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="common-workshop-links.html">Workshop Links</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#openshift_cluster_url">OpenShift Cluster URL</a>
+    <a class="nav-link" href="common-workshop-links.html#openshift_cluster_url">OpenShift Cluster URL</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#workshop_guides">Workshop Guides</a>
+    <a class="nav-link" href="common-workshop-links.html#workshop_guides">Workshop Guides</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#web_terminal">Web terminal</a>
+    <a class="nav-link" href="common-workshop-links.html#web_terminal">Web terminal</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#git_server">Git Server</a>
+    <a class="nav-link" href="common-workshop-links.html#git_server">Git Server</a>
   </li>
 </ul>
   </li>
@@ -302,51 +303,54 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="common-workshop-links.html">Workshop Links</a></li>
+    <li><a href="explore-rhoda.html">Explore RHODA</a></li>
   </ul>
 </nav>
-  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/common-workshop-links.adoc">Edit this Page</a></div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/explore-rhoda.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Workshop Links</h1>
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>You can find all urls, hostnames, usernames and passwords that are needed during the workshop in this page. Note that the urls are also embedded inside the labs so that you don&#8217;t have to go back and forth between this page and the labs.</p>
-</div>
-</div>
-</div>
+<h1 class="page">Exploring Red Hat OpenShift Database Access</h1>
 <div class="sect1">
-<h2 id="openshift_cluster_url"><a class="anchor" href="#openshift_cluster_url"></a>OpenShift Cluster URL</h2>
+<h2 id="explore_rhoda"><a class="anchor" href="#explore_rhoda"></a>Explore RHODA</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Console Address: <a href="https://console-openshift-console.%CLUSTER_SUBDOMAIN%" class="bare">https://console-openshift-console.%CLUSTER_SUBDOMAIN%</a><br></p>
+<p>You can discover which database instance is connected to an application, along with other information by viewing the database inventory page.</p>
 </div>
-<div class="paragraph">
-<p>Username: %USERNAME%<br>
-Password: %PASSWORD%<br></p>
+<div class="olist arabic">
+<div class="title">Procedure</div>
+<ol class="arabic">
+<li>
+<p>From the OpenShift Cluster Manager console, change to the <strong>Administrator</strong> perspective.</p>
+</li>
+<li>
+<p>From the <strong>Project</strong> drop-down, select the <strong>redhat-dbaas-operator</strong> project.</p>
+</li>
+<li>
+<p>Expand the <strong>Data Services</strong>, and click on <strong>Database Access</strong> from the navigation menu.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_select_database_access_from_nav_menu.png" alt="Database Access on the navigation menu">
 </div>
 </div>
+</li>
+<li>
+<p>Viewing the inventory table you can find which database instance is connected to an application.
+You can also view the database provider, the provider account resource, and the associated project name.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_admin_db_inventory_view.png" alt="Snippet of the database inventory view">
 </div>
-<div class="sect1">
-<h2 id="workshop_guides"><a class="anchor" href="#workshop_guides"></a>Workshop Guides</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Web: <a href="https://redhat-scholars.github.io/openshift-starter-guides/rhs-openshift-starter-guides/index.html" target="_blank" rel="noopener">Starter Guides</a></p>
+<div class="title">Figure 1. Example</div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="git_server"><a class="anchor" href="#git_server"></a>Git Server</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Web: <a href="https://github.com" target="_blank" rel="noopener">GitHub</a></p>
+</li>
+</ol>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="common-further-resources.html">Further Resources</a></span>
+  <span class="prev"><a href="deploy-rhoda.html">Install RHODA</a></span>
+  <span class="next"><a href="projects.html">Projects</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
