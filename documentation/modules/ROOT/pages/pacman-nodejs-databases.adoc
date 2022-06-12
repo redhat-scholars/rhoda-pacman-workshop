@@ -4,9 +4,7 @@
 In this section we will deploy and connect to a MongoDB Atlas Cloud Database where the
 `pacman` application will store  information such as high scores and user stats.
 
-
-image::pman.png[Application architecture,800,align="center"]
-
+image::rhoda-arch.png[RHODA Architecture]
 
 [#prereq_rhoda]
 == Prerequisites: Things to be in place already before configuring MongoDB Atlas
