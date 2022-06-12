@@ -9,6 +9,8 @@ perform various tasks via a browser.
 
 [tabs, subs="attributes+,+macros"]
 ====
+
+////
 ROKS::
 +
 --
@@ -36,6 +38,8 @@ After you successfully logged in, from right side pane, click *OpenShift web con
 image::roks-login4.png[ROKS Open-shift web console]
 
 --
+////
+
 ROSA::
 +
 --
