@@ -1,7 +1,10 @@
-= Background
-:navtitle: A brief walk-through
+= Storage & DBaaS
+:navtitle: Key considerations for Red Hat OpenShift Database Access
+
+Database is one of the key building blocks for a variety of applications. At the moment most openshift customers run their databases on the same cluster, manage it themselves and provide access to developers. Database as a service makes this much simpler, allowing databases to run at a central location managed by database administrators allowing business to focus on their applications.
+
 [#storage]
-== Background: Storage
+== Storage
 Most useful applications are "stateful" or "dynamic" in some way, and this is
 usually achieved with a database or other data storage. In this lab we are
 going to add MongoDB to our `pacman` application and then rewire it to
@@ -16,13 +19,13 @@ Ceph, EBS, iSCSI, etc) to the *Pods* to give them a persistent place to store th
 data.
 
 [#challenges_dbaas]
-== Background: DBaaS & Present Challenges
+== DBaaS & Present Challenges
 
 image::challenge.png[DBaaS & Present Challenges,800,align="center"]
 
 
 [#sol_rh_dbaas]
-== Background: Red Hat Solution
+== Red Hat Solution
 
 More efficient connection, DB utilization
 Faster and easier self-service for developers
@@ -31,7 +34,7 @@ Centralized monitoring, consistent control plane for admins
 image::solution.png[Red Hat Solution,800,align="center"]
 
 [#bg_sb_lib]
-== Background: Service binding libraries
+== Service binding libraries
 The Kubernetes service binding feature was introduced to bring consistency to the way secrets are shared for connecting applications to external services, such as REST APIs, databases, and many other services.
 OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.
 The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.
