@@ -1,4 +1,4 @@
-= Parksmap App
+= Pacman App
 :navtitle: Parksmap App
 
 In this lab, we're going to deploy the web component of the ParksMap application which is also called `parksmap` and uses OpenShift's service discovery mechanism to discover the backend services deployed and shows their data on the map.
@@ -25,7 +25,7 @@ In the *Image Name* field, copy/paste the following into the box:
 
 [source,role=copypaste,subs="+macros,+attributes"]
 ----
-{parksmap-image}:{parksmap-version}
+{pacman-image}:{pacman-version}
 ----
 
 OpenShift will then go out to the container registry specified and interrogate the image.

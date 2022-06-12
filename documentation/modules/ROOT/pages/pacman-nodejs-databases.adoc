@@ -26,8 +26,8 @@ In order to run the lab in your cluster, you need to meet the requirements discu
 | `{openshift-version}`
 |===
 
-In the following modules you will find out other prerequisites when needed.
 
+////
 [#deploy_rhoda]
 == Exercise: Deploy RHODA
 
@@ -98,7 +98,7 @@ image::rhoda11.png[Application architecture,800,align="center"]
  Create a Provider Account depending on the the managed database that the application needs to connect to
 
  To create a Provide Account, please refer to the documentation : 
-
+////
 
 In the Developer Perspective, click add and select connect database from the list of available options on each cluster.
 
@@ -155,32 +155,6 @@ NOTE: You might need to scroll down the navigation menu.
 From the database inventory page you can monitor the database environment, import cloud-hosted database provider accounts, or create new database instances.
 +
 image::rhoda_admin_entry_point_inventory_page.png[Database inventory landing page]
-
-////
-[role="_additional-resources"]
-.Additional Resources
-
-* See link:{rhoda-prod-doc-url}#finding-your-cloud-database-provider-account-credentials[_Appendix A_] in the _Red Hat OpenShift Database Access Quick Start Guide_ for help in finding your provider account information.
-* The MongoDB Atlas link:https://www.mongodb.com/cloud/atlas[home page].
-* The Crunchy Data Bridge link:https://www.crunchydata.com[home page].
-* The CockroachDB link:https://www.cockroachlabs.com[home page].
-////
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 [#find_mongodb_creds]
 == Exercise: Find your MongoDB Atlas account credentials

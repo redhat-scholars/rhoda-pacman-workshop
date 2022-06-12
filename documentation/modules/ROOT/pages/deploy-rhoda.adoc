@@ -73,6 +73,8 @@ image::rhoda11.png[Application architecture,800,align="center"]
  To create a Provide Account, please refer to the documentation : 
 
 
+
+////
 In the Developer Perspective, click add and select connect database from the list of available options on each cluster.
 
 image::rhoda22.png[Application architecture,800,align="center"]
@@ -88,3 +90,5 @@ image::rhoda44.png[Application architecture,800,align="center"]
 After successfully creating the service binding application will be connected to the database
 
 image::rhoda55.png[Application architecture,800,align="center"]
+////
+
