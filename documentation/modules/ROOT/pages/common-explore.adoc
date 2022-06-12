@@ -1,5 +1,5 @@
-= Explore OpenShift
-:navtitle: Explore OpenShift
+= Explore RHODA
+:navtitle: Explore RHODA
 
 [#the_web_console]
 == The Web Console

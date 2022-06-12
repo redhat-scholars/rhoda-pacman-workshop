@@ -5,7 +5,7 @@
 ** xref:pacman-{lab}-bg.adoc#sol_rh_dbaas[Red Hat Solution]
 ** xref:pacman-{lab}-bg.adoc#bg_sb_lib[Service binding libraries]
 * xref:common-environment.adoc[OpenShift Architecture]
-* xref:common-explore.adoc[Explore OpenShift]
+* xref:common-explore.adoc[Explore RHODA]
 ** xref:common-explore.adoc#the_web_console[The Web Console]
 ** xref:common-explore.adoc#command_line_interface[Command Line Interface]
 *** xref:common-explore.adoc#download_openshift_cli[Download OpenShift CLI]
