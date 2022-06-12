@@ -14,36 +14,47 @@ Create the RHODA catalog source by running the following commands.
 
 Note: The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo. For Service Preview release we will use RHODA SRE/OSD addon release image repo.
 
-image::rhoda1.png[Application architecture,800,align="center"]
+----
+cat <<EOF | oc apply -f -
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+name: dbaas-operator
+namespace: openshift-marketplace
+spec:
+sourceType: grpc
+image: quay.io/osd-addons/dbaas-operator-index@sha256:6325f547b394b1d6f7a528ab3c01bb8f9052762acc245fd453378f5a47830923
+displayName: DBaaS Operator
+EOF
+----
 
-
-Verify that the catalog source is added with the following command
+* Verify that the catalog source is added with the following command
 
 ----
 oc get catalogsource dbaas-operator -n openshift-marketplace
 ----
 
-Verify that dbaas-operator catalog source is in READY state, It might take a few minutes before the catalog source is ready. If the below command does not return READY, wait a few minutes and try to verify the status again. You can also check this by going into openshift-marketplace namespace dbass-operator catalog pod
+* Verify that dbaas-operator catalog source is in READY state, It might take a few minutes before the catalog source is ready. If the below command does not return READY, wait a few minutes and try to verify the status again. You can also check this by going into openshift-marketplace namespace dbass-operator catalog pod
 
 ----
 oc get catalogsource -n openshift-marketplace  dbaas-operator -o jsonpath='{.status.connectionState.lastObservedState} {"\n"}'
 ----
-Verify if required any other details with below command (optional)
+* Verify if required any other details with below command (optional)
 ----
 oc describe packagemanifests dbaas-operator -n openshift-marketplace
 ----
-Verify if required any other details with below command (optional)
+* Verify if required any other details with below command (optional)
 ----
 oc describe packagemanifests dbaas-operator -n openshift-marketplace
 ----
 
-Go to Operator Hub and look for OpenShift Database Access Operator
+* Go to Operator Hub and look for OpenShift Database Access Operator
 
 image::rhoda5.png[Application architecture,800,align="center"]
 
-Once Selected the OpenShift Database Access Operator,
+* Once Selected the OpenShift Database Access Operator,
 
-Navigate in the web console to the Operators → OperatorHub page.
+* Navigate in the web console to the Operators → OperatorHub page.
 Type a keyword into the Filter by keyword box OpenShift Database Access Operator.
 Select the OpenShift Database Access Operator  to display additional information.
 
@@ -53,22 +64,107 @@ On the Install Operator page. The RHODA operator is cluster scope and the defaul
 
 image::rhoda7.png[Application architecture,800,align="center"]
 
-On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.
+* On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.
 
 image::rhoda8.png[Application architecture,800,align="center"]
 
 image::rhoda9.png[Application architecture,800,align="center"]
 
 
-Verify the installation completion logs
+* Verify the installation completion logs
 
 image::rhoda11.png[Application architecture,800,align="center"]
 
-  Repeat Steps above from 1 -7 in the ARO and ROSA Clusters as well to ensure we have RHODA installed on all of the three clusters
+* Repeat Steps above from 1 -7 in the ARO and ROSA Clusters as well to ensure we have RHODA installed on all of the three clusters
 
- Create a Provider Account depending on the the managed database that the application needs to connect to
+* Create a Provider Account depending on the the managed database that the application needs to connect to
 
- To create a Provide Account, please refer to the documentation : 
+You can create a provider account resource that represents an account with a cloud database provider.
+By providing the correct authentication credentials for the cloud database provider, you can fetch the available database instances.
+
+NOTE: For the Service Preview release of OpenShift Database Access, there is only a single namespace.
+
+////
+.Prerequisites
+
+* An instance of OpenShift Container Platform (OCP) 4.9 or higher running on Red Hat OpenShift Dedicated (OSD) or Red Hat OpenShift Service on AWS (ROSA).
+** When using OSD or ROSA, an Amazon Web Services (AWS) account and credentials are required.
+* Access to the OpenShift Cluster Manager (OCM).
+* Installation of the OpenShift Database Access add-on for OCM.
+* A service account with either the MongoDB Atlas, Crunchy Data Bridge, or CockroachDB cloud database provider.
+* A database instance created using either the MongoDB Atlas, Crunchy Data Bridge, or CockroachDB cloud database provider.
+////
+
+.Procedure
+
+. Log into the OpenShift Cluster Manager console.
+
+. Select the correct project namespace.
++
+image::rhoda_single_page_all_steps.png[Single screenshot of the three steps to set the project namespace]
+
+.. Change to the **Administrator** perspective image:1st_Callout_Bullet.png[First callout].
+
+. Expand the **Data Services** navigation menu, and click **Database Access**.
++
+
+//image::rhoda_select_database_access_from_nav_menu.png[The Database Services navigation menu]
+
+.. Select the **redhat-dbaas-operator** project from the **Project** dropdown menu.
+
+. On the **Database Access** page, select the **Import database provider account** button.
++
+[NOTE]
+====
+If a cloud-database provider account already exists, then a database inventory view is displayed.
+To add another cloud-database provider account, click the **Configuration** dropdown button, and select **Import database provider account**.
+====
++
+//image::rhoda_create_database_provider_account_dropdown.png[The create provider account button on the database access page]
+
+. On the **Import Provider Account** page, specify a **Name** for the new provider account resource.
++
+//image::dbaas_create_provider_account_page_name_field.png[The create provider account page with the name field highlighted]
+
+. Select your cloud database provider from the dropdown menu, and provide the necessary credentials for that provider.
++
+NOTE: The required account credentials vary based on the selected cloud-database provider.
+//+
+//image::dbaas_create_provider_account_page_db_provider_box.png[The create provider account page with the database provider field highlighted]
+//+
+//.MongoDB Atlas Example
+//image::dbaas_create_provider_account_page_mongodb_atlas_account_credentials.png[The create provider account page when MongoDB Atlas is selected as the provider]
+//+
+//.Crunchy Data Bridge Example
+//image::dbaas_create_provider_account_page_crunchy_data_bridge_account_credentials.png[The create provider account page when Crunchy Bridge is selected as the provider]
+//+
+//.CockroachDB Example
+//image::rhoda_create_provider_account_page_cockroachdb_account_credentials.png[The create provider account page when CockroachDB is selected as the provider]
+
+. After you provide the account credentials, click the **Import** button to configure the provider account resource, and fetch the available database instances.
+
+//.. If fetching is successful, then you can click on the **View Provider Accounts** button to display the available database instances that developers can import.
+//+
+//.Successful Message Example
+//image::dbaas_create_provider_account_page_fetch_successful.png[The success message when a database instance is retrieved]
+//+
+//.Database Inventory Example
+//image::dbaas_provider_account_inventories_page.png[Listing of available database instances]
+
+//.. If fetching fails, then the cloud database provider's error code is displayed.
+//To check the cloud database provider account information, you can click on the **Edit Provider Account** button.
+//+
+//.Failure Message Example
+//image::dbaas_create_provider_account_page_fetch_failure.png[The failure message when a database instance is not retrieved]
+
+[role="_additional-resources"]
+.Additional Resources
+
+* See link:{rhoda-prod-doc-url}#finding-your-cloud-database-provider-account-credentials[_Appendix A_] in the _Red Hat OpenShift Database Access Quick Start Guide_ for help in finding your provider account information.
+* The MongoDB Atlas link:https://www.mongodb.com/cloud/atlas[home page].
+* The Crunchy Data Bridge link:https://www.crunchydata.com[home page].
+* The CockroachDB link:https://www.cockroachlabs.com[home page]
+
 
 
 
@@ -89,4 +185,5 @@ After successfully creating the service binding application will be connected to
 
 image::rhoda55.png[Application architecture,800,align="center"]
 ////
+
 
