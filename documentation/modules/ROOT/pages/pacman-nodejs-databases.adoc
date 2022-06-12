@@ -1,15 +1,11 @@
-= Connecting to a Database
-:navtitle: Connecting to a Database
+= Connecting to a Managed Database
+:navtitle: Connecting to MongoDB Atlas Cloud Database
 
-In this section we will deploy and connect a MongoDB database where the
-`pacman` application will store location information.
+In this section we will deploy and connect to a MongoDB Atlas Cloud Database where the
+`pacman` application will store  information such as high scores and user stats.
 
-Finally, we will mark the `pacman` application as a backend for the map
-visualization tool, so that it can be dynamically discovered by the `pacman`
-component using the OpenShift discovery mechanism and the map will be displayed
-automatically.
 
-image::roadshow-app-architecture-nationalparks-2.png[Application architecture,800,align="center"]
+image::pman.png[Application architecture,800,align="center"]
 
 
 [#prereq_rhoda]
