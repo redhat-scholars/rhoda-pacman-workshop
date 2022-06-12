@@ -2,7 +2,7 @@ runtime:
   cache_dir: ./.cache/antora
 
 site:
-  title: Deploy Pacman using Red Hat OpenShift Database Access
+  title: Pacman using RHODA
   url: https://redhat-scholars.github.io/course-template
   start_page: rhoda-pacman-workshop::index.adoc
   

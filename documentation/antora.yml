@@ -1,5 +1,5 @@
 name: rhoda-pacman-workshop
-title: Deploy Pacman using Red Hat OpenShift Database Access
+title: Pacman using RHODA
 version: master
 nav:
   - modules/ROOT/nav.adoc
