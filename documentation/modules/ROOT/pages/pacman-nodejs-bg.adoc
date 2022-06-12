@@ -1,9 +1,9 @@
 = Before we begin
 :navtitle: Motivation for Red Hat OpenShift Database Access
 
-Database is one of the key building blocks for a variety of applications. At the moment most openshift customers run their databases on the same cluster, manage it themselves and provide access to developers. Database as a service makes this much simpler, allowing databases to run at a central location managed by database administrators allowing business to focus on their applications.
+As you may know , Database is one of the key building blocks for a variety of applications. At the moment, most openshift customers run their databases on the same cluster, manage it themselves and provide access to developers. Database as a service makes this much simpler, allowing databases to run at a central location managed by database administrators allowing business to focus on their applications.
 
-As database cloud service offerings continue to evolve, it has simplified the development and deployment of stateful cloud native applications. But developers often access these database services in different ways, For example, developer often receives security credentials from their IT counterparts. These credentials are often shared ad-hoc where developers end up configuring DBaaS connections manually which can be time-consuming and error-prone. 
+As database cloud service offerings continue to evolve, it has simplified the development and deployment of stateful cloud native applications. But developers often access these database services in different ways, For example, developer often receives security credentials from their platform teams. These credentials are often shared on-demand where developers end up configuring DBaaS connections manually that can be time-consuming and error-prone. 
 
 In organizations going through their journey with containerization in hybrid cloud environments, it is inefficient and risky to have each team independently connect applications to different DBaaS offerings.
 
@@ -13,21 +13,12 @@ Most often for the platform teams, the proliferation of instances and types of d
 == Storage
 Most useful applications are "stateful" or "dynamic" in some way, and this is
 usually achieved with a database or other data storage. In this lab we are
-going to add MongoDB to our `pacman` application and then rewire it to
-talk to the database using environment variables via a secret.
-
-We are going to use the MongoDB image that is included with OpenShift.
-
-By default, this will use *EmptyDir* for data storage, which means if the *Pod*
-disappears the data does as well. In a real application you would use
-OpenShift's persistent storage mechanism to attach real-world storage (NFS,
-Ceph, EBS, iSCSI, etc) to the *Pods* to give them a persistent place to store their
-data.
+going to add MongoDB Atlas instance to our `pacman` application with help of RHODA Operator.
 
 [#challenges_dbaas]
 == DBaaS & Present Challenges
 
-image::challenge.png[DBaaS & Present Challenges,800,align="center"]
+image::challenge.png[DBaaS & Present Challenges,500,align="center"]
 
 
 [#sol_rh_dbaas]
@@ -37,16 +28,16 @@ More efficient connection, DB utilization
 Faster and easier self-service for developers
 Centralized monitoring, consistent control plane for admins
 
-image::solution.png[Red Hat Solution,800,align="center"]
+image::solution.png[Red Hat Solution,500,align="center"]
 
 [#bg_sb_lib]
 == Service binding libraries
-The Kubernetes service binding feature was introduced to bring consistency to the way secrets are shared for connecting applications to external services, such as REST APIs, databases, and many other services.
-OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.
-The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.
-Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.
-The volume mount point is exposed as an environment variable.
-Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.
+* The Kubernetes service binding feature was introduced to bring consistency to the way secrets are shared for connecting applications to external services, such as REST APIs, databases, and many other services.
+* OpenShift Database Access leverages the service binding feature to bring a low-touch administrative experience to provisioning, and managing access to external database services.
+* The service binding feature enables developers to connect their applications to database services with a consistent, and predictable experience.
+* Specifically, a service binding creates a volume on the application pod, and organizes the information to make a connection to the database in a directory structure.
+* The volume mount point is exposed as an environment variable.
+* Developer frameworks, such as Quarkus, are service binding aware, and can automatically connect to a database using this exposed workload information without needing to embed database connection information in the application source code.
 
 Here are some application examples on how to use a service binding library:
 
