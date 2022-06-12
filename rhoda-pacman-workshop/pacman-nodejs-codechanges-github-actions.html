@@ -52,11 +52,11 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="common-workshop-summary.html">Workshop Summary</a>
+    <a class="nav-link" href="common-workshop-summary.html">Workshop</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="pacman-nodejs-bg.html">Background around storage and relevant aspects</a>
+    <a class="nav-link" href="pacman-nodejs-bg.html">A brief walk-through</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pacman-nodejs-bg.html#storage">Background: Storage</a>
@@ -305,7 +305,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>OpenShift includes comprehensive features for automation in-cluster as seen in <a href="#nationalparks-nodejs-codechanges-github.adoc" class="xref unresolved">Webhooks with OpenShift</a> and as you will see in the next chapter <a href="#nationalparks-nodejs-pipeline.adoc" class="xref unresolved">Continuous Integration and Pipelines</a>. In addition to that, it provides great interoperability and integrations for external CI/CD systems such as Jenkins, GitLab, Azure DevOps and <strong>GitHub Actions</strong>.</p>
+<p>OpenShift includes comprehensive features for automation in-cluster as seen in <a href="pacman-nodejs-codechanges-github.html" class="xref page">Webhooks with OpenShift</a> and as you will see in the next chapter <a href="pacman-nodejs-pipeline.html" class="xref page">Continuous Integration and Pipelines</a>. In addition to that, it provides great interoperability and integrations for external CI/CD systems such as Jenkins, GitLab, Azure DevOps and <strong>GitHub Actions</strong>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -316,7 +316,7 @@
 <p><a href="https://docs.github.com/en/actions/learn-github-actions/understanding-github-actions#overview" target="_blank" rel="noopener">GitHub Actions</a> are event-driven automation tasks available for any GitHub repository. An event automatically triggers the workflow, which contains a job. The job then uses steps to control the order in which actions are run. These actions are the commands that automate software build, test and deploy.</p>
 </div>
 <div class="paragraph">
-<p>In this chapter, you will add a GitHub Action for building the Nationalparks backend container image, and pushing it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" target="_blank" rel="noopener">GitHub Container Registry</a>. Any change to your fork will trigger the container image build and push outside OpenShift this time, and this will be used afterwards to deploy the new container image to OpenShift.</p>
+<p>In this chapter, you will add a GitHub Action for building the pacman backend container image, and pushing it to the <a href="https://docs.github.com/en/packages/working-with-a-github-packages-registry/working-with-the-container-registry" target="_blank" rel="noopener">GitHub Container Registry</a>. Any change to your fork will trigger the container image build and push outside OpenShift this time, and this will be used afterwards to deploy the new container image to OpenShift.</p>
 </div>
 </div>
 </div>
@@ -328,7 +328,7 @@
 At this point, we need to disable or cancel it because we will use GitHub Actions for that.</p>
 </div>
 <div class="paragraph">
-<p>Come back to your Nationalparks fork page on GitHub. From top-right menu, click <strong>Settings</strong>. Then from result left-side menu, click <strong>Webhook</strong>, then click <strong>Delete</strong> next to your previously created Webhook.</p>
+<p>Come back to your pacman fork page on GitHub. From top-right menu, click <strong>Settings</strong>. Then from result left-side menu, click <strong>Webhook</strong>, then click <strong>Delete</strong> next to your previously created Webhook.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -369,7 +369,7 @@ oc annotate deployment nationalparks alpha.image.policy.openshift.io/resolve-nam
 <p>In this step, you will add a new Environment named <code>development</code>.</p>
 </div>
 <div class="paragraph">
-<p>From your previously forked Nationalparks repository on GitHub, go to the top-right menu, click <strong>Settings</strong>. Then from result left-side menu, click <strong>Environments</strong>, then from right side click <strong>New environment</strong>.</p>
+<p>From your previously forked pacman repository on GitHub, go to the top-right menu, click <strong>Settings</strong>. Then from result left-side menu, click <strong>Environments</strong>, then from right side click <strong>New environment</strong>.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -466,10 +466,10 @@ oc annotate deployment nationalparks alpha.image.policy.openshift.io/resolve-nam
 <p>Everything is now ready to start your automation with GitHub Action and OpenShift. GitHub actions workflows and jobs are defined with a YAML file containing all the needed steps.</p>
 </div>
 <div class="paragraph">
-<p>Review the follow workflow that will be used to trigger build of the Nationalparks backend on GitHub, and then deploy it to OpenShift referencing container image from the already created Deployment <code>nationalparks</code>.</p>
+<p>Review the follow workflow that will be used to trigger build of the pacman backend on GitHub, and then deploy it to OpenShift referencing container image from the already created Deployment <code>pacman</code>.</p>
 </div>
 <div class="paragraph">
-<p><strong>Copy</strong> the YAML file to be added in your Nationalparks fork repository on GitHub.</p>
+<p><strong>Copy</strong> the YAML file to be added in your pacman fork repository on GitHub.</p>
 </div>
 <div class="listingblock copypaste">
 <div class="content">
@@ -479,7 +479,7 @@ env: <i class="conum" data-value="2"></i><b>(2)</b>
   IMAGE_REGISTRY: ghcr.io/${{ github.repository_owner }}
   REGISTRY_USER: ${{ github.actor }}
   REGISTRY_PASSWORD: ${{ github.token }}
-  APP_NAME: nationalparks
+  APP_NAME: pacman
   IMAGE_TAGS: latest ${{ github.sha }}
 
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}

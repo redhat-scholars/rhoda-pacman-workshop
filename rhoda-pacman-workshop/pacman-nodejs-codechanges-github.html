@@ -52,11 +52,11 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="common-workshop-summary.html">Workshop Summary</a>
+    <a class="nav-link" href="common-workshop-summary.html">Workshop</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="pacman-nodejs-bg.html">Background around storage and relevant aspects</a>
+    <a class="nav-link" href="pacman-nodejs-bg.html">A brief walk-through</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pacman-nodejs-bg.html#storage">Background: Storage</a>
@@ -337,7 +337,7 @@ achieved.</p>
 <h2 id="webhooks_with_openshift"><a class="anchor" href="#webhooks_with_openshift"></a>Exercise: Webhooks with OpenShift</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this lab you can use a build webhook to trigger a build execution every time there is a change in your copy of the nationalparks GitHub repository. In the OpenShift web console, navigate to your <strong>%PROJECT%</strong> project, and then click to <strong>Builds</strong>. Click the <code>nationalparks</code> BuildConfig and then go to the <strong>Webhooks</strong> section.</p>
+<p>In this lab you can use a build webhook to trigger a build execution every time there is a change in your copy of the pacman GitHub repository. In the OpenShift web console, navigate to your <strong>%PROJECT%</strong> project, and then click to <strong>Builds</strong>. Click the <code>pacman</code> BuildConfig and then go to the <strong>Webhooks</strong> section.</p>
 </div>
 <div class="paragraph">
 <p>On this screen you will see the option to copy the GitHub webhook URL, click to <strong>Copy URL with Secret</strong> as shown in the following image:</p>
@@ -350,13 +350,13 @@ achieved.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="fork_repository_from_github"><a class="anchor" href="#fork_repository_from_github"></a>Exercise: Fork NationalParks repository from GitHub</h2>
+<h2 id="fork_repository_from_github"><a class="anchor" href="#fork_repository_from_github"></a>Exercise: Fork pacman repository from GitHub</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>A <a href="https://docs.github.com/en/free-pro-team@latest/github/getting-started-with-github/fork-a-repo" target="_blank" rel="noopener">fork</a> is a copy of a repository. Forking a repository allows you to freely experiment with changes without affecting the original project.</p>
 </div>
 <div class="paragraph">
-<p>In this step we will fork the original <code>nationalparks</code> repository to apply our changes and automatically trigger the Pipeline through a <a href="https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/about-webhooks" target="_blank" rel="noopener">GitHub Webhook</a> that we&#8217;re going to configure.</p>
+<p>In this step we will fork the original <code>pacman</code> repository to apply our changes and automatically trigger the Pipeline through a <a href="https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/about-webhooks" target="_blank" rel="noopener">GitHub Webhook</a> that we&#8217;re going to configure.</p>
 </div>
 <div class="paragraph">
 <p>Go to <a href="https://github.com/openshift-roadshow/nationalparks" target="_blank" rel="noopener">Nationalparks</a> repository. From top-right side, click to <strong>Fork</strong> to start forking it into your account.</p>
