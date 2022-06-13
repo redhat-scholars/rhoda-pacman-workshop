@@ -607,8 +607,8 @@ the application. You can see all of this happening in real time!</p>
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME              TYPE      FROM          STATUS     STARTED              DURATION
-nationalparks-1   Source    Git@b052ae6   Running    About a minute ago   1m2s</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME       TYPE     FROM          STATUS     STARTED      DURATION
+pacman-1   Source   Git@1c647d5   Complete   2 days ago   58s</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -661,9 +661,9 @@ URL in the web console, or via the command line:</p>
 <pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get routes</code></pre>
 </div>
 </div>
-<div class="imageblock unresolved">
+<div class="imageblock text-center">
 <div class="content">
-<img src="pcman-ui.png" alt="Pacman Console">
+<img src="_images/101.png" alt="Pacman Console 800">
 </div>
 </div>
 <div class="paragraph">
@@ -671,9 +671,9 @@ URL in the web console, or via the command line:</p>
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME            HOST/PORT                                                   PATH      SERVICES        PORT       TERMINATION       WILDCARD
-nationalparks   nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%             nationalparks   8080-tcp        edge
-parksmap        parksmap-%PROJECT%.%CLUSTER_SUBDOMAIN%                  parksmap        8080-tcp        edge        none</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME     HOST/PORT                                                 PATH   SERVICES   PORT       TERMINATION     WILDCARD
+pacman   pacman-pacman.apps.maverick.lab.upshift.rdu2.redhat.com          pacman     8080-tcp   edge/Redirect   None
+bash-4.4 ~ $</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -681,16 +681,8 @@ parksmap        parksmap-%PROJECT%.%CLUSTER_SUBDOMAIN%                  parksmap
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%</code></pre>
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">https://pacman-%PROJECT%.%CLUSTER_SUBDOMAIN%</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Since this is a backend application, it doesn&#8217;t actually have a web interface.
-However, it can still be used with a browser. All backends that work with the parksmap
-frontend are required to implement a <code>/ws/info/</code> endpoint. To test, visit this URL in your browser:</p>
-</div>
-<div class="paragraph">
-<p><a href="https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/" class="params-link" target="_blank" rel="noopener">National Parks Info Page</a></p>
 </div>
 <div class="admonitionblock warning">
 <table>
@@ -699,30 +691,10 @@ frontend are required to implement a <code>/ws/info/</code> endpoint. To test, v
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-If the Pod is Running and the application is not available, please wait a few seconds and refresh the page, since we haven&#8217;t configured yet Health Checks for that.
+If the Pod is Running and the application is not available, please wait till we connect it to the MongoAtlas in the cloud as we don&#8217;t have a database. Yet.
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>You will see a simple JSON string:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{"id":"nationalparks","displayName":"National Parks","center":{"latitude":"47.039304","longitude":"14.505178"},"zoom":4}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Earlier we said:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">This is a Java Spring Boot application that performs 2D geo-spatial queries
-against a MongoDB database</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>But we don&#8217;t have a database. Yet.</p>
 </div>
 </div>
 </div>
