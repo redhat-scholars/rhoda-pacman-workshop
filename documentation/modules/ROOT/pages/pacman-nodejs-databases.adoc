@@ -62,6 +62,7 @@ NOTE: You might need to scroll down the navigation menu.
 +
 From the database inventory page you can monitor the database environment, import cloud-hosted database provider accounts, or create new database instances.
 +
+
 image::rhoda_admin_entry_point_inventory_page.png[Database inventory landing page]
 
 [#find_mongodb_creds]
@@ -76,7 +77,7 @@ If the IP address is not in the IP Access List, then a 504 gateway timeout error
 Visit the MongoDB Atlas link:https://docs.atlas.mongodb.com/security/ip-access-list/[website] for more details on adding an IP address to your database project.
 ====
 
-.Procedure
+*Procedure*
 
 * From the MongoDB Atlas link:https://www.mongodb.com/[home page], **Sign In** to your account.
 
@@ -100,9 +101,11 @@ image::mongodb_second_single_screen_all_step.png[Single screenshot for finding y
 
 * Click **API Keys** image:2nd_Callout_Bullet.png[Second callout].
 
+
 .. If you have existing API keys, you can find them listed here.
 Copy the API public and private keys for the import provider account fields.
 Also, verify that your API keys have the **Organization Owner** and **Organization Member** permissions image:3rd_Callout_Bullet.png[Third callout] image:4th_Callout_Bullet.png[Fourth callout].
+
 
 * If you need new API keys, click **Create API Key**, and proceed to the next step.
 
@@ -121,7 +124,7 @@ image::rhoda_mongodb_create_api_dialog_permissions.png[Create API Key permission
 image::provideracct.png[Provider Account]
 
 [#dev_add_db]
-== Exercise: Exercise: Accessing the developer workspace and adding a database instance
+== Exercise: Accessing the developer workspace and adding a database instance
 
 * Log into the OpenShift console.
 

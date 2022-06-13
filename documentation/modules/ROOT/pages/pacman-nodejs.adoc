@@ -200,8 +200,8 @@ You'll see output like:
 [.console-output]
 [source,bash]
 ----
-NAME              TYPE      FROM          STATUS     STARTED              DURATION
-nationalparks-1   Source    Git@b052ae6   Running    About a minute ago   1m2s
+NAME       TYPE     FROM          STATUS     STARTED      DURATION
+pacman-1   Source   Git@1c647d5   Complete   2 days ago   58s
 ----
 
 
@@ -241,48 +241,26 @@ URL in the web console, or via the command line:
 [source,bash,subs="+attributes,macros+"]
 ----
 oc get routes
+
 ----
 
-image::pcman-ui.png[Pacman Console]
+image::101.png[Pacman Console 800,align="center"]
 
 Where you should see something like the following:
 
 [.console-output]
 [source,bash,subs="+attributes,macros+"]
 ----
-NAME            HOST/PORT                                                   PATH      SERVICES        PORT       TERMINATION       WILDCARD
-nationalparks   nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%             nationalparks   8080-tcp        edge 
-parksmap        parksmap-%PROJECT%.%CLUSTER_SUBDOMAIN%                  parksmap        8080-tcp        edge        none
+NAME     HOST/PORT                                                 PATH   SERVICES   PORT       TERMINATION     WILDCARD
+pacman   pacman-pacman.apps.maverick.lab.upshift.rdu2.redhat.com          pacman     8080-tcp   edge/Redirect   None
+bash-4.4 ~ $ 
 ----
 
 In the above example, the URL is:
 
 [source,text,role="copypaste",subs="+attributes"]
 ----
-https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%
+https://pacman-%PROJECT%.%CLUSTER_SUBDOMAIN%
 ----
 
-Since this is a backend application, it doesn't actually have a web interface.
-However, it can still be used with a browser. All backends that work with the parksmap
-frontend are required to implement a `/ws/info/` endpoint. To test, visit this URL in your browser:
-
-link:https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/[National Parks Info Page, role='params-link', window='_blank']
-
-WARNING: If the Pod is Running and the application is not available, please wait a few seconds and refresh the page, since we haven't configured yet Health Checks for that.
-
-You will see a simple JSON string:
-
-[source,json]
-----
-{"id":"nationalparks","displayName":"National Parks","center":{"latitude":"47.039304","longitude":"14.505178"},"zoom":4}
-----
-
-Earlier we said:
-
-[source,bash]
-----
-This is a Java Spring Boot application that performs 2D geo-spatial queries
-against a MongoDB database
-----
-
-But we don't have a database. Yet.
+WARNING: If the Pod is Running and the application is not available, please wait till we connect it to the MongoAtlas in the cloud as we don't have a database. Yet.
