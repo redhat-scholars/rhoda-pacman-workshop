@@ -362,8 +362,8 @@ Because now we want to delegate this automation externally to GitHub Actions, we
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc annotate deployment nationalparks image.openshift.io/triggers-
-oc annotate deployment nationalparks alpha.image.policy.openshift.io/resolve-names-</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc annotate deployment pacman image.openshift.io/triggers-
+oc annotate deployment pacman alpha.image.policy.openshift.io/resolve-names-</code></pre>
 </div>
 </div>
 </div>
@@ -380,9 +380,9 @@ oc annotate deployment nationalparks alpha.image.policy.openshift.io/resolve-nam
 <div class="paragraph">
 <p>From your previously forked pacman repository on GitHub, go to the top-right menu, click <strong>Settings</strong>. Then from result left-side menu, click <strong>Environments</strong>, then from right side click <strong>New environment</strong>.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock unresolved">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-actions-env.png" alt="Environment">
+<img src="ghaction.png" alt="Environment">
 </div>
 </div>
 <div class="paragraph">
@@ -396,17 +396,17 @@ oc annotate deployment nationalparks alpha.image.policy.openshift.io/resolve-nam
 <div class="paragraph">
 <p>Click <strong>Configure Environment</strong> to create it.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock unresolved">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-actions-addenv.png" alt="Add Environment">
+<img src="ghaction" alt="Add Environment">
 </div>
 </div>
 <div class="paragraph">
 <p>In the result screen from your just created GitHub Environment <code>development</code>, you will see all details of the newly created Enviroment. Navigate to the bottom of section, go to <strong>Environment secrets</strong> and click <strong>Add Secret</strong> to add new secrets.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock unresolved">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-actions-addsecrets.png" alt="Add Environment Secrets">
+<img src="ghactiong" alt="Add Environment Secrets">
 </div>
 </div>
 <div class="paragraph">
@@ -461,9 +461,9 @@ oc annotate deployment nationalparks alpha.image.policy.openshift.io/resolve-nam
 <div class="paragraph">
 <p>Your Environment screen should be similar to the following:</p>
 </div>
-<div class="imageblock">
+<div class="imageblock unresolved">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-actions-env-secrets.png" alt="Added Environment Secrets">
+<img src="ghaction" alt="Added Environment Secrets">
 </div>
 </div>
 </div>

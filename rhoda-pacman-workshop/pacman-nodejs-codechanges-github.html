@@ -353,7 +353,7 @@ achieved.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-codechanges-webhook-config.png" alt="Webhook">
+<img src="_images/gh-webhook.png" alt="Webhook">
 </div>
 </div>
 </div>
@@ -368,11 +368,11 @@ achieved.</p>
 <p>In this step we will fork the original <code>pacman</code> repository to apply our changes and automatically trigger the Pipeline through a <a href="https://docs.github.com/en/free-pro-team@latest/developers/webhooks-and-events/about-webhooks" target="_blank" rel="noopener">GitHub Webhook</a> that we&#8217;re going to configure.</p>
 </div>
 <div class="paragraph">
-<p>Go to <a href="https://github.com/openshift-roadshow/nationalparks" target="_blank" rel="noopener">Nationalparks</a> repository. From top-right side, click to <strong>Fork</strong> to start forking it into your account.</p>
+<p>Go to <a href="https://github.com/veniceofcode/pacman" target="_blank" rel="noopener">Pacman</a> repository. From top-right side, click to <strong>Fork</strong> to start forking it into your account.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-fork-1.png" alt="Fork Repository">
+<img src="_images/fork1.png" alt="Fork Repository">
 </div>
 </div>
 <div class="paragraph">
@@ -380,11 +380,11 @@ achieved.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-fork-2.png" alt="Fork in progress">
+<img src="_images/fork2.png" alt="Fork already exists">
 </div>
 </div>
 <div class="paragraph">
-<p>Your repository is forked now, we can start adding our automation to that.</p>
+<p>Your repository is forked , we can start adding our automation to that.</p>
 </div>
 </div>
 </div>
@@ -399,7 +399,7 @@ achieved.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-webhook-settings.png" alt="Add Webhook">
+<img src="_images/hook1.png" alt="Add Webhook">
 </div>
 </div>
 <div class="paragraph">
@@ -415,7 +415,7 @@ to be in the payload.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-codechanges-github-automation-webhook.png" alt="Webhook">
+<img src="_images/hook2.png" alt="Webhook">
 </div>
 </div>
 <div class="paragraph">
@@ -447,7 +447,7 @@ following path:
 </div>
 <div class="listingblock console-output">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">src/main/java/com/openshift/evg/roadshow/parks/rest/</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">https://github.com/veniceofcode/pacman/blob/master/lib/database.js</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -463,11 +463,11 @@ hand corner as shown here:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Change line number 20:</p>
+<p>Change line number 65:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">return new Backend("nationalparks","National Parks", new Coordinates("47.039304", "14.505178"), 4);</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"> console.log('Connected to database successfully');</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -475,7 +475,7 @@ hand corner as shown here:</p>
 </div>
 <div class="listingblock copypaste">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">return new Backend("nationalparks","Awesome National Parks", new Coordinates("47.039304", "14.505178"), 4);</code></pre>
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java"> console.log('Connected to mongo database successfully');</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -483,7 +483,7 @@ hand corner as shown here:</p>
 </div>
 <div class="paragraph">
 <p>Once you have committed your changes, a new <strong>Build</strong> should almost instantaneously be
-triggered in OpenShift. From OpenShift Web Console, click <strong>Builds</strong>&#8594;<strong>nationalparks</strong> and then navigate to the <strong>Builds</strong>. You should see a new one running:</p>
+triggered in OpenShift. From OpenShift Web Console, click <strong>Builds</strong>&#8594;<strong>pacman</strong> and then navigate to the <strong>Builds</strong>. You should see a new one running:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -502,22 +502,10 @@ triggered in OpenShift. From OpenShift Web Console, click <strong>Builds</strong
 <p>Once the build and deploy has finished, verify your new image was automatically deployed by viewing the application in your browser:</p>
 </div>
 <div class="paragraph">
-<p><a href="https://nationalparks-%PROJECT%.%CLUSTER_SUBDOMAIN%/ws/info/" class="params-link" target="_blank" rel="noopener">National Parks Info Page</a></p>
+<p><a href="https://managed-pacman-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/" class="params-link" target="_blank" rel="noopener">Pacman Page</a></p>
 </div>
 <div class="paragraph">
-<p>You should now see the new name you have set in the JSON string returned.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-To see this in the map&#8217;s legend itself, you will need to scale down your parksmap to 0, then back up to 1 to force the app to refresh its cache.
-</td>
-</tr>
-</table>
+<p>You should now be able to play pacman</p>
 </div>
 </div>
 </div>
