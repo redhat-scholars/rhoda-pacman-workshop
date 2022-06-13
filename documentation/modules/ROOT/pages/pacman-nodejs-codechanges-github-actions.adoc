@@ -28,8 +28,8 @@ Because now we want to delegate this automation externally to GitHub Actions, we
 
 [source,bash,role="copypaste"]
 ----
-oc annotate deployment nationalparks image.openshift.io/triggers-
-oc annotate deployment nationalparks alpha.image.policy.openshift.io/resolve-names-
+oc annotate deployment pacman image.openshift.io/triggers-
+oc annotate deployment pacman alpha.image.policy.openshift.io/resolve-names-
 ----
 
 [#configure_github_action]
@@ -41,7 +41,7 @@ In this step, you will add a new Environment named `development`.
 
 From your previously forked pacman repository on GitHub, go to the top-right menu, click *Settings*. Then from result left-side menu, click *Environments*, then from right side click *New environment*.
 
-image::nationalparks-codechanges-github-actions-env.png[Environment]
+image::ghaction.png[Environment]
 
 In the following window, insert into *Name* the name of the GitHub Environment that will be used by the Action:
 
@@ -52,11 +52,11 @@ development
 
 Click *Configure Environment* to create it.
 
-image::nationalparks-codechanges-github-actions-addenv.png[Add Environment]
+image::ghaction[Add Environment]
 
 In the result screen from your just created GitHub Environment `development`, you will see all details of the newly created Enviroment. Navigate to the bottom of section, go to *Environment secrets* and click *Add Secret* to add new secrets.
 
-image::nationalparks-codechanges-github-actions-addsecrets.png[Add Environment Secrets]
+image::ghactiong[Add Environment Secrets]
 
 You will now configure two secrets that will be used by the GitHub Action to connect to your OpenShift clusters.
 
@@ -86,7 +86,7 @@ Click *Add Secret* to add one and repeat for the other.
 
 Your Environment screen should be similar to the following:
 
-image::nationalparks-codechanges-github-actions-env-secrets.png[Added Environment Secrets]
+image::ghaction[Added Environment Secrets]
 
 
 [#add_github_action]
