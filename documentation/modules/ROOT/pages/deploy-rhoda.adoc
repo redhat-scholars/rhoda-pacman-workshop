@@ -1,16 +1,20 @@
 = Installing Red Hat OpenShift Database Access
 :navtitle: Installation of RHODA
 
-[#deploy_manual]
-== Install using *oc* commands
+[#deploy_web_terminal]
+== Install using OpenShift Web Terminal
 
-Install Web Terminal Operator and  and launch terminal from OpenShift Console
-To install Web Terminal, please follow the following instructions : https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html
+Install Web Terminal Operator and launch terminal from OpenShift Console
+
+To install Web Terminal, please follow the following instructions : https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html[Web Terminal Install Docs]
+
+*After the installation of Web Terminal is complete , please launch the Web Terminal from your OpenShift Cluster and perform below steps*
+
 
 Create the RHODA catalog source by running the following commands.
 
-Note: The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo. For Service Preview release we will use RHODA SRE/OSD addon release image repo.
-
+*Note*: The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo.
+For Service Preview release we will use RHODA SRE/OSD addon release image repo.
 ----
 cat <<EOF | oc apply -f -
 apiVersion: operators.coreos.com/v1alpha1
@@ -37,10 +41,7 @@ oc get catalogsource dbaas-operator -n openshift-marketplace
 oc get catalogsource -n openshift-marketplace  dbaas-operator -o jsonpath='{.status.connectionState.lastObservedState} {"\n"}'
 ----
 * Verify if required any other details with below command (optional)
-----
-oc describe packagemanifests dbaas-operator -n openshift-marketplace
-----
-* Verify if required any other details with below command (optional)
+
 ----
 oc describe packagemanifests dbaas-operator -n openshift-marketplace
 ----

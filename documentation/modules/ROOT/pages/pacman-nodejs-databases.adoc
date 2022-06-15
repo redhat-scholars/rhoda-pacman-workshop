@@ -173,7 +173,7 @@ image::rhoda55.png[Application architecture,800,align="center"]
 [#play_pacman]
 == Exercise: Play Pacman and save your high scores
 
-To play Pacman, please click on the URL : https://pacman-git-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/
+To play Pacman, please click on the URL : https://managed-pacman-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/[Pacman Game]
 
 image::pacman.png[Pacman Game,800,align="center"]
 
