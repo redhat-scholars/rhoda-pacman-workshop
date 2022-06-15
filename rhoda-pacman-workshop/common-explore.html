@@ -3,8 +3,10 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Explore RHODA :: Pacman using RHODA</title>
+    <title>Explore OpenShift :: Pacman using RHODA</title>
     <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/common-explore.html">
+    <link rel="prev" href="common-environment.html">
+    <link rel="next" href="prerequisites.html">
     <meta name="generator" content="Antora 3.0.0">
     <link rel="stylesheet" href="../_/css/site.css">
   </head>
@@ -54,6 +56,36 @@
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html">Explore OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#the_web_console">The Web Console</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#command_line_interface">Command Line Interface</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#download_openshift_cli">Download OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#use_web_terminal">Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#connect_to_the_cluster_with_cli">Connect to the OpenShift Cluster from CLI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="#working_with_proxies">Working with proxies</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
   </li>
   <li class="nav-item" data-depth="1">
     <a class="nav-link" href="prerequisites.html">Prerequisites</a>
@@ -292,14 +324,14 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="common-explore.html">Explore RHODA</a></li>
+    <li><a href="common-explore.html">Explore OpenShift</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/common-explore.adoc">Edit this Page</a></div>
   </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Explore RHODA</h1>
+<h1 class="page">Explore OpenShift</h1>
 <div class="sect1">
 <h2 id="the_web_console"><a class="anchor" href="#the_web_console"></a>The Web Console</h2>
 <div class="sectionbody">
@@ -310,6 +342,9 @@ perform various tasks via a browser.</p>
 <div class="tabset is-loading">
 <div class="ulist tabs">
 <ul>
+<li>
+<p><a id="tabset1_roks"></a>ROKS</p>
+</li>
 <li>
 <p><a id="tabset1_rosa"></a>ROSA</p>
 </li>
@@ -325,6 +360,51 @@ perform various tasks via a browser.</p>
 </ul>
 </div>
 <div class="content">
+<div class="tab-pane" aria-labelledby="tabset1_roks">
+<div class="paragraph">
+<p>Login to IBM Cloud, copy this link and open in your browser:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">%LOGIN%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Enter following credentials:</p>
+</div>
+<div class="paragraph">
+<p><strong>Username</strong>:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">%USERNAME%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Password</strong>:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">%PASSWORD%</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Click <strong>Sign In</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/roks-login1.png" alt="ROKS Login">
+</div>
+</div>
+<div class="paragraph">
+<p>After you successfully logged in, from right side pane, click <strong>OpenShift web console</strong> to access your OpenShift Cluster Dashboard:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/roks-login4.png" alt="ROKS Open-shift web console">
+</div>
+</div>
+</div>
 <div class="tab-pane" aria-labelledby="tabset1_rosa">
 <div class="paragraph">
 <p>Access your cluster from <a href="https://console-openshift-console.%CLUSTER_SUBDOMAIN%" class="params-link" target="_blank" rel="noopener">OpenShift Web Console</a>.</p>
@@ -1142,6 +1222,10 @@ appropriate values:</p>
 </div>
 </div>
 </div>
+<nav class="pagination">
+  <span class="prev"><a href="common-environment.html">OpenShift Architecture</a></span>
+  <span class="next"><a href="prerequisites.html">Prerequisites</a></span>
+</nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
   <div class="toc-menu"></div>
