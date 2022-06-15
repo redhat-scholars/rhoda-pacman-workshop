@@ -113,7 +113,7 @@
     <a class="nav-link" href="deploy-rhoda.html">Installation</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#deploy_manual">Manual</a>
+    <a class="nav-link" href="#deploy_web_terminal">Install using OpenShift Web Terminal</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="#deploy_kustomize">Kustomize</a>
@@ -333,17 +333,23 @@
 <article class="doc">
 <h1 class="page">Installing Red Hat OpenShift Database Access</h1>
 <div class="sect1">
-<h2 id="deploy_manual"><a class="anchor" href="#deploy_manual"></a>Install using <strong>oc</strong> commands</h2>
+<h2 id="deploy_web_terminal"><a class="anchor" href="#deploy_web_terminal"></a>Install using OpenShift Web Terminal</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Install Web Terminal Operator and  and launch terminal from OpenShift Console
-To install Web Terminal, please follow the following instructions : <a href="https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html" class="bare">https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html</a></p>
+<p>Install Web Terminal Operator and launch terminal from OpenShift Console</p>
+</div>
+<div class="paragraph">
+<p>To install Web Terminal, please follow the following instructions : <a href="https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html">Web Terminal Install Docs</a></p>
+</div>
+<div class="paragraph">
+<p><strong>After the installation of Web Terminal is complete , please launch the Web Terminal from your OpenShift Cluster and perform below steps</strong></p>
 </div>
 <div class="paragraph">
 <p>Create the RHODA catalog source by running the following commands.</p>
 </div>
 <div class="paragraph">
-<p>Note: The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo. For Service Preview release we will use RHODA SRE/OSD addon release image repo.</p>
+<p><strong>Note</strong>: The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo.
+For Service Preview release we will use RHODA SRE/OSD addon release image repo.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -382,18 +388,6 @@ EOF</pre>
 <div class="listingblock">
 <div class="content">
 <pre>oc get catalogsource -n openshift-marketplace  dbaas-operator -o jsonpath='{.status.connectionState.lastObservedState} {"\n"}'</pre>
-</div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Verify if required any other details with below command (optional)</p>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc describe packagemanifests dbaas-operator -n openshift-marketplace</pre>
 </div>
 </div>
 <div class="ulist">
