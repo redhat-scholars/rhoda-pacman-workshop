@@ -452,11 +452,6 @@ Select the OpenShift Database Access Operator  to display additional information
 <img src="_images/rhoda8.png" alt="Application architecture" width="800">
 </div>
 </div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/rhoda9.png" alt="Application architecture" width="800">
-</div>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -472,16 +467,15 @@ Select the OpenShift Database Access Operator  to display additional information
 <div class="ulist">
 <ul>
 <li>
-<p>Repeat Steps above from 1 -7 in the ARO and ROSA Clusters as well to ensure we have RHODA installed on all of the three clusters</p>
-</li>
-<li>
 <p>Create a Provider Account depending on the the managed database that the application needs to connect to</p>
 </li>
+<li>
+<p>You can create a provider account resource that represents an account with a cloud database provider.</p>
+</li>
+<li>
+<p>By providing the correct authentication credentials for the cloud database provider, you can fetch the available database instances.</p>
+</li>
 </ul>
-</div>
-<div class="paragraph">
-<p>You can create a provider account resource that represents an account with a cloud database provider.
-By providing the correct authentication credentials for the cloud database provider, you can fetch the available database instances.</p>
 </div>
 <div class="paragraph">
 <p><strong>NOTE:</strong> For the Service Preview release of OpenShift Database Access, there is only a single namespace.</p>
@@ -555,20 +549,14 @@ To add another cloud-database provider account, click the <strong>Configuration<
 </li>
 <li>
 <p>Select your cloud database provider from the dropdown menu, and provide the necessary credentials for that provider.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The required account credentials vary based on the selected cloud-database provider.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p><strong>NOTE</strong></p>
 </div>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>The required account credentials vary based on the selected cloud-database provider.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -669,7 +657,12 @@ The required account credentials vary based on the selected cloud-database provi
 <div class="paragraph">
 <p>Please use the following : <a href="https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator">URL</a></p>
 </div>
-<div id="deploy_ansible" class="paragraph">
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_ansible"><a class="anchor" href="#deploy_ansible"></a>Install using Ansible</h2>
+<div class="sectionbody">
+<div class="paragraph">
 <p><strong>Ansible</strong></p>
 </div>
 <div class="paragraph">
@@ -678,13 +671,8 @@ The required account credentials vary based on the selected cloud-database provi
 <div class="paragraph">
 <p>For information on using Ansible, please refer to the <a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">link</a></p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_install_using_ansible"><a class="anchor" href="#_install_using_ansible"></a>Install using Ansible</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Gist : <a href="https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy" class="bare">https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy</a></p>
+<p><a href="https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy">Gist</a></p>
 </div>
 </div>
 </div>
@@ -697,11 +685,9 @@ The required account credentials vary based on the selected cloud-database provi
 <div class="paragraph">
 <p>Use below links for the pipeline related manifest.</p>
 </div>
-<div class="literalblock">
-<div class="content">
-<pre>https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml[Pipeline]
-https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml[Pipeline Task]</pre>
-</div>
+<div class="paragraph">
+<p><a href="https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml">Pipeline</a>
+<a href="https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml">Pipeline Task</a></p>
 </div>
 </div>
 </div>
