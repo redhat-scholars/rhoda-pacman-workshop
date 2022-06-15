@@ -155,45 +155,50 @@ image::dbaas_create_provider_account_page_fetch_failure.png[The failure message 
 
 
 [#deploy_kustomize]
-== Install using Kustomize
+*Kustomize Overview*
 
-URL : https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator
+Kustomize traverses a Kubernetes manifest to add, remove or update configuration options without forking. It is available both as a standalone binary and as a native feature of kubectl.
+
+For more information on using Kustomize, please refer to the following https://kustomize.io/[link]
+
+== Install RHODA using Kustomize
+
+Please use the following : https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator[URL]
 
 [#deploy_ansible]
+
+*Ansible*
+
+Ansible is a software tool that provides simple but powerful automation for cross-platform computer support. It is primarily intended for IT professionals, who use it for application deployment, updates on workstations and servers, cloud provisioning, configuration management, intra-service orchestration, and nearly anything a systems administrator does on a weekly or daily basis. Ansible doesn't depend on agent software and has no additional security infrastructure, so it's easy to deploy.
+
+For information on using Ansible, please refer to the https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html[link]
+
 == Install using Ansible
 
 Gist : https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy
 
 [#deploy_ocp_pipelines]
 == Install using OpenShift Pipelines 
+Red Hat OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Tekton introduces a number of standard custom resource definitions (CRDs) for defining CI/CD pipelines that are portable across Kubernetes distributions. Please refer to https://docs.openshift.com/container-platform/4.10/cicd/pipelines/understanding-openshift-pipelines.html[docs]
 
-Task : https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml
+Use below links for the pipeline related manifest.
 
-Pipeline : https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml
+ https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml[Pipeline]
+ https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml[Pipeline Task]
+
+
 
 [#deploy_rhacm]
 == Install using Red Hat Advanced Cluster Management Policy
 
-https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml
+Red Hat® Advanced Cluster Management for Kubernetes controls clusters and applications from a single console, with built-in security policies. Extend the value of Red Hat OpenShift® by deploying apps, managing multiple clusters, and enforcing policies across multiple clusters at scale. Red Hat’s solution ensures compliance, monitors usage, and maintains consistency.
+
+For more information on RHACM, please refer to https://access.redhat.com/documentation/en-us/openshift_container_platform/4.10[docs]
 
 
+Below is the link to the policy manifest that can be used to configure as policy in RHACM which can install the Operator
 
-////
-In the Developer Perspective, click add and select connect database from the list of available options on each cluster.
+https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml[Policy]
 
-image::rhoda22.png[Application architecture,800,align="center"]
-
-Once above step is performed, you would be able to see as shown below in developer perspective
-
-image::rhoda33.png[Application architecture,800,align="center"]
-
-Finally, to connect application to the database, we need to create a service binding by doing a drag and drop from the application to the connected database which will prompt a message as shown below
-
-image::rhoda44.png[Application architecture,800,align="center"]
-
-After successfully creating the service binding application will be connected to the database
-
-image::rhoda55.png[Application architecture,800,align="center"]
-////
 
 
