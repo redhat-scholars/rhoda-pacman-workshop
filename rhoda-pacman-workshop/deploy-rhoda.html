@@ -80,10 +80,22 @@
   </li>
   <li class="nav-item is-current-page" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="deploy-rhoda.html">Install RHODA</a>
+    <a class="nav-link" href="deploy-rhoda.html">Installation</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#deploy_rhoda">Install RHODA</a>
+    <a class="nav-link" href="#deploy_manual">Manual</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_kustomize">Kustomize</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_ansible">Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_rhacm">RHACM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_ocp_pipelines">OpenShift Pipeline</a>
   </li>
 </ul>
   </li>
@@ -303,7 +315,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Pacman using RHODA</a></li>
-    <li><a href="deploy-rhoda.html">Install RHODA</a></li>
+    <li><a href="deploy-rhoda.html">Installation</a></li>
   </ul>
 </nav>
   <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/master/documentation/modules/ROOT/pages/deploy-rhoda.adoc">Edit this Page</a></div>
@@ -312,14 +324,10 @@
 <article class="doc">
 <h1 class="page">Installing Red Hat OpenShift Database Access</h1>
 <div class="sect1">
-<h2 id="deploy_rhoda"><a class="anchor" href="#deploy_rhoda"></a>Install RHODA</h2>
+<h2 id="deploy_manual"><a class="anchor" href="#deploy_manual"></a>Install using <strong>oc</strong> commands</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Normally operators can be deployed from Operator Hub by selecting the Operator from Operator Hub and we can also use Ansible to deploy Operators depending on deployment techniques that are already adopted by the teams.</p>
-</div>
-<div class="paragraph">
-<p><strong>Using CLI</strong>
-Install Web Terminal Operator and  and launch terminal from OpenShift Console
+<p>Install Web Terminal Operator and  and launch terminal from OpenShift Console
 To install Web Terminal, please follow the following instructions : <a href="https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html" class="bare">https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html</a></p>
 </div>
 <div class="paragraph">
@@ -571,6 +579,41 @@ The required account credentials vary based on the selected cloud-database provi
 <p>The CockroachDB <a href="https://www.cockroachlabs.com">home page</a></p>
 </li>
 </ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_kustomize"><a class="anchor" href="#deploy_kustomize"></a>Install using Kustomize</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>URL : <a href="https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator" class="bare">https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_ansible"><a class="anchor" href="#deploy_ansible"></a>Install using Ansible</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Gist : <a href="https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy" class="bare">https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_ocp_pipelines"><a class="anchor" href="#deploy_ocp_pipelines"></a>Install using OpenShift Pipelines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Task : <a href="https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml" class="bare">https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml</a></p>
+</div>
+<div class="paragraph">
+<p>Pipeline : <a href="https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml" class="bare">https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml</a></p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_rhacm"><a class="anchor" href="#deploy_rhacm"></a>Install using Red Hat Advanced Cluster Management Policy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml" class="bare">https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml</a></p>
 </div>
 </div>
 </div>
