@@ -1,8 +1,8 @@
 = Exploring Red Hat OpenShift Database Access
 :navtitle: Explore RHODA 
 
-[#explore_rhoda]
-== Explore RHODA
+[#explore_web_console]
+== Explore using web console
 
 You can discover which database instance is connected to an application, along with other information by viewing the database inventory page.
 
@@ -44,3 +44,10 @@ You can also view the database provider, the provider account resource, and the 
 +
 .Example
 image::rhoda_admin_db_inventory_view.png[Snippet of the database inventory view]
+
+
+
+[#explore_cli]
+== Explore using OpenShift CLI commands
+
+This is a work in progress
