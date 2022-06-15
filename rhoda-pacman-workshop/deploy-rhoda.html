@@ -652,18 +652,36 @@ The required account credentials vary based on the selected cloud-database provi
 </li>
 </ul>
 </div>
+<div id="deploy_kustomize" class="paragraph">
+<p><strong>Kustomize Overview</strong></p>
+</div>
+<div class="paragraph">
+<p>Kustomize traverses a Kubernetes manifest to add, remove or update configuration options without forking. It is available both as a standalone binary and as a native feature of kubectl.</p>
+</div>
+<div class="paragraph">
+<p>For more information on using Kustomize, please refer to the following <a href="https://kustomize.io/">link</a></p>
+</div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="deploy_kustomize"><a class="anchor" href="#deploy_kustomize"></a>Install using Kustomize</h2>
+<h2 id="_install_rhoda_using_kustomize"><a class="anchor" href="#_install_rhoda_using_kustomize"></a>Install RHODA using Kustomize</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>URL : <a href="https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator" class="bare">https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator</a></p>
+<p>Please use the following : <a href="https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator">URL</a></p>
+</div>
+<div id="deploy_ansible" class="paragraph">
+<p><strong>Ansible</strong></p>
+</div>
+<div class="paragraph">
+<p>Ansible is a software tool that provides simple but powerful automation for cross-platform computer support. It is primarily intended for IT professionals, who use it for application deployment, updates on workstations and servers, cloud provisioning, configuration management, intra-service orchestration, and nearly anything a systems administrator does on a weekly or daily basis. Ansible doesn&#8217;t depend on agent software and has no additional security infrastructure, so it&#8217;s easy to deploy.</p>
+</div>
+<div class="paragraph">
+<p>For information on using Ansible, please refer to the <a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">link</a></p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="deploy_ansible"><a class="anchor" href="#deploy_ansible"></a>Install using Ansible</h2>
+<h2 id="_install_using_ansible"><a class="anchor" href="#_install_using_ansible"></a>Install using Ansible</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Gist : <a href="https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy" class="bare">https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy</a></p>
@@ -674,10 +692,16 @@ The required account credentials vary based on the selected cloud-database provi
 <h2 id="deploy_ocp_pipelines"><a class="anchor" href="#deploy_ocp_pipelines"></a>Install using OpenShift Pipelines</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Task : <a href="https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml" class="bare">https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml</a></p>
+<p>Red Hat OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Tekton introduces a number of standard custom resource definitions (CRDs) for defining CI/CD pipelines that are portable across Kubernetes distributions. Please refer to <a href="https://docs.openshift.com/container-platform/4.10/cicd/pipelines/understanding-openshift-pipelines.html">docs</a></p>
 </div>
 <div class="paragraph">
-<p>Pipeline : <a href="https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml" class="bare">https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml</a></p>
+<p>Use below links for the pipeline related manifest.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml[Pipeline]
+https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml[Pipeline Task]</pre>
+</div>
 </div>
 </div>
 </div>
@@ -685,7 +709,16 @@ The required account credentials vary based on the selected cloud-database provi
 <h2 id="deploy_rhacm"><a class="anchor" href="#deploy_rhacm"></a>Install using Red Hat Advanced Cluster Management Policy</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml" class="bare">https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml</a></p>
+<p>Red Hat® Advanced Cluster Management for Kubernetes controls clusters and applications from a single console, with built-in security policies. Extend the value of Red Hat OpenShift® by deploying apps, managing multiple clusters, and enforcing policies across multiple clusters at scale. Red Hat’s solution ensures compliance, monitors usage, and maintains consistency.</p>
+</div>
+<div class="paragraph">
+<p>For more information on RHACM, please refer to <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.10">docs</a></p>
+</div>
+<div class="paragraph">
+<p>Below is the link to the policy manifest that can be used to configure as policy in RHACM which can install the Operator</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml">Policy</a></p>
 </div>
 </div>
 </div>
