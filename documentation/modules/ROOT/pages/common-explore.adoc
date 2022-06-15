@@ -1,5 +1,5 @@
-= Explore RHODA
-:navtitle: Explore RHODA
+= Explore OpenShift
+:navtitle: Explore OpenShift
 
 [#the_web_console]
 == The Web Console
@@ -9,7 +9,33 @@ perform various tasks via a browser.
 
 [tabs, subs="attributes+,+macros"]
 ====
+ROKS::
++
+--
+Login to IBM Cloud, copy this link and open in your browser:
 
+[source,role="copypaste"]
+%LOGIN%
+
+Enter following credentials:
+
+*Username*:
+[source,role="copypaste"]
+%USERNAME%
+
+*Password*:
+[source,role="copypaste"]
+%PASSWORD%
+
+Click *Sign In*.
+
+image::roks-login1.png[ROKS Login]
+
+After you successfully logged in, from right side pane, click *OpenShift web console* to access your OpenShift Cluster Dashboard:
+
+image::roks-login4.png[ROKS Open-shift web console]
+
+--
 ROSA::
 +
 --
@@ -30,7 +56,6 @@ On the Identity Provider login screen, enter the your credentials:
 [source,role="copypaste"]
 %PASSWORD%
 --
-
 ARO::
 +
 --
@@ -38,7 +63,7 @@ Access your cluster from https://console-openshift-console.%CLUSTER_SUBDOMAIN%[O
 
 .Cluster administrator
 ****
-If you are the administrator of your ARO cluster (`kubeadmin`), you can login with your credentials if you already have them. 
+If you are the administrator of your ARO cluster (`kubeadmin`), you can login with your credentials if you already have them.
 
 If don't have them yet, as an admin for the cluster in https://portal.azure.com[Azure Portal,window=_blank], you can also retrieve credentials with the https://docs.microsoft.com/en-us/cli/azure/[az CLI,window=_blank].
 
@@ -88,13 +113,13 @@ Enter the your credentials:
 Sandbox::
 +
 --
-https://developers.redhat.com/developer-sandbox[Developer Sandbox for Red Hat OpenShift,window='_blank'] is a free Kubernetes cloud environment in a shared, multi-tenant OpenShift cluster that is pre-configured with a set of developer tools. The Developer Sandbox is active for 30 days and renewable once it expires. 
+https://developers.redhat.com/developer-sandbox[Developer Sandbox for Red Hat OpenShift,window='_blank'] is a free Kubernetes cloud environment in a shared, multi-tenant OpenShift cluster that is pre-configured with a set of developer tools. The Developer Sandbox is active for 30 days and renewable once it expires.
 
 To create your account, register to https://developers.redhat.com/developer-sandbox[Developer Sandbox for Red Hat OpenShift,window='_blank']. From there, click on the red button that says **Get Started in the Sandbox** as shown in the following image.
 
 image::devsandbox-signup.png[Developer Sandbox Sign-up Page]
 
-Use your existing Red Hat account or create a new one, then follow the instructions on the screen. You should then be redirected to the Developer Sandbox page again, but this time, you should see a button labelled **Start using your sandbox**. 
+Use your existing Red Hat account or create a new one, then follow the instructions on the screen. You should then be redirected to the Developer Sandbox page again, but this time, you should see a button labelled **Start using your sandbox**.
 
 image::devsandbox-start.png[Developer Sandbox Start Page]
 
@@ -203,9 +228,9 @@ Kubernetes Version: v1.22.3+e790d7f
 ----
 <.> NOTE: you will only see the `Server Version` and `Kubernetes Version` if you are currently connected to a Kubenetes or OpenShift cluster
 
-If you see output like the above you can skip to <<Connect to the OpenShift Cluster from CLI,Connect to the OpenShift Cluster from CLI>>.  
+If you see output like the above you can skip to <<Connect to the OpenShift Cluster from CLI,Connect to the OpenShift Cluster from CLI>>.
 
-However, if the `oc` command doesn't exist or you have an older version of the OpenShift CLI (e.g. < `4.4.x`), select the tab appropriate to your OS and follow the instructions to install or update the OpenShift CLI. 
+However, if the `oc` command doesn't exist or you have an older version of the OpenShift CLI (e.g. < `4.4.x`), select the tab appropriate to your OS and follow the instructions to install or update the OpenShift CLI.
 
 
 [#download_openshift_cli]
@@ -316,7 +341,7 @@ Navigate to top-right, click the command line terminal icon.
 
 image::explore-web-terminal.png[Web Terminal]
 
-From bottom-left, click the *Start* button. 
+From bottom-left, click the *Start* button.
 
 image::explore-web-terminal-start.png[Start Web Terminal]
 
@@ -399,5 +424,5 @@ appropriate values:
 
 export https_proxy=http://USERNAME:PASSOWRD@proxy-server.mycorp.com:3128/
 
-__Special Characters__: If your password contains special characters, you must replace them with ASCII codes, for example the at sign @ must be replaced by the %40 code, e.g. p@ssword = p%40ssword. 
+__Special Characters__: If your password contains special characters, you must replace them with ASCII codes, for example the at sign @ must be replaced by the %40 code, e.g. p@ssword = p%40ssword.
 ====
