@@ -1,12 +1,9 @@
 = Installing Red Hat OpenShift Database Access
-:navtitle: Install RHODA 
+:navtitle: Installation of RHODA
 
-[#deploy_rhoda]
-== Install RHODA
+[#deploy_manual]
+== Install using *oc* commands
 
-Normally operators can be deployed from Operator Hub by selecting the Operator from Operator Hub and we can also use Ansible to deploy Operators depending on deployment techniques that are already adopted by the teams.
-
-*Using CLI*
 Install Web Terminal Operator and  and launch terminal from OpenShift Console
 To install Web Terminal, please follow the following instructions : https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html
 
@@ -165,6 +162,28 @@ NOTE: The required account credentials vary based on the selected cloud-database
 * The Crunchy Data Bridge link:https://www.crunchydata.com[home page].
 * The CockroachDB link:https://www.cockroachlabs.com[home page]
 
+
+[#deploy_kustomize]
+== Install using Kustomize
+
+URL : https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator
+
+[#deploy_ansible]
+== Install using Ansible
+
+Gist : https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy
+
+[#deploy_ocp_pipelines]
+== Install using OpenShift Pipelines 
+
+Task : https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml
+
+Pipeline : https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml
+
+[#deploy_rhacm]
+== Install using Red Hat Advanced Cluster Management Policy
+
+https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml
 
 
 
