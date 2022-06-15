@@ -66,19 +66,14 @@ image::rhoda7.png[Application architecture,800,align="center"]
 
 image::rhoda8.png[Application architecture,800,align="center"]
 
-image::rhoda9.png[Application architecture,800,align="center"]
-
-
 * Verify the installation completion logs
 
 image::rhoda11.png[Application architecture,800,align="center"]
 
-* Repeat Steps above from 1 -7 in the ARO and ROSA Clusters as well to ensure we have RHODA installed on all of the three clusters
-
 * Create a Provider Account depending on the the managed database that the application needs to connect to
 
-You can create a provider account resource that represents an account with a cloud database provider.
-By providing the correct authentication credentials for the cloud database provider, you can fetch the available database instances.
+* You can create a provider account resource that represents an account with a cloud database provider.
+* By providing the correct authentication credentials for the cloud database provider, you can fetch the available database instances.
 
 *NOTE:* For the Service Preview release of OpenShift Database Access, there is only a single namespace.
 
@@ -115,7 +110,9 @@ image::dbaas_create_provider_account_page_name_field.png[The create provider acc
 
 . Select your cloud database provider from the dropdown menu, and provide the necessary credentials for that provider.
 +
-NOTE: The required account credentials vary based on the selected cloud-database provider.
+**NOTE**
+
+The required account credentials vary based on the selected cloud-database provider.
 
 image::dbaas_create_provider_account_page_db_provider_box.png[The create provider account page with the database provider field highlighted]
 
@@ -166,16 +163,14 @@ For more information on using Kustomize, please refer to the following https://k
 Please use the following : https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator[URL]
 
 [#deploy_ansible]
-
+== Install using Ansible
 *Ansible*
 
 Ansible is a software tool that provides simple but powerful automation for cross-platform computer support. It is primarily intended for IT professionals, who use it for application deployment, updates on workstations and servers, cloud provisioning, configuration management, intra-service orchestration, and nearly anything a systems administrator does on a weekly or daily basis. Ansible doesn't depend on agent software and has no additional security infrastructure, so it's easy to deploy.
 
 For information on using Ansible, please refer to the https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html[link]
 
-== Install using Ansible
-
-Gist : https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy
+https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy[Gist]
 
 [#deploy_ocp_pipelines]
 == Install using OpenShift Pipelines 
@@ -183,8 +178,8 @@ Red Hat OpenShift Pipelines is a cloud-native, continuous integration and contin
 
 Use below links for the pipeline related manifest.
 
- https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml[Pipeline]
- https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml[Pipeline Task]
+https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml[Pipeline]
+https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml[Pipeline Task]
 
 
 
@@ -199,6 +194,5 @@ For more information on RHACM, please refer to https://access.redhat.com/documen
 Below is the link to the policy manifest that can be used to configure as policy in RHACM which can install the Operator
 
 https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml[Policy]
-
 
 
