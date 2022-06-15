@@ -8,13 +8,13 @@ Install Web Terminal Operator and launch terminal from OpenShift Console
 
 To install Web Terminal, please follow the following instructions : https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html[Web Terminal Install Docs]
 
-*After the installation of Web Terminal is complete , please launch the Web Terminal from your OpenShift Cluster and perform below steps*
+* After the installation of Web Terminal is complete , please launch the Web Terminal from your OpenShift Cluster and perform below steps*
 
-
-Create the RHODA catalog source by running the following commands.
+* Create the RHODA catalog source by running the following commands.
 
 *Note*: The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo.
 For Service Preview release we will use RHODA SRE/OSD addon release image repo.
+
 ----
 cat <<EOF | oc apply -f -
 apiVersion: operators.coreos.com/v1alpha1
@@ -80,20 +80,9 @@ image::rhoda11.png[Application architecture,800,align="center"]
 You can create a provider account resource that represents an account with a cloud database provider.
 By providing the correct authentication credentials for the cloud database provider, you can fetch the available database instances.
 
-NOTE: For the Service Preview release of OpenShift Database Access, there is only a single namespace.
+*NOTE:* For the Service Preview release of OpenShift Database Access, there is only a single namespace.
 
-////
-.Prerequisites
-
-* An instance of OpenShift Container Platform (OCP) 4.9 or higher running on Red Hat OpenShift Dedicated (OSD) or Red Hat OpenShift Service on AWS (ROSA).
-** When using OSD or ROSA, an Amazon Web Services (AWS) account and credentials are required.
-* Access to the OpenShift Cluster Manager (OCM).
-* Installation of the OpenShift Database Access add-on for OCM.
-* A service account with either the MongoDB Atlas, Crunchy Data Bridge, or CockroachDB cloud database provider.
-* A database instance created using either the MongoDB Atlas, Crunchy Data Bridge, or CockroachDB cloud database provider.
-////
-
-.Procedure
+.*Procedure*
 
 . Log into the OpenShift Cluster Manager console.
 
@@ -106,7 +95,7 @@ image::rhoda_single_page_all_steps.png[Single screenshot of the three steps to s
 . Expand the **Data Services** navigation menu, and click **Database Access**.
 +
 
-//image::rhoda_select_database_access_from_nav_menu.png[The Database Services navigation menu]
+image::rhoda_select_database_access_from_nav_menu.png[The Database Services navigation menu]
 
 .. Select the **redhat-dbaas-operator** project from the **Project** dropdown menu.
 
@@ -118,42 +107,43 @@ If a cloud-database provider account already exists, then a database inventory v
 To add another cloud-database provider account, click the **Configuration** dropdown button, and select **Import database provider account**.
 ====
 +
-//image::rhoda_create_database_provider_account_dropdown.png[The create provider account button on the database access page]
+image::rhoda_create_database_provider_account_dropdown.png[The create provider account button on the database access page]
 
 . On the **Import Provider Account** page, specify a **Name** for the new provider account resource.
 +
-//image::dbaas_create_provider_account_page_name_field.png[The create provider account page with the name field highlighted]
+image::dbaas_create_provider_account_page_name_field.png[The create provider account page with the name field highlighted]
 
 . Select your cloud database provider from the dropdown menu, and provide the necessary credentials for that provider.
 +
 NOTE: The required account credentials vary based on the selected cloud-database provider.
-//+
-//image::dbaas_create_provider_account_page_db_provider_box.png[The create provider account page with the database provider field highlighted]
-//+
-//.MongoDB Atlas Example
-//image::dbaas_create_provider_account_page_mongodb_atlas_account_credentials.png[The create provider account page when MongoDB Atlas is selected as the provider]
-//+
-//.Crunchy Data Bridge Example
-//image::dbaas_create_provider_account_page_crunchy_data_bridge_account_credentials.png[The create provider account page when Crunchy Bridge is selected as the provider]
-//+
-//.CockroachDB Example
-//image::rhoda_create_provider_account_page_cockroachdb_account_credentials.png[The create provider account page when CockroachDB is selected as the provider]
+
+image::dbaas_create_provider_account_page_db_provider_box.png[The create provider account page with the database provider field highlighted]
+
+.MongoDB Atlas Example
+image::dbaas_create_provider_account_page_mongodb_atlas_account_credentials.png[The create provider account page when MongoDB Atlas is selected as the provider]
+
+.Crunchy Data Bridge Example
+image::dbaas_create_provider_account_page_crunchy_data_bridge_account_credentials.png[The create provider account page when Crunchy Bridge is selected as the provider]
+
+.CockroachDB Example
+image::rhoda_create_provider_account_page_cockroachdb_account_credentials.png[The create provider account page when CockroachDB is selected as the provider]
 
 . After you provide the account credentials, click the **Import** button to configure the provider account resource, and fetch the available database instances.
 
-//.. If fetching is successful, then you can click on the **View Provider Accounts** button to display the available database instances that developers can import.
-//+
-//.Successful Message Example
-//image::dbaas_create_provider_account_page_fetch_successful.png[The success message when a database instance is retrieved]
-//+
-//.Database Inventory Example
-//image::dbaas_provider_account_inventories_page.png[Listing of available database instances]
+.. If fetching is successful, then you can click on the **View Provider Accounts** button to display the available database instances that developers can import.
++
+.Successful Message Example
+image::dbaas_create_provider_account_page_fetch_successful.png[The success message when a database instance is retrieved]
 
-//.. If fetching fails, then the cloud database provider's error code is displayed.
-//To check the cloud database provider account information, you can click on the **Edit Provider Account** button.
-//+
-//.Failure Message Example
-//image::dbaas_create_provider_account_page_fetch_failure.png[The failure message when a database instance is not retrieved]
+.Database Inventory Example
+image::dbaas_provider_account_inventories_page.png[Listing of available database instances]
+
+.. If fetching fails, then the cloud database provider's error code is displayed.
+
+To check the cloud database provider account information, you can click on the **Edit Provider Account** button.
+
+.Failure Message Example
+image::dbaas_create_provider_account_page_fetch_failure.png[The failure message when a database instance is not retrieved]
 
 [role="_additional-resources"]
 .Additional Resources
