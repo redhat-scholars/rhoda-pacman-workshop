@@ -5,9 +5,11 @@ This workshop is intended to give you a hands-on introduction to using Red Hat O
 
 Topics which this workshop will cover include:
 
-* A brief introduction to Storage & Database as service
+* A brief introduction to Database as service (DBaaS)
 * Using the OpenShift command line client and web console.
-* Deploying Pacman application from source code in a Git repository.
-* Connecting Pacman app with a Mongo Atlas DB from the OpenShift service catalog.
+* Installation of RHODA on OpenShift.
+* Deploying PAC-MAN application from source code in a Git repository.
+* Configuring a MongoAtlas Database instance from the OpenShift service catalog using RHODA.
+* Setting up web hooks to enable automated application builds.
 
 Additional topics may also be covered relevant to the specific programming language used by the applications being deployed.
