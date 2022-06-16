@@ -1,5 +1,5 @@
 name: rhoda-pacman-workshop
-title: Pacman using RHODA
+title: Connecting Applications to Managed Databases
 version: master
 nav:
   - modules/ROOT/nav.adoc

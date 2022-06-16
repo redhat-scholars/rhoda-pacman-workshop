@@ -1,4 +1,4 @@
-= Pacman using RHODA
+= Connecting Applications to Managed Databases
 :!sectids:
 
 ifndef::lab[]
