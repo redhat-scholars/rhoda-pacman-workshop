@@ -329,6 +329,16 @@
   <div class="content">
 <article class="doc">
 <h1 class="page">Installing Red Hat OpenShift Database Access</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>RHODA is an add-on service to OpenShift Dedicated (OSD) and Red Hat OpenShift Service on AWS (ROSA) that provides consistency for how OSD and ROSA administrators and developers discover, consume, monitor, and manage databases in a multi-cloud environment.</p>
+</div>
+<div class="paragraph">
+<p>RHODA leverages the Kubernetes construct of operators to bind application clusters to database instances. IT operations can launch a database discovery process based on resource permissions to identify the database instances that can be accessed. Once established, developers can see these new database services from the catalog on their OpenShift developer console represented as a UI tile for each database registered with the system. After selecting a database service instance, the developer can drag and drop a binding connector on the OpenShift developer UI to establish database connectivity to a Kubernetes pod.</p>
+</div>
+</div>
+</div>
 <div class="sect1">
 <h2 id="deploy_web_terminal"><a class="anchor" href="#deploy_web_terminal"></a>Install using OpenShift Web Terminal</h2>
 <div class="sectionbody">
@@ -663,13 +673,13 @@ To add another cloud-database provider account, click the <strong>Configuration<
 <h2 id="deploy_ansible"><a class="anchor" href="#deploy_ansible"></a>Install using Ansible</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><strong>Ansible</strong></p>
-</div>
-<div class="paragraph">
 <p>Ansible is a software tool that provides simple but powerful automation for cross-platform computer support. It is primarily intended for IT professionals, who use it for application deployment, updates on workstations and servers, cloud provisioning, configuration management, intra-service orchestration, and nearly anything a systems administrator does on a weekly or daily basis. Ansible doesn&#8217;t depend on agent software and has no additional security infrastructure, so it&#8217;s easy to deploy.</p>
 </div>
 <div class="paragraph">
 <p>For information on using Ansible, please refer to the <a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">link</a></p>
+</div>
+<div class="paragraph">
+<p>Using below manifest, we can install using AAP or run as a playbook manually by creating necessary artifacts.</p>
 </div>
 <div class="paragraph">
 <p><a href="https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy">Gist</a></p>
@@ -680,7 +690,10 @@ To add another cloud-database provider account, click the <strong>Configuration<
 <h2 id="deploy_ocp_pipelines"><a class="anchor" href="#deploy_ocp_pipelines"></a>Install using OpenShift Pipelines</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Red Hat OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Tekton introduces a number of standard custom resource definitions (CRDs) for defining CI/CD pipelines that are portable across Kubernetes distributions. Please refer to <a href="https://docs.openshift.com/container-platform/4.10/cicd/pipelines/understanding-openshift-pipelines.html">docs</a></p>
+<p>Red Hat OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Tekton introduces a number of standard custom resource definitions (CRDs) for defining CI/CD pipelines that are portable across Kubernetes distributions</p>
+</div>
+<div class="paragraph">
+<p>Please refer to <a href="https://docs.openshift.com/container-platform/4.10/cicd/pipelines/understanding-openshift-pipelines.html">docs</a></p>
 </div>
 <div class="paragraph">
 <p>Use below links for the pipeline related manifest.</p>
