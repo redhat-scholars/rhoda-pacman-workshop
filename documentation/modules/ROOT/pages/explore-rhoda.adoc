@@ -42,7 +42,7 @@ image::rhoda_admin_db_inventory_view.png[Snippet of the database inventory view]
 
 [#explore_cli]
 == Explore using CLI by using below commands
-----
+-----
 oc get catalogsources -n openshift-marketplace
 
 NAME                           DISPLAY                      TYPE   PUBLISHER   AGE
@@ -55,7 +55,7 @@ mongodb-atlas-catalogsource    MongoDB Atlas Operator       grpc               2
 redhat-marketplace             Red Hat Marketplace          grpc   Red Hat     5d8h
 redhat-operators               Red Hat Operators            grpc   Red Hat     5d8h
 
-----
+-----
 oc get catalogsource dbaas-operator -n openshift-marketplace
 
 NAME             DISPLAY          TYPE   PUBLISHER   AGE
@@ -72,9 +72,9 @@ mongodb-atlas-subscription                                                  mong
 rh-service-binding-operator-stable-redhat-operators-openshift-marketplace   rh-service-binding-operator   redhat-operators               stable
 
 -----
-oc get sub  dbaas-operator -n openshift-dbaas-operator
+oc get sub dbaas-operator -n openshift-dbaas-operator
 
 NAME             PACKAGE          SOURCE           CHANNEL
 dbaas-operator   dbaas-operator   dbaas-operator   alpha
 
-----
+-----
