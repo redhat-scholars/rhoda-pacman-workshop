@@ -131,10 +131,10 @@
     <a class="nav-link" href="explore-rhoda.html">Explore RHODA</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#explore_cli">Explore using OpenShift CLI</a>
+    <a class="nav-link" href="#explore_cli">OpenShift CLI</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="#explore_web_console">Explore using OpenShift Web console</a>
+    <a class="nav-link" href="#explore_web_console">OpenShift Web console</a>
   </li>
 </ul>
   </li>
@@ -330,14 +330,53 @@
 <article class="doc">
 <h1 class="page">Exploring Red Hat OpenShift Database Access</h1>
 <div class="sect1">
-<h2 id="explore_web_console"><a class="anchor" href="#explore_web_console"></a>Explore using web console</h2>
+<h2 id="explore_web_console"><a class="anchor" href="#explore_web_console"></a>Web Console</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>You can discover which database instance is connected to an application, along with other information by viewing the database inventory page.</p>
 </div>
+<div class="paragraph">
+<p><strong>Prerequisites</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Already logged into the <a href="https://console.redhat.com/">Red Hat Hybrid Cloud Console</a>.</p>
+</li>
+<li>
+<p>Access to the OpenShift Cluster Manager (OCM) console.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Procedure</strong>
+. Log into the <a href="https://console.redhat.com/">Red Hat Hybrid Cloud Console</a> with your credentials.</p>
+</div>
+<div class="paragraph">
+<p>+
+image::rhoda_console_login_screen.png[Red Hat Hybrid Cloud Console login page]</p>
+</div>
 <div class="olist arabic">
-<div class="title">Procedure</div>
 <ol class="arabic">
+<li>
+<p>Click <strong>OpenShift</strong> from the navigation menu.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_select_openshift_from_nav_menu.png" alt="OpenShift link from the navigation menu">
+</div>
+</div>
+</li>
+<li>
+<p>From the <strong>Clusters</strong> page, click on a cluster name from the list of available clusters.</p>
+</li>
+<li>
+<p>Click the <strong>Open console</strong> button, and provide your account credentials.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_openshift_open_console_button.png" alt="Open Console button">
+</div>
+</div>
+</li>
 <li>
 <p>From the OpenShift Cluster Manager console, change to the <strong>Administrator</strong> perspective.</p>
 </li>
@@ -367,10 +406,23 @@ You can also view the database provider, the provider account resource, and the 
 </div>
 </div>
 <div class="sect1">
-<h2 id="explore_cli"><a class="anchor" href="#explore_cli"></a>Explore using OpenShift CLI commands</h2>
+<h2 id="explore_cli"><a class="anchor" href="#explore_cli"></a>Explore using CLI by using below commands</h2>
 <div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>oc get catalogsources -n openshift-marketplace</pre>
+</div>
+</div>
 <div class="paragraph">
-<p>This is a work in progress</p>
+<p>oc get catalogsource dbaas-operator -n openshift-marketplace</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc get subs -n openshift-dbaas-operator</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>oc get sub  dbaas-operator -n openshift-dbaas-operator</p>
 </div>
 </div>
 </div>
