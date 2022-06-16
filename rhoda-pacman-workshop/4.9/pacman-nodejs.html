@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Pacman App :: Connecting Applications to Managed Databases</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/4.9/pacman-nodejs.html">
+    <link rel="prev" href="common-pacman-architecture.html">
+    <link rel="next" href="pacman-nodejs-databases.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/course-template">Connecting Applications to Managed Databases</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoda-pacman-workshop" data-version="4.9">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-workshop-summary.html">Workshop</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html">Explore OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-explore.html#the_web_console">The Web Console</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#command_line_interface">Command Line Interface</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#download_openshift_cli">Download OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#use_web_terminal">Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#connect_to_the_cluster_with_cli">Connect to the OpenShift Cluster from CLI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="common-explore.html#working_with_proxies">Working with proxies</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-bg.html">Before we begin</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#challenges_dbaas">DBaaS &amp; Present Challenges</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#sol_rh_dbaas">Red Hat Solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#bg_sb_lib">Service binding libraries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="deploy-rhoda.html">Installation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_web_terminal">OpenShift Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_kustomize">Kustomize</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_ansible">Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_rhacm">RHACM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_ocp_pipelines">OpenShift Pipelines</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="explore-rhoda.html">Explore RHODA</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="explore-rhoda.html#explore_cli">OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="explore-rhoda.html#explore_web_console">OpenShift Web console</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="projects.html">Projects</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="projects.html#create_pacman_project">Create Pacman Project</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-pacman-architecture.html">Pacman Architecture</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs.html">Pacman App</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#source_to_image">Background: Source-to-Image (S2I)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="#creating_nodejs_application">Exercise: Creating a Pacman application</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#add_to_project">Add to Project</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#using_application_code_on_git_server">Using Application Code on a Git Server</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="#build_code_on_openshift">Build the Code on OpenShift</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-databases.html">Connecting Pacman to MongoDB Atlas Cloud Database Instance</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#prereq_rhoda">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#access_mongodb">Exercise: Accessing the database access menu for configuring and monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#find_mongodb_creds">Exercise: Find your MongoDB Atlas account credentials</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#dev_add_db">Exercise: Accessing the developer workspace and adding a database instance</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#play_pacman">Exercise: Play Pacman and save your high scores</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-application-health.html">Application Healthchecks</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-application-health.html#add_health_checks">Exercise: Add Health Checks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html">Webhooks with OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#prerequisite_github_account">Prerequisite: GitHub Account</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#webhooks">Webhooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#webhooks_with_openshift">Webhooks with OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#configuring_github_webhooks">Exercise: Configuring GitHub Web Hooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#using_github_webhooks">Exercise: Using GitHub Web Hooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html">GitHub Actions with OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#disable_github_webhook">Disable GitHub Webhook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#disable_openshift_triggers">Disable OpenShift Triggers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#configure_github_action">Configure GitHub Action</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#add_github_action">Add GitHub Action</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#enable_openshift_triggers">Enable OpenShift Triggers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-pipeline.html">Continuous Integration and Pipelines</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline.html#install_openshift_pipelines_from_operatorhub">Install OpenShift Pipelines from OperatorHub</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline.html#understanding_tekton">Understanding Tekton</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline.html#create_your_pipeline">Create Your Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline.html#run_the_pipeline">Run the Pipeline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html">Webhooks with Pipelines</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#prerequisite_github_account">Prerequisite: GitHub Account</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#webhooks">Web Hooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#adding_triggers_to_your_pipeline">Adding Triggers to your Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#configuring_github_webhooks">Exercise: Configuring GitHub Web Hooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#using_github_webhooks">Exercise: Using GitHub Web Hooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-further-resources.html">Further Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-workshop-links.html">Workshop Links</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#openshift_cluster_url">OpenShift Cluster URL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#workshop_guides">Workshop Guides</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#web_terminal">Web terminal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#git_server">Git Server</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Connecting Applications to Managed Databases</a></li>
+    <li><a href="pacman-nodejs.html">Pacman App</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/4.9/documentation/modules/ROOT/pages/pacman-nodejs.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Pacman App</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section, we&#8217;re going to deploy a backend service, developed in Java that will expose 2 main REST endpoints to the visualizer
+application (<code>pacman</code> web component that was deployed in the previous labs).
+The application will query for national parks information (including its
+coordinates) that is stored in a MongoDB database.  This application will also
+provide an external access point, so that the API provided can be directly used
+by the end user.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/roadshow-app-architecture-nationalparks-1.png" alt="Application architecture" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="source_to_image"><a class="anchor" href="#source_to_image"></a>Background: Source-to-Image (S2I)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In a previous lab, we learned how to deploy a pre-existing image
+image. Now we will expand on that by learning how OpenShift builds
+container images using source code from an existing repository.  This is accomplished using the Source-to-Image project.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/openshift/source-to-image">Source-to-Image (S2I)</a> is a
+open source project sponsored by Red Hat that has the following goal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">Source-to-image (S2I) is a tool for building reproducible container images. S2I
+produces ready-to-run images by injecting source code into a container image and
+assembling a new container image which incorporates the builder image and built
+source. The result is then ready to use with docker run. S2I supports
+incremental builds which re-use previously downloaded dependencies, previously
+built artifacts, etc.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>OpenShift is S2I-enabled and can use S2I as one of its build mechanisms (in
+addition to building container images from Dockerfiles, and "custom" builds).</p>
+</div>
+<div class="paragraph">
+<p>OpenShift runs the S2I process inside a special <strong>Pod</strong>, called a Build
+Pod, and thus builds are subject to quotas, limits, resource scheduling, and
+other aspects of OpenShift.</p>
+</div>
+<div class="paragraph">
+<p>A full discussion of S2I is beyond the scope of this class, but you can find
+more information about it either in the
+<a href="https://docs.openshift.com/container-platform/4.10/creating_images/s2i.html">OpenShift S2I documentation</a>
+or on <a href="https://github.com/openshift/source-to-image">GitHub</a>. The only key concept you need to
+remember about S2I is that it&#8217;s magic.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="creating_pacman-nodejs_application"><a class="anchor" href="#creating_pacman-nodejs_application"></a>Exercise: Creating a Pacman application</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The backend service that we will be deploying as part of this exercise is
+called <code>pacman</code>.  This is a Java Spring Boot application that performs 2D
+geo-spatial queries against a MongoDB database to locate and return map
+coordinates of all National Parks in the world. That was just a fancy way of
+saying that we are going to deploy a webservice that returns a JSON list of
+places.</p>
+</div>
+<div class="sect2">
+<h3 id="add_to_project"><a class="anchor" href="#add_to_project"></a>Add to Project</h3>
+<div class="paragraph">
+<p>Because the <code>pacman</code> component is a backend to serve data that our
+existing frontend (parksmap) will consume, we are going to build it inside the existing
+project that we have been working with. To illustrate how you can interact with OpenShift via the CLI or the web console, we will deploy the nationalparks component using the web console.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="using_application_code_on_git_server"><a class="anchor" href="#using_application_code_on_git_server"></a>Using Application Code on Git Server</h3>
+<div class="paragraph">
+<p>OpenShift can work with any accessible Git repository. This could be GitHub,
+GitLab, or any other server that speaks Git. You can even register webhooks in
+your Git server to initiate OpenShift builds triggered by any update to the
+application code!</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/veniceofcode/pacman.git">Pacman GitHub Repository</a></p>
+</div>
+<div class="paragraph">
+<p>Later in the lab, we want you to make a code change and then rebuild your
+application. This is a fairly simple Spring framework Java application.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="build_code_on_openshift"><a class="anchor" href="#build_code_on_openshift"></a>Build the Code on OpenShift</h3>
+<div class="paragraph">
+<p>Similar to how we used <strong>+Add</strong> before with an existing image, we
+can do the same for specifying a source code repository. Since for this lab you
+have your own git repository, let&#8217;s use it with a simple Java S2I image.</p>
+</div>
+<div class="paragraph">
+<p>In the Developer Perspective, click <strong>+Add</strong> in the left navigation, go to the <strong>Git Repository</strong> section and then choose <strong>From Git</strong> option.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-show-add-options.png" alt="Add to Project">
+</div>
+</div>
+<div class="paragraph">
+<p>The <strong>Import from Git</strong> workflow will guide you through the process of deploying your app based on a few selections.</p>
+</div>
+<div class="paragraph">
+<p>Enter the following for Git Repo URL:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">https://github.com/veniceofcode/pacman.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>OpenShift will automatically guess the Git server type and the programming language used by the source code. You will be now asked to select an <strong>Import Strategy</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Click <strong>Edit Import Strategy</strong>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-import-strategy.png" alt="Select Import Strategy">
+</div>
+</div>
+<div class="paragraph">
+<p>You have three options:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Devfile</strong>: this will use <a href="https://devfile.io/docs/devfile/2.1.0/user-guide/index.html">Devfile v2</a> spec to create an application stack. The repo has to contain a file named <code>devfile.yaml</code> in the Devfile v2 format .</p>
+</li>
+<li>
+<p><strong>Dockerfile</strong>: this will create a Container image from an existing Dockerfile.</p>
+</li>
+<li>
+<p><strong>Builder Image</strong>: this will use a mechanism called Source-to-Image to create automatically a container image directly from the source code.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Select <strong>Build Image</strong> as we are going to create the container image from the source code, as discussed in the next section.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-import-strategy-build.png" alt="Select Import Strategy">
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You could also use Dockerfile, the repo contains a multi-stage Dockerfile. For this exercise, we want to show the Build Image feature.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Verify that <strong>Java</strong> has been selected as your Builder Image, and be sure to select version <strong>openjdk-11-ubi8</strong> to have OpenJDK 11.</p>
+</div>
+<div class="paragraph">
+<p>Scroll down to the <strong>General</strong> section. Add the following:</p>
+</div>
+<div class="paragraph">
+<p><strong>Application Name</strong> :</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">pacman</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Name</strong> :</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">pacman</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In <strong>Resources</strong> section, select <strong>Deployment</strong>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If present, leave Pipeline section empty here as we will implement it in the next modules
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Under <strong>Advanced Options</strong>, ensure <strong>Create a route to the application</strong> is <strong>checked</strong> here.</p>
+</div>
+<div class="paragraph">
+<p>We are going to create another <strong>Secure Route</strong>, this time directly from this view.</p>
+</div>
+<div class="paragraph">
+<p>Click <strong>Show advanced Routing options</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Leave all default options, go under <strong>Security</strong> section.</p>
+</div>
+<div class="paragraph">
+<p>Check <strong>Secure Route</strong> option.</p>
+</div>
+<div class="paragraph">
+<p>Under <strong>TLS termination</strong>, select <strong>Edge</strong>.</p>
+</div>
+<div class="paragraph">
+<p>Scroll down and expand the <strong>Labels</strong> section to add 3 labels.</p>
+</div>
+<div class="paragraph">
+<p>The name of the Application group:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">app=pacman</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Next the name of this deployment.</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">component=pacman</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>And finally, the role this component plays in the overall application.</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-none hljs">role=ui</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Click <strong>Create</strong> to submit.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-configure-service1.png" alt="Select Builder">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-configure-service2.png" alt="Advanced Options">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-configure-service3.png" alt="Secure Route">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-configure-service4.png" alt="Label">
+</div>
+</div>
+<div class="paragraph">
+<p>To see the build logs, in Topology view, click the <code>nationalparks</code> entry, then click on <strong>View Logs</strong> in the <strong>Builds</strong> section of the <strong>Resources</strong> tab.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/nationalparks-java-new-java-build.png" alt="Nationalparks build">
+</div>
+</div>
+<div class="paragraph">
+<p>This is a Java-based application that uses Maven as the build and dependency system.  For this reason, the initial build
+will take a few minutes as Maven downloads all of the dependencies needed for
+the application. You can see all of this happening in real time!</p>
+</div>
+<div class="paragraph">
+<p>From the command line, you can also see the <strong>Builds</strong>:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get builds</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You&#8217;ll see output like:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME       TYPE     FROM          STATUS     STARTED      DURATION
+pacman-1   Source   Git@1c647d5   Complete   2 days ago   58s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also view the build logs with the following command:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -f builds/nationalparks-1</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After the build has completed and successfully:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The S2I process will push the resulting image to the internal OpenShift registry</p>
+</li>
+<li>
+<p>The <strong>Deployment</strong> (D) will detect that the image has changed, and this
+will cause a new deployment to happen.</p>
+</li>
+<li>
+<p>A <strong>ReplicaSet</strong> (RS) will be spawned for this new deployment.</p>
+</li>
+<li>
+<p>The RS will detect no <strong>Pods</strong> are running and will cause one to be deployed, as our default replica count is just 1.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In the end, when issuing the <code>oc get pods</code> command, you will see that the build Pod
+has finished (exited) and that an application <strong>Pod</strong> is in a ready and running state:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                    READY     STATUS      RESTARTS   AGE
+nationalparks-1-tkid3   1/1       Running     3          2m
+nationalparks-1-build   0/1       Completed   0          3m
+parksmap-57df75c46d-xltcs        1/1       Running     0          2h</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you look again at the web console, you will notice that, when you create the
+application this way, OpenShift also creates a <strong>Route</strong> for you. You can see the
+URL in the web console, or via the command line:</p>
+</div>
+<div class="listingblock console-input">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get routes</code></pre>
+</div>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/101.png" alt="Pacman Console 800">
+</div>
+</div>
+<div class="paragraph">
+<p>Where you should see something like the following:</p>
+</div>
+<div class="listingblock console-output">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME     HOST/PORT                                                 PATH   SERVICES   PORT       TERMINATION     WILDCARD
+pacman   pacman-pacman.apps.maverick.lab.upshift.rdu2.redhat.com          pacman     8080-tcp   edge/Redirect   None
+bash-4.4 ~ $</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the above example, the URL is:</p>
+</div>
+<div class="listingblock copypaste">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">https://pacman-%PROJECT%.%CLUSTER_SUBDOMAIN%</code></pre>
+</div>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+If the Pod is Running and the application is not available, please wait till we connect it to the MongoAtlas in the cloud as we don&#8217;t have a database. Yet.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="common-pacman-architecture.html">Pacman Architecture</a></span>
+  <span class="next"><a href="pacman-nodejs-databases.html">Connecting Pacman to MongoDB Atlas Cloud Database Instance</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
