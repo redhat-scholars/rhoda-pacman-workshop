@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Connecting Pacman to MongoDB Atlas :: Connecting Applications to Managed Databases</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/rhoda-pacman-workshop/pacman-nodejs-databases.html">
+    <link rel="prev" href="pacman-nodejs.html">
+    <link rel="next" href="pacman-application-health.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img src="../../_/img/NewRHDFullLogo_4-color_white-wordmark.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="https://redhat-scholars.github.io/course-template">Connecting Applications to Managed Databases</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://developers.redhat.com/ebooks/" target="_blank">Books</a>
+        <a class="navbar-item" href="https://developers.redhat.com/cheatsheets/" target="_blank">Cheat Sheets</a>
+        <a class="navbar-item" href="https://developers.redhat.com/events/" target="_blank">Upcoming Events</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/kubernetes-tutorial/" target="_blank">Kubernetes</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/istio-tutorial/" target="_blank">Istio</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/quarkus-tutorial/" target="_blank">Quarkus</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/knative-tutorial/" target="_blank">Knative</a>
+            <a class="navbar-item" href="https://redhat-developer-demos.github.io/tekton-tutorial/" target="_blank">Tekton</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="rhoda-pacman-workshop" data-version="4.1">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html"></a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-workshop-summary.html">Workshop</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html">Explore OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-explore.html#the_web_console">The Web Console</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#command_line_interface">Command Line Interface</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#download_openshift_cli">Download OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#use_web_terminal">Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#connect_to_the_cluster_with_cli">Connect to the OpenShift Cluster from CLI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="common-explore.html#working_with_proxies">Working with proxies</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-bg.html">Before we begin</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#challenges_dbaas">DBaaS &amp; Present Challenges</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#sol_rh_dbaas">Red Hat Solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#bg_sb_lib">Service binding libraries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="deploy-rhoda.html">Installation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_web_terminal">OpenShift Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_kustomize">Kustomize</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_ansible">Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_rhacm">RHACM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="deploy-rhoda.html#deploy_ocp_pipelines">OpenShift Pipelines</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="explore-rhoda.html">Explore RHODA</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="explore-rhoda.html#explore_cli">OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="explore-rhoda.html#explore_web_console">OpenShift Web console</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="projects.html">Projects</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="projects.html#create_pacman_project">Create Pacman Project</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-pacman-architecture.html">Pacman Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs.html">Pacman App</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs.html#source_to_image">Background: Source-to-Image (S2I)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs.html#creating_nodejs_application">Exercise: Creating a Pacman application</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pacman-nodejs.html#add_to_project">Add to Project</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pacman-nodejs.html#using_application_code_on_git_server">Using Application Code on a Git Server</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pacman-nodejs.html#build_code_on_openshift">Build the Code on OpenShift</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-databases.html">Connecting Pacman to MongoDB Atlas Cloud Database Instance</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#prereq_rhoda">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#access_mongodb">Exercise: Accessing the database access menu for configuring and monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#find_mongodb_creds">Exercise: Find your MongoDB Atlas account credentials</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#dev_add_db">Exercise: Accessing the developer workspace and adding a database instance</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#play_pacman">Exercise: Play Pacman and save your high scores</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-application-health.html">Application Healthchecks</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-application-health.html#add_health_checks">Exercise: Add Health Checks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html">Webhooks with OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#prerequisite_github_account">Prerequisite: GitHub Account</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#webhooks">Webhooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#webhooks_with_openshift">Webhooks with OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#configuring_github_webhooks">Exercise: Configuring GitHub Web Hooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github.html#using_github_webhooks">Exercise: Using GitHub Web Hooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html">GitHub Actions with OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#disable_github_webhook">Disable GitHub Webhook</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#disable_openshift_triggers">Disable OpenShift Triggers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#configure_github_action">Configure GitHub Action</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#add_github_action">Add GitHub Action</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-codechanges-github-actions.html#enable_openshift_triggers">Enable OpenShift Triggers</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-pipeline.html">Continuous Integration and Pipelines</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline.html#install_openshift_pipelines_from_operatorhub">Install OpenShift Pipelines from OperatorHub</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline.html#understanding_tekton">Understanding Tekton</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline.html#create_your_pipeline">Create Your Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline.html#run_the_pipeline">Run the Pipeline</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html">Webhooks with Pipelines</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#prerequisite_github_account">Prerequisite: GitHub Account</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#webhooks">Web Hooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#adding_triggers_to_your_pipeline">Adding Triggers to your Pipeline</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#configuring_github_webhooks">Exercise: Configuring GitHub Web Hooks</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-pipeline-codechanges-github.html#using_github_webhooks">Exercise: Using GitHub Web Hooks</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-further-resources.html">Further Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-workshop-links.html">Workshop Links</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#openshift_cluster_url">OpenShift Cluster URL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#workshop_guides">Workshop Guides</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#web_terminal">Web terminal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#git_server">Git Server</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Connecting Applications to Managed Databases</a></li>
+    <li><a href="pacman-nodejs-databases.html">Connecting Pacman to MongoDB Atlas Cloud Database Instance</a></li>
+  </ul>
+</nav>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/4.10/documentation/modules/ROOT/pages/pacman-nodejs-databases.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Connecting Pacman to MongoDB Atlas</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this section we will deploy and connect to a MongoDB Atlas Cloud Database where the
+<code>pacman</code> application will store information such as high scores and user stats.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="prereq_rhoda"><a class="anchor" href="#prereq_rhoda"></a>Prerequisites</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>A Red Hat user account to access the <a href="https://console.redhat.com/">Red Hat Hybrid Cloud Console</a>.</p>
+</li>
+<li>
+<p>An instance of OpenShift Container Platform (OCP) 4.9 or higher running on Red Hat OpenShift Dedicated (OSD), or Red Hat OpenShift Service on AWS (ROSA).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>When using OSD or ROSA, an Amazon Web Services (AWS) account and credentials are required.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Access to the OpenShift Cluster Manager (OCM) console.</p>
+</li>
+<li>
+<p>A service account with either the <a href="https://www.mongodb.com/atlas/database">MongoDB Atlas</a>, or <a href="https://www.crunchydata.com">Crunchy Data Bridge</a>, or <a href="https://www.cockroachlabs.com">CockroachDB</a> cloud database provider.</p>
+</li>
+<li>
+<p>An existing database instance running on one of these cloud database providers: MongoDB Atlas, Crunchy Data Bridge, or CockroachDB.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>In order to run the lab in your cluster, you need to meet the requirements discussed below.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-center valign-top"><strong>Component</strong></th>
+<th class="tableblock halign-center valign-top"><strong>Version</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><a href="https://www.openshift.com/try">OpenShift</a></p></td>
+<td class="tableblock halign-center valign-top"><p class="tableblock"><code>4.10.5</code></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div class="sect1">
+<h2 id="access_mongodb"><a class="anchor" href="#access_mongodb"></a>Exercise : Accessing the database access menu for configuring and monitoring</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You can access the Red Hat OpenShift Database Access page from the OpenShift console navigation menu to select the correct project namespace for importing a cloud-database provider account.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If using MongoDB Atlas as a cloud-database provider, then you must add the IP address of the application pod to MongoDB Atlas' <strong>IP Access List</strong>.
+If the IP address is not in the <strong>IP Access List</strong>, then a <code>504 gateway timeout error</code> occurs.
+Visit the MongoDB Atlas <a href="https://docs.atlas.mongodb.com/security/ip-access-list/">website</a> for more details on adding an IP address to your database project.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>A service account with either the <a href="https://www.mongodb.com/atlas/database">MongoDB Atlas</a>, or <a href="https://www.crunchydata.com">Crunchy Data Bridge</a>, or <a href="https://www.cockroachlabs.com">CockroachDB</a> cloud database provider.</p>
+</li>
+<li>
+<p>Procedure</p>
+</li>
+<li>
+<p>Log into the OpenShift console.</p>
+</li>
+<li>
+<p>To select the correct project namespace follow these sub-steps.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_admin_entry_point_single_page_all_steps.png" alt="Single page screenshot of the administrator&#8217;s entry point">
+</div>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Select the <strong>Administrator</strong> perspective <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Expand the <strong>Data Services</strong> navigation menu, and click <strong>Database Access</strong> <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You might need to scroll down the navigation menu.
+</td>
+</tr>
+</table>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Click the <strong>Project</strong> dropdown menu and then enable the <strong>Show default projects</strong> switch <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span>.</p>
+</li>
+<li>
+<p>Type <strong>dbaas</strong> in the search field.</p>
+</li>
+<li>
+<p>Select <strong>redhat-dbaas-operator</strong> or <strong>openshift-dbaas-operator</strong> project namespace <span class="image"><img src="_images/4th_Callout_Bullet.png" alt="Fourth callout"></span>.</p>
+<div class="paragraph">
+<p>From the database inventory page you can monitor the database environment, import cloud-hosted database provider accounts, or create new database instances.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_admin_entry_point_inventory_page.png" alt="Database inventory landing page">
+</div>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="find_mongodb_creds"><a class="anchor" href="#find_mongodb_creds"></a>Exercise: Find your MongoDB Atlas account credentials</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>You need the Organization ID, the Organization Public Key, and the Organization Private Key to create a provider account resource for MongoDB Atlas.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>If using MongoDB Atlas as a cloud-database provider, then you must add the IP address of the application pod to MongoDB Atlas' IP Access List.
+If the IP address is not in the IP Access List, then a 504 gateway timeout error occurs.
+Visit the MongoDB Atlas <a href="https://docs.atlas.mongodb.com/security/ip-access-list/">website</a> for more details on adding an IP address to your database project.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>Procedure</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>From the MongoDB Atlas <a href="https://www.mongodb.com/">home page</a>, <strong>Sign In</strong> to your account.</p>
+</li>
+<li>
+<p>From your account home page:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mongodb_first_single_screen_all_step.png" alt="Single screenshot for finding your Organization ID value">
+</div>
+</div>
+</li>
+<li>
+<p>Select <strong>Organization</strong> from the dropdown menu <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Click <strong>Settings</strong> from the Organization navigation menu <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Copy the Organization ID value <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span>.</p>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In some cases your organization ID may be hidden by default.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Next, from the account home page:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/mongodb_second_single_screen_all_step.png" alt="Single screenshot for finding your API keys">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Click <strong>Access Manager</strong> from the <strong>Organization</strong> navigation menu <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Click <strong>API Keys</strong> <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If you have existing API keys, you can find them listed here.
+Copy the API public and private keys for the import provider account fields.
+Also, verify that your API keys have the <strong>Organization Owner</strong> and <strong>Organization Member</strong> permissions <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span> <span class="image"><img src="_images/4th_Callout_Bullet.png" alt="Fourth callout"></span>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>If you need new API keys, click <strong>Create API Key</strong>, and proceed to the next step.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_mongodb_create_api_key_button.png" alt="Create API Key button">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>On the <strong>Create API Key</strong> page, enter a <strong>Description</strong>, and under the <strong>Organization Permissions</strong> dropdown box select the <strong>Organization Owner</strong> and <strong>Organization Member</strong> permissions.
+Click <strong>Next</strong>.</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_mongodb_create_api_dialog_permissions.png" alt="Create API Key permissions">
+</div>
+</div>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p>Copy the API public and private keys for the import provider account fields.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>View Provider Accounter in the Console </strong></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/provideracct.png" alt="Provider Account">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="dev_add_db"><a class="anchor" href="#dev_add_db"></a>Exercise: Accessing the developer workspace and adding a database instance</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>Log into the OpenShift console.</p>
+</li>
+<li>
+<p>Access the developer workspace, and select or create your project, then select a cloud-hosted database provider to add to your project:</p>
+<div class="imageblock">
+<div class="content">
+<img src="_images/rhoda_dev_entry_point_single_page_all_steps.png" alt="Single page screenshot of the developer&#8217;s entry point">
+</div>
+</div>
+</li>
+<li>
+<p>Select the <strong>Developer</strong> perspective <span class="image"><img src="_images/1st_Callout_Bullet.png" alt="First callout"></span>.</p>
+</li>
+<li>
+<p>Click <strong>+Add</strong> <span class="image"><img src="_images/2nd_Callout_Bullet.png" alt="Second callout"></span>.</p>
+</li>
+<li>
+<p>Click the <strong>Project</strong> dropdown menu <span class="image"><img src="_images/3rd_Callout_Bullet.png" alt="Third callout"></span>.</p>
+</li>
+<li>
+<p>Create a new project or search for your application’s project <span class="image"><img src="_images/4th_Callout_Bullet.png" alt="Fourth callout"></span>.</p>
+</li>
+<li>
+<p>Select the <strong>Cloud-Hosted Databases</strong> tile to connect to a cloud-database provider <span class="image"><img src="_images/5th_Callout_Bullet.png" alt="Fifth callout"></span>.</p>
+</li>
+<li>
+<p>Select your cloud-hosted database provider tile.</p>
+</li>
+<li>
+<p>Click <strong>Add to Topology</strong>.</p>
+</li>
+<li>
+<p>Select a previously configured <strong>Provider Account</strong> for this database instance from the dropdown menu.</p>
+</li>
+<li>
+<p>Select the database instance ID you want to use, and then click <strong>Add to Topology</strong>.</p>
+</li>
+<li>
+<p>Click <strong>Continue</strong>.
+Upon a successful connection, you are taken to the <a href="#connecting-an-application-to-a-database-instance-using-the-topology-view"><strong>Topology</strong></a> page.</p>
+</li>
+<li>
+<p>In the Developer Perspective, click add and select connect database from the list of available options on each cluster.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda22.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Once above step is performed, you would be able to see as shown below in developer perspective</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda33.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Finally, to connect application to the database, we need to create a service binding by doing a drag and drop from the application to the connected database which will prompt a message as shown below</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda44.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>After successfully creating the service binding application will be connected to the database</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda55.png" alt="Application architecture" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="play_pacman"><a class="anchor" href="#play_pacman"></a>Exercise: Play Pacman and save your high scores</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To play Pacman, please click on the URL : <a href="https://managed-pacman-managed-pacman.apps.rhodalab.yoir.p1.openshiftapps.com/">Pacman Game</a></p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/pacman.png" alt="Pacman Game" width="800">
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="pacman-nodejs.html">Pacman App</a></span>
+  <span class="next"><a href="pacman-application-health.html">Application Healthchecks</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
