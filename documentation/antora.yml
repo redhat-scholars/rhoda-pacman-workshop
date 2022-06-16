@@ -1,6 +1,6 @@
 name: rhoda-pacman-workshop
 title: Connecting Applications to Managed Databases
-version: master
+version: 4.9
 nav:
   - modules/ROOT/nav.adoc
 
