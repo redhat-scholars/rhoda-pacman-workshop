@@ -423,12 +423,13 @@ redhat-marketplace             Red Hat Marketplace          grpc   Red Hat     5
 redhat-operators               Red Hat Operators            grpc   Red Hat     5d8h</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>oc get catalogsource dbaas-operator -n openshift-marketplace</p>
+<div class="listingblock">
+<div class="content">
+<pre>oc get catalogsource dbaas-operator -n openshift-marketplace
+
+NAME             DISPLAY          TYPE   PUBLISHER   AGE
+dbaas-operator   DBaaS Operator   grpc               27h</pre>
 </div>
-<div class="paragraph">
-<p>NAME             DISPLAY          TYPE   PUBLISHER   AGE
-dbaas-operator   DBaaS Operator   grpc               27h</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -442,16 +443,12 @@ mongodb-atlas-subscription                                                  mong
 rh-service-binding-operator-stable-redhat-operators-openshift-marketplace   rh-service-binding-operator   redhat-operators               stable</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>oc get sub dbaas-operator -n openshift-dbaas-operator</p>
-</div>
-<div class="paragraph">
-<p>NAME             PACKAGE          SOURCE           CHANNEL
-dbaas-operator   dbaas-operator   dbaas-operator   alpha</p>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre></pre>
+<pre>oc get sub dbaas-operator -n openshift-dbaas-operator
+
+NAME             PACKAGE          SOURCE           CHANNEL
+dbaas-operator   dbaas-operator   dbaas-operator   alpha</pre>
 </div>
 </div>
 </div>
