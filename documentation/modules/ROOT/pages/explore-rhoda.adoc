@@ -2,20 +2,16 @@
 :navtitle: Explore RHODA 
 
 [#explore_web_console]
-== Explore using web console
+== Web Console
 
 You can discover which database instance is connected to an application, along with other information by viewing the database inventory page.
 
-////
-.Prerequisites
+*Prerequisites*
 
 * Already logged into the link:https://console.redhat.com/[Red Hat Hybrid Cloud Console].
 * Access to the OpenShift Cluster Manager (OCM) console.
-////
 
-.Procedure
-
-////
+*Procedure*
 . Log into the link:https://console.redhat.com/[Red Hat Hybrid Cloud Console] with your credentials.
 +
 image::rhoda_console_login_screen.png[Red Hat Hybrid Cloud Console login page]
@@ -29,7 +25,6 @@ image::rhoda_select_openshift_from_nav_menu.png[OpenShift link from the navigati
 . Click the **Open console** button, and provide your account credentials.
 +
 image::rhoda_openshift_open_console_button.png[Open Console button]
-////
 
 . From the OpenShift Cluster Manager console, change to the **Administrator** perspective.
 
@@ -46,8 +41,19 @@ You can also view the database provider, the provider account resource, and the 
 image::rhoda_admin_db_inventory_view.png[Snippet of the database inventory view]
 
 
-
 [#explore_cli]
-== Explore using OpenShift CLI commands
+== Explore using CLI by using below commands
+----
+oc get catalogsources -n openshift-marketplace
 
-This is a work in progress
+
+----
+oc get catalogsource dbaas-operator -n openshift-marketplace
+
+
+-----
+oc get subs -n openshift-dbaas-operator
+
+
+-----
+oc get sub  dbaas-operator -n openshift-dbaas-operator
