@@ -122,7 +122,7 @@
     <a class="nav-link" href="deploy-rhoda.html#deploy_rhacm">RHACM</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="deploy-rhoda.html#deploy_ocp_pipelines">OpenShift Pipeline</a>
+    <a class="nav-link" href="deploy-rhoda.html#deploy_ocp_pipelines">OpenShift Pipelines</a>
   </li>
 </ul>
   </li>
@@ -410,19 +410,49 @@ You can also view the database provider, the provider account resource, and the 
 <div class="sectionbody">
 <div class="listingblock">
 <div class="content">
-<pre>oc get catalogsources -n openshift-marketplace</pre>
+<pre>oc get catalogsources -n openshift-marketplace
+
+NAME                           DISPLAY                      TYPE   PUBLISHER   AGE
+ccapi-k8s-catalogsource        CockroachDB Cloud Operator   grpc               27h
+certified-operators            Certified Operators          grpc   Red Hat     5d8h
+community-operators            Community Operators          grpc   Red Hat     5d8h
+crunchy-bridge-catalogsource   Crunchy Bridge Operator      grpc               27h
+dbaas-operator                 DBaaS Operator               grpc               27h
+mongodb-atlas-catalogsource    MongoDB Atlas Operator       grpc               27h
+redhat-marketplace             Red Hat Marketplace          grpc   Red Hat     5d8h
+redhat-operators               Red Hat Operators            grpc   Red Hat     5d8h</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>oc get catalogsource dbaas-operator -n openshift-marketplace</p>
 </div>
+<div class="paragraph">
+<p>NAME             DISPLAY          TYPE   PUBLISHER   AGE
+dbaas-operator   DBaaS Operator   grpc               27h</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre>oc get subs -n openshift-dbaas-operator</pre>
+<pre>oc get subs -n openshift-dbaas-operator
+
+NAME                                                                        PACKAGE                       SOURCE                         CHANNEL
+ccapi-k8s-subscription                                                      ccapi-k8s-operator            ccapi-k8s-catalogsource        alpha
+crunchy-bridge-subscription                                                 crunchy-bridge-operator       crunchy-bridge-catalogsource   alpha
+dbaas-operator                                                              dbaas-operator                dbaas-operator                 alpha
+mongodb-atlas-subscription                                                  mongodb-atlas-kubernetes      mongodb-atlas-catalogsource    beta
+rh-service-binding-operator-stable-redhat-operators-openshift-marketplace   rh-service-binding-operator   redhat-operators               stable</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>oc get sub  dbaas-operator -n openshift-dbaas-operator</p>
+</div>
+<div class="paragraph">
+<p>NAME             PACKAGE          SOURCE           CHANNEL
+dbaas-operator   dbaas-operator   dbaas-operator   alpha</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre></pre>
+</div>
 </div>
 </div>
 </div>
