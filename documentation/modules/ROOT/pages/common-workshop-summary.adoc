@@ -2,6 +2,7 @@
 :navtitle: Overview
 
 This workshop is intended to give you a hands-on introduction to using Red Hat OpenShift Database Access from a Developer perspective.
+It introduces you to the architecture of the PAC-MAN application which is used throughout this workshop. To get a better understanding of the things you'll be doing from a *Developer Perspective*.
 
 Topics which this workshop will cover include:
 

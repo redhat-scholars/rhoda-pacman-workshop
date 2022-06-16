@@ -1,8 +1,6 @@
 = Pacman Architecture
 :navtitle: Pacman Architecture
 
-This lab introduces you to the architecture of the Pacman application used throughout this workshop, to get a better understanding of the things you'll be doing from a developer perspective. 
-
 Pacman is an application built using the microservices architecture and is composed of a set of services which are developed using nodejs frameworks.
 
 image::pmanarch.png[Application architecture,800,align="center",400,align="center"]
