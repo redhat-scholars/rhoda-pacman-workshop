@@ -9,5 +9,4 @@ endif::[]
 
 image::rhoda-arch.png[RHODA Architecture]
 
-== Deploying {lab-name} on OpenShift using MongoDB Atlas Database
 
