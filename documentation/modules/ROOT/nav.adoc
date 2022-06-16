@@ -17,7 +17,7 @@
 ** xref:deploy-rhoda.adoc#deploy_kustomize[Kustomize]
 ** xref:deploy-rhoda.adoc#deploy_ansible[Ansible]
 ** xref:deploy-rhoda.adoc#deploy_rhacm[RHACM]
-** xref:deploy-rhoda.adoc#deploy_ocp_pipelines[OpenShift Pipeline]
+** xref:deploy-rhoda.adoc#deploy_ocp_pipelines[OpenShift Pipelines]
 * xref:explore-rhoda.adoc[Explore RHODA]
 ** xref:explore-rhoda.adoc#explore_cli[OpenShift CLI]
 ** xref:explore-rhoda.adoc#explore_web_console[OpenShift Web console]
