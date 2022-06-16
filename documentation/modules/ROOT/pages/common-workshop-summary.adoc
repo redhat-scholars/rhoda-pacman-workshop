@@ -8,7 +8,6 @@ Topics which this workshop will cover include:
 * A brief introduction to Storage & Database as service
 * Using the OpenShift command line client and web console.
 * Deploying Pacman application from source code in a Git repository.
-* Connecting with a database from the OpenShift service catalog.
-* Configuring Pacman so that it can access a database.
+* Connecting Pacman app with a Mongo Atlas DB from the OpenShift service catalog.
 
 Additional topics may also be covered relevant to the specific programming language used by the applications being deployed.
