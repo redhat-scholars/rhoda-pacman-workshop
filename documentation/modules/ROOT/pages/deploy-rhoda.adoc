@@ -155,13 +155,11 @@ image::dbaas_create_provider_account_page_fetch_failure.png[The failure message 
 * The CockroachDB link:https://www.cockroachlabs.com[home page]
 
 [#deploy_kustomize]
-*Kustomize Overview*
+== Install RHODA using Kustomize
 
 Kustomize traverses a Kubernetes manifest to add, remove or update configuration options without forking. It is available both as a standalone binary and as a native feature of kubectl.
 
 For more information on using Kustomize, please refer to the following https://kustomize.io/[link]
-
-== Install RHODA using Kustomize
 
 Please use the following : https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator[URL]
 
