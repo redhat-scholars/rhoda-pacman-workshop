@@ -1,13 +1,15 @@
 = Before we begin
 :navtitle: Motivation for Red Hat OpenShift Database Access
 
-As you may know , database is one of the key building blocks for a variety of applications. At the moment, most openshift customers run their databases on the same cluster, manage it themselves and provide access to developers. Database as a service makes this much simpler, allowing databases to run at a central location managed by database administrators allowing business to focus on their applications.
+As you may know , database is one of the key building blocks for a variety of applications. At the moment, most openshift customers run their databases on the same cluster, manage it themselves and provide access to developers. 
 
-As database cloud service offerings continue to evolve, it has simplified the development and deployment of stateful cloud native applications. But developers often access these database services in different ways, For example, developer often receives security credentials from their platform teams. These credentials are often shared on-demand where developers end up configuring DBaaS connections manually that can be time-consuming and error-prone. 
+Database as a service makes this much simpler, allowing databases to run at a central location managed by database administrators allowing business to focus on their applications.But developers often access these database services in different ways, 
 
-In organizations going through their journey with containerization in hybrid cloud environments, it is inefficient and risky to have each team independently connect applications to different DBaaS offerings.
+For example, developer often receives security credentials from their platform teams. These credentials are often shared on-demand where developers end up configuring DBaaS connections manually that can be time-consuming and error-prone.  However, it is inefficient and risky to have each team independently connect applications to different DBaaS offerings.
 
 Most often for the platform teams, the proliferation of instances and types of database cloud services makes it difficult for them to get a consolidated view of the consumption by different users
+
+
 
 [#challenges_dbaas]
 == DBaaS & Present Challenges
@@ -18,11 +20,13 @@ image::challenge.png[DBaaS & Present Challenges,500,align="center"]
 [#sol_rh_dbaas]
 == Red Hat Solution
 
-More efficient connection, DB utilization
-Faster and easier self-service for developers
-Centralized monitoring, consistent control plane for admins
+* More efficient connection, DB utilization
+* Faster and easier self-service for developers
+* Centralized monitoring, consistent control plane for admins
 
 image::solution.png[Red Hat Solution,500,align="center"]
+
+
 
 [#bg_sb_lib]
 == Service binding libraries
