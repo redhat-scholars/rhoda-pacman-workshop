@@ -1,5 +1,5 @@
-= Connecting Pacman to MongoDB Atlas Cloud Database Instance
-:navtitle: Connecting to MongoDB Atlas Cloud Database
+= Connecting Pacman to MongoDB Atlas
+:navtitle: Connecting to MongoDB Atlas
 
 In this section we will deploy and connect to a MongoDB Atlas Cloud Database where the
 `pacman` application will store information such as high scores and user stats.
