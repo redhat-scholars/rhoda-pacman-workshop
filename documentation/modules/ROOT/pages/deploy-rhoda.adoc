@@ -1,6 +1,10 @@
 = Installing Red Hat OpenShift Database Access
 :navtitle: Installation of RHODA
 
+RHODA is an add-on service to OpenShift Dedicated (OSD) and Red Hat OpenShift Service on AWS (ROSA) that provides consistency for how OSD and ROSA administrators and developers discover, consume, monitor, and manage databases in a multi-cloud environment.
+
+RHODA leverages the Kubernetes construct of operators to bind application clusters to database instances. IT operations can launch a database discovery process based on resource permissions to identify the database instances that can be accessed. Once established, developers can see these new database services from the catalog on their OpenShift developer console represented as a UI tile for each database registered with the system. After selecting a database service instance, the developer can drag and drop a binding connector on the OpenShift developer UI to establish database connectivity to a Kubernetes pod.
+
 [#deploy_web_terminal]
 == Install using OpenShift Web Terminal
 
@@ -150,7 +154,6 @@ image::dbaas_create_provider_account_page_fetch_failure.png[The failure message 
 * The Crunchy Data Bridge link:https://www.crunchydata.com[home page].
 * The CockroachDB link:https://www.cockroachlabs.com[home page]
 
-
 [#deploy_kustomize]
 *Kustomize Overview*
 
@@ -164,23 +167,26 @@ Please use the following : https://github.com/redhat-cop/gitops-catalog/tree/mai
 
 [#deploy_ansible]
 == Install using Ansible
-*Ansible*
 
 Ansible is a software tool that provides simple but powerful automation for cross-platform computer support. It is primarily intended for IT professionals, who use it for application deployment, updates on workstations and servers, cloud provisioning, configuration management, intra-service orchestration, and nearly anything a systems administrator does on a weekly or daily basis. Ansible doesn't depend on agent software and has no additional security infrastructure, so it's easy to deploy.
 
 For information on using Ansible, please refer to the https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html[link]
 
+Using below manifest, we can install using AAP or run as a playbook manually by creating necessary artifacts.
+
 https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy[Gist]
 
 [#deploy_ocp_pipelines]
 == Install using OpenShift Pipelines 
-Red Hat OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Tekton introduces a number of standard custom resource definitions (CRDs) for defining CI/CD pipelines that are portable across Kubernetes distributions. Please refer to https://docs.openshift.com/container-platform/4.10/cicd/pipelines/understanding-openshift-pipelines.html[docs]
+
+Red Hat OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Tekton introduces a number of standard custom resource definitions (CRDs) for defining CI/CD pipelines that are portable across Kubernetes distributions
+
+Please refer to https://docs.openshift.com/container-platform/4.10/cicd/pipelines/understanding-openshift-pipelines.html[docs]
 
 Use below links for the pipeline related manifest.
 
 https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml[Pipeline]
 https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml[Pipeline Task]
-
 
 
 [#deploy_rhacm]
