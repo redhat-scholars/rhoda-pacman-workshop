@@ -1,6 +1,5 @@
 = Exploring Red Hat OpenShift Database Access
-:navtitle: Explore RHODA 
-
+:navtitle: Explore RHODA
 [#explore_web_console]
 == Web Console
 
