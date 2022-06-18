@@ -2,7 +2,7 @@ runtime:
   cache_dir: ./.cache/antora
 
 site:
-  title: Connecting Applications to Multi-Cloud DBaaS using RHODA
+  title: Connecting Applications to DBaaS using RHODA
   url: https://redhat-scholars.github.io/course-template
   start_page: dbaas-using-rhoda::index.adoc
   
