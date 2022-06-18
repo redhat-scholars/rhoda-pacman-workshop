@@ -1,11 +1,11 @@
-= Connecting Applications to Multi-Cloud DBaaS using RHODA
+= High Level Architecture
 :!sectids:
 
 ifndef::lab[]
 :lab-name: Pacman
 endif::[]
 
-== High Level Architecture - RHODA
+Below diagram illustrates the architecture of Red Hat OpenShift Database Access Operator (RHODA)
 
 image::rhoda-arch.png[RHODA Architecture]
 
