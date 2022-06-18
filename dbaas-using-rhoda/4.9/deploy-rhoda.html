@@ -377,24 +377,18 @@
 <h1 class="page">Installing Red Hat OpenShift Database Access</h1>
 <div id="preamble">
 <div class="sectionbody">
-<div class="paragraph">
-<p>Install Web Terminal Operator and launch terminal from OpenShift Console</p>
-</div>
-<div class="paragraph">
-<p>To install Web Terminal, please follow the following instructions : <a href="https://docs.openshift.com/container-platform/4.10/web_console/odc-about-web-terminal.html">Web Terminal Install Docs</a></p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p>After the installation of Web Terminal is complete , please launch the Web Terminal from your OpenShift Cluster and perform below steps*</p>
-</li>
-<li>
-<p>Create the RHODA catalog source by running the following commands.</p>
+<p>Launch Web Terminal from OpenShift console and perform below steps*</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p><strong>Note</strong>: The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo.
+<p><strong>Note</strong></p>
+</div>
+<div class="paragraph">
+<p>The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo.
 For Service Preview release we will use RHODA SRE/OSD addon release image repo.</p>
 </div>
 <div class="listingblock">
@@ -412,36 +406,27 @@ displayName: DBaaS Operator
 EOF</pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>Verify that the catalog source is added with the following command</p>
-</li>
-</ul>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre>oc get catalogsource dbaas-operator -n openshift-marketplace</pre>
+<pre>bash-4.4 ~ $ oc get catalogsource dbaas-operator -n openshift-marketplace
+NAME             DISPLAY          TYPE   PUBLISHER   AGE
+dbaas-operator   DBaaS Operator   grpc               3d23h</pre>
 </div>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>Verify that dbaas-operator catalog source is in READY state, It might take a few minutes before the catalog source is ready. If the below command does not return READY, wait a few minutes and try to verify the status again. You can also check this by going into openshift-marketplace namespace dbass-operator catalog pod</p>
+<p>Verify that dbaas-operator catalog source is in READY state, It might take a few minutes before the catalog source is ready. If the below command does not return READY, wait a few minutes and try to verify the status again.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>You can also check this by going into openshift-marketplace namespace dbass-operator catalog pod</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre>oc get catalogsource -n openshift-marketplace  dbaas-operator -o jsonpath='{.status.connectionState.lastObservedState} {"\n"}'</pre>
 </div>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Verify if required any other details with below command (optional)</p>
-</li>
-</ul>
 </div>
 <div class="listingblock">
 <div class="content">
