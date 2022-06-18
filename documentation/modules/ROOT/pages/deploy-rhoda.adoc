@@ -1,13 +1,9 @@
 = Installing Red Hat OpenShift Database Access
 :navtitle: Installation of RHODA
+
 [#deploy_web_terminal]
 == Install using OpenShift Web Terminal
 * Launch Web Terminal from OpenShift console and perform below steps*
-
-*Note* 
-
-The catalog source image repo can be the users local repo or developers space or SRE/OSD release image repo.
-For Service Preview release we will use RHODA SRE/OSD addon release image repo.
 
 ----
 cat <<EOF | oc apply -f -

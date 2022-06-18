@@ -1,7 +1,7 @@
 = Prerequisites
 :navtitle: Prerequisites
 
-**Application Platform 
+**Application Platform Requirements
 **
 [cols="2*^,2*.",options="header,+attributes"]
 |===
