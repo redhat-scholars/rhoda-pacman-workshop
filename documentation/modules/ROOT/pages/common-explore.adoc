@@ -9,38 +9,11 @@ perform various tasks via a browser.
 
 [tabs, subs="attributes+,+macros"]
 ====
-ROKS::
-+
---
-Login to IBM Cloud, copy this link and open in your browser:
-
-[source,role="copypaste"]
-%LOGIN%
-
-Enter following credentials:
-
-*Username*:
-[source,role="copypaste"]
-%USERNAME%
-
-*Password*:
-[source,role="copypaste"]
-%PASSWORD%
-
-Click *Sign In*.
-
-image::roks-login1.png[ROKS Login]
-
-After you successfully logged in, from right side pane, click *OpenShift web console* to access your OpenShift Cluster Dashboard:
-
-image::roks-login4.png[ROKS Open-shift web console]
-
 --
 ROSA::
 +
 --
 Access your cluster from https://console-openshift-console.%CLUSTER_SUBDOMAIN%[OpenShift Web Console,role='params-link',window='_blank'].
-
 Login to your ROSA cluster using one of the available https://docs.openshift.com/rosa/rosa_getting_started/rosa-config-identity-providers.html[Identity Provider,window='_blank'].
 
 image::explore-rosa-login.png[ROSA Login]
@@ -100,7 +73,7 @@ If you configured https://docs.microsoft.com/en-us/azure/openshift/configure-azu
 image::explore-aro-login.png[ARO Login]
 
 
-Enter the your credentials:
+Enter your cluster credentials:
 
 *Username*:
 [source,role="copypaste"]
