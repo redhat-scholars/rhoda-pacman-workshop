@@ -1,5 +1,5 @@
 name: dbaas-using-rhoda
-title: Connecting Applications to Managed Databases
+title: = Connecting Applications to Multi-Cloud DBaaS using RHODA
 version: 4.9
 nav:
   - modules/ROOT/nav.adoc

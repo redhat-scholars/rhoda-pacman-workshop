@@ -1,4 +1,4 @@
-= Connecting Applications/µServices to Multi-Cloud DBaaS
+= Connecting Applications to Multi-Cloud DBaaS using RHODA
 :!sectids:
 
 ifndef::lab[]
