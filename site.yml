@@ -4,7 +4,7 @@ runtime:
 site:
   title: Connecting Applications to Managed Databases
   url: https://redhat-scholars.github.io/course-template
-  start_page: rhoda-pacman-workshop::index.adoc
+  start_page: dbaas-using-rhoda::index.adoc
   
   
 content:
