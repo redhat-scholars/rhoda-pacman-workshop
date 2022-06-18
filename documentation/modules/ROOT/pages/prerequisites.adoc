@@ -1,8 +1,8 @@
 = Prerequisites
 :navtitle: Prerequisites
 
-In order to run the lab in your cluster, you need to meet the requirements discussed below.
-
+**Application Platform 
+**
 [cols="2*^,2*.",options="header,+attributes"]
 |===
 |**Component**|**Version**
