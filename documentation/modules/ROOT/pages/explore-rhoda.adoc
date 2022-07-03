@@ -1,6 +1,47 @@
 = Exploring Red Hat OpenShift Database Access
 :navtitle: Explore RHODA
 
+[#explore_web_console]
+== Web Console
+
+You can discover which database instance is connected to an application, along with other information by viewing the database inventory page.
+
+*Prerequisites*
+
+* Already logged into the link:https://console.redhat.com/[Red Hat Hybrid Cloud Console].
+* Access to the OpenShift Cluster Manager (OCM) console.
+
+*Procedure*
+. Log into the link:https://console.redhat.com/[Red Hat Hybrid Cloud Console] with your credentials.
++
+image::rhoda_console_login_screen.png[Red Hat Hybrid Cloud Console login page]
+
+. Click **OpenShift** from the navigation menu.
++
+image::rhoda_select_openshift_from_nav_menu.png[OpenShift link from the navigation menu]
+
+. From the **Clusters** page, click on a cluster name from the list of available clusters.
+
+. Click the **Open console** button, and provide your account credentials.
++
+image::rhoda_openshift_open_console_button.png[Open Console button]
+
+. From the OpenShift Cluster Manager console, change to the **Administrator** perspective.
+
+. From the **Project** drop-down, select the **redhat-dbaas-operator** project.
+
+. Expand the **Data Services**, and click on **Database Access** from the navigation menu.
++
+image::rhoda_select_database_access_from_nav_menu.png[Database Access on the navigation menu]
+
+. Viewing the inventory table you can find which database instance is connected to an application.
+You can also view the database provider, the provider account resource, and the associated project name.
++
+.Example
+image::rhoda_admin_db_inventory_view.png[Snippet of the database inventory view]
+
+
+
 [#explore_cli]
 == Explore using CLI by using below commands
 
@@ -51,44 +92,3 @@ bash-4.4 ~ $ oc get og -n openshift-dbaas-operator
 NAME             AGE
 dbaas-operator   3d23h
 -----
-
-
-[#explore_web_console]
-== Web Console
-
-You can discover which database instance is connected to an application, along with other information by viewing the database inventory page.
-
-*Prerequisites*
-
-* Already logged into the link:https://console.redhat.com/[Red Hat Hybrid Cloud Console].
-* Access to the OpenShift Cluster Manager (OCM) console.
-
-*Procedure*
-. Log into the link:https://console.redhat.com/[Red Hat Hybrid Cloud Console] with your credentials.
-+
-image::rhoda_console_login_screen.png[Red Hat Hybrid Cloud Console login page]
-
-. Click **OpenShift** from the navigation menu.
-+
-image::rhoda_select_openshift_from_nav_menu.png[OpenShift link from the navigation menu]
-
-. From the **Clusters** page, click on a cluster name from the list of available clusters.
-
-. Click the **Open console** button, and provide your account credentials.
-+
-image::rhoda_openshift_open_console_button.png[Open Console button]
-
-. From the OpenShift Cluster Manager console, change to the **Administrator** perspective.
-
-. From the **Project** drop-down, select the **redhat-dbaas-operator** project.
-
-. Expand the **Data Services**, and click on **Database Access** from the navigation menu.
-+
-image::rhoda_select_database_access_from_nav_menu.png[Database Access on the navigation menu]
-
-. Viewing the inventory table you can find which database instance is connected to an application.
-You can also view the database provider, the provider account resource, and the associated project name.
-+
-.Example
-image::rhoda_admin_db_inventory_view.png[Snippet of the database inventory view]
-
