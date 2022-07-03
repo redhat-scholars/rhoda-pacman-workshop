@@ -355,61 +355,6 @@
 <article class="doc">
 <h1 class="page">Exploring Red Hat OpenShift Database Access</h1>
 <div class="sect1">
-<h2 id="explore_cli"><a class="anchor" href="#explore_cli"></a>Explore using CLI by using below commands</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre>oc get catalogsources -n openshift-marketplace
-
-NAME                           DISPLAY                      TYPE   PUBLISHER   AGE
-ccapi-k8s-catalogsource        CockroachDB Cloud Operator   grpc               27h
-certified-operators            Certified Operators          grpc   Red Hat     5d8h
-community-operators            Community Operators          grpc   Red Hat     5d8h
-crunchy-bridge-catalogsource   Crunchy Bridge Operator      grpc               27h
-dbaas-operator                 DBaaS Operator               grpc               27h
-mongodb-atlas-catalogsource    MongoDB Atlas Operator       grpc               27h
-redhat-marketplace             Red Hat Marketplace          grpc   Red Hat     5d8h
-redhat-operators               Red Hat Operators            grpc   Red Hat     5d8h</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc get catalogsource dbaas-operator -n openshift-marketplace
-
-NAME             DISPLAY          TYPE   PUBLISHER   AGE
-dbaas-operator   DBaaS Operator   grpc               27h</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc get subs -n openshift-dbaas-operator
-
-NAME                                                                        PACKAGE                       SOURCE                         CHANNEL
-ccapi-k8s-subscription                                                      ccapi-k8s-operator            ccapi-k8s-catalogsource        alpha
-crunchy-bridge-subscription                                                 crunchy-bridge-operator       crunchy-bridge-catalogsource   alpha
-dbaas-operator                                                              dbaas-operator                dbaas-operator                 alpha
-mongodb-atlas-subscription                                                  mongodb-atlas-kubernetes      mongodb-atlas-catalogsource    beta
-rh-service-binding-operator-stable-redhat-operators-openshift-marketplace   rh-service-binding-operator   redhat-operators               stable</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>oc get sub dbaas-operator -n openshift-dbaas-operator
-
-NAME             PACKAGE          SOURCE           CHANNEL
-dbaas-operator   dbaas-operator   dbaas-operator   alpha</pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>bash-4.4 ~ $ oc get og -n openshift-dbaas-operator
-NAME             AGE
-dbaas-operator   3d23h</pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
 <h2 id="explore_web_console"><a class="anchor" href="#explore_web_console"></a>Web Console</h2>
 <div class="sectionbody">
 <div class="paragraph">
@@ -482,6 +427,61 @@ You can also view the database provider, the provider account resource, and the 
 </div>
 </li>
 </ol>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="explore_cli"><a class="anchor" href="#explore_cli"></a>Explore using CLI by using below commands</h2>
+<div class="sectionbody">
+<div class="listingblock">
+<div class="content">
+<pre>oc get catalogsources -n openshift-marketplace
+
+NAME                           DISPLAY                      TYPE   PUBLISHER   AGE
+ccapi-k8s-catalogsource        CockroachDB Cloud Operator   grpc               27h
+certified-operators            Certified Operators          grpc   Red Hat     5d8h
+community-operators            Community Operators          grpc   Red Hat     5d8h
+crunchy-bridge-catalogsource   Crunchy Bridge Operator      grpc               27h
+dbaas-operator                 DBaaS Operator               grpc               27h
+mongodb-atlas-catalogsource    MongoDB Atlas Operator       grpc               27h
+redhat-marketplace             Red Hat Marketplace          grpc   Red Hat     5d8h
+redhat-operators               Red Hat Operators            grpc   Red Hat     5d8h</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc get catalogsource dbaas-operator -n openshift-marketplace
+
+NAME             DISPLAY          TYPE   PUBLISHER   AGE
+dbaas-operator   DBaaS Operator   grpc               27h</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc get subs -n openshift-dbaas-operator
+
+NAME                                                                        PACKAGE                       SOURCE                         CHANNEL
+ccapi-k8s-subscription                                                      ccapi-k8s-operator            ccapi-k8s-catalogsource        alpha
+crunchy-bridge-subscription                                                 crunchy-bridge-operator       crunchy-bridge-catalogsource   alpha
+dbaas-operator                                                              dbaas-operator                dbaas-operator                 alpha
+mongodb-atlas-subscription                                                  mongodb-atlas-kubernetes      mongodb-atlas-catalogsource    beta
+rh-service-binding-operator-stable-redhat-operators-openshift-marketplace   rh-service-binding-operator   redhat-operators               stable</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc get sub dbaas-operator -n openshift-dbaas-operator
+
+NAME             PACKAGE          SOURCE           CHANNEL
+dbaas-operator   dbaas-operator   dbaas-operator   alpha</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bash-4.4 ~ $ oc get og -n openshift-dbaas-operator
+NAME             AGE
+dbaas-operator   3d23h</pre>
+</div>
 </div>
 </div>
 </div>
