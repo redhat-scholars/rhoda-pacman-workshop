@@ -4,26 +4,6 @@
 In this section we will deploy and connect to a MongoDB Atlas Cloud Database where the
 `pacman` application will store information such as high scores and user stats.
 
-[#prereq_rhoda]
-== Prerequisites
-
-* A Red Hat user account to access the link:https://console.redhat.com/[Red Hat Hybrid Cloud Console].
-* An instance of OpenShift Container Platform (OCP) 4.9 or higher running on Red Hat OpenShift Dedicated (OSD), or Red Hat OpenShift Service on AWS (ROSA).
-** When using OSD or ROSA, an Amazon Web Services (AWS) account and credentials are required.
-* Access to the OpenShift Cluster Manager (OCM) console.
-* A service account with either the link:https://www.mongodb.com/atlas/database[MongoDB Atlas], or link:https://www.crunchydata.com[Crunchy Data Bridge], or link:https://www.cockroachlabs.com[CockroachDB] cloud database provider.
-* An existing database instance running on one of these cloud database providers: MongoDB Atlas, Crunchy Data Bridge, or CockroachDB.
-
-In order to run the lab in your cluster, you need to meet the requirements discussed below.
-
-[cols="2*^,2*.",options="header,+attributes"]
-|===
-|**Component**|**Version**
-
-| https://www.openshift.com/try[OpenShift]
-| `{openshift-version}`
-|===
-
 [#access_mongodb]
 == Exercise : Accessing the database access menu for configuring and monitoring
 
