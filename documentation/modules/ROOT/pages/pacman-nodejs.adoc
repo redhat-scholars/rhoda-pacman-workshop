@@ -1,14 +1,13 @@
 = Pacman App
 :navtitle: Pacman App
 
-In this section, we're going to deploy a backend service, developed in Java that will expose 2 main REST endpoints to the visualizer
+In this section, we're going to deploy a pacman application, developed in nodejs that will expose 2 main REST endpoints to the visualizer
 application (`pacman` web component that was deployed in the previous labs).
-The application will query for national parks information (including its
-coordinates) that is stored in a MongoDB database.  This application will also
-provide an external access point, so that the API provided can be directly used
-by the end user.
+The application will query for user stats and high scores information that is stored in a MongoAtlas database.  This application will also
+provide an external access point, so that the URL provided can be directly used
+by the end user to play pacman game.
 
-image::pacmanocp.png[Application architecture,800,align="center"]
+image::pacmanocp.png[Application architecture,600,align="center"]
 
 [#source_to_image]
 == Background: Source-to-Image (S2I)
@@ -56,7 +55,7 @@ places.
 [#add_to_project]
 === Add to Project
 Because the `pacman` component is a backend to serve data that our
-existing frontend (parksmap) will consume, we are going to build it inside the existing
+existing frontend (pacman) will consume, we are going to build it inside the existing
 project that we have been working with. To illustrate how you can interact with OpenShift via the CLI or the web console, we will deploy the nationalparks component using the web console.
 
 [#using_application_code_on_git_server]
@@ -82,7 +81,7 @@ have your own git repository, let's use it with a simple Java S2I image.
 
 In the Developer Perspective, click *+Add* in the left navigation, go to the *Git Repository* section and then choose *From Git* option.
 
-image::nationalparks-show-add-options.png[Add to Project]
+image::pacman-show-add-options.png[Add to Project,800,align="center"]
 
 The *Import from Git* workflow will guide you through the process of deploying your app based on a few selections.
 
@@ -97,7 +96,7 @@ OpenShift will automatically guess the Git server type and the programming langu
 
 Click *Edit Import Strategy*.
 
-image::nationalparks-import-strategy.png[Select Import Strategy]
+image::pacman-import-strategy.png[Select Import Strategy]
 
 You have three options: 
 
@@ -178,7 +177,7 @@ image::nationalparks-configure-service3.png[Secure Route]
 
 image::nationalparks-configure-service4.png[Label]
 
-To see the build logs, in Topology view, click the `nationalparks` entry, then click on *View Logs* in the *Builds* section of the *Resources* tab.
+To see the build logs, in Topology view, click the `pacman` entry, then click on *View Logs* in the *Builds* section of the *Resources* tab.
 
 image::nationalparks-java-new-java-build.png[Nationalparks build]
 
@@ -193,7 +192,7 @@ From the command line, you can also see the *Builds*:
 [source,bash,subs="+attributes,macros+"]
 ----
 oc get builds
-----
+= ----
 
 You'll see output like:
 
@@ -210,7 +209,7 @@ You can also view the build logs with the following command:
 [.console-input]
 [source,bash,subs="+attributes,macros+"]
 ----
-oc logs -f builds/nationalparks-1
+oc logs -f builds/pacman-1
 ----
 
 After the build has completed and successfully:
@@ -228,9 +227,9 @@ has finished (exited) and that an application *Pod* is in a ready and running st
 [source,bash]
 ----
 NAME                    READY     STATUS      RESTARTS   AGE
-nationalparks-1-tkid3   1/1       Running     3          2m
-nationalparks-1-build   0/1       Completed   0          3m
-parksmap-57df75c46d-xltcs        1/1       Running     0          2h
+pacman-1-tkid3   1/1       Running     3          2m
+pacman-1-build   0/1       Completed   0          3m
+pacman-57df75c46d-xltcs        1/1       Running     0          2h
 ----
 
 If you look again at the web console, you will notice that, when you create the
