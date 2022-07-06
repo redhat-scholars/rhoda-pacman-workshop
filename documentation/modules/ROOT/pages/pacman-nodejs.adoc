@@ -46,17 +46,13 @@ remember about S2I is that it's magic.
 == Exercise: Creating a Pacman application
 
 The backend service that we will be deploying as part of this exercise is
-called `pacman`.  This is a Java Spring Boot application that performs 2D
-geo-spatial queries against a MongoDB database to locate and return map
-coordinates of all National Parks in the world. That was just a fancy way of
-saying that we are going to deploy a webservice that returns a JSON list of
-places.
+called `pacman` which is a game,
 
 [#add_to_project]
 === Add to Project
 Because the `pacman` component is a backend to serve data that our
 existing frontend (pacman) will consume, we are going to build it inside the existing
-project that we have been working with. To illustrate how you can interact with OpenShift via the CLI or the web console, we will deploy the nationalparks component using the web console.
+project that we have been working with. To illustrate how you can interact with OpenShift via the CLI or the web console, we will deploy the pacman component using the web console.
 
 [#using_application_code_on_git_server]
 === Using Application Code on Git Server
@@ -106,7 +102,7 @@ You have three options:
 
 Select *Build Image* as we are going to create the container image from the source code, as discussed in the next section.
 
-image::nationalparks-import-strategy-build.png[Select Import Strategy]
+image::pacman-new-nodejs-build.png[Select Import Strategy]
 
 
 TIP: You could also use Dockerfile, the repo contains a multi-stage Dockerfile. For this exercise, we want to show the Build Image feature.
@@ -169,20 +165,20 @@ role=ui
 
 Click *Create* to submit.
 
-image::nationalparks-configure-service1.png[Select Builder]
+image::pacman-configure-service.png[Select Builder]
 
-image::nationalparks-configure-service2.png[Advanced Options]
-
-image::nationalparks-configure-service3.png[Secure Route]
-
-image::nationalparks-configure-service4.png[Label]
+//image::pacman-configure-service2.png[Advanced Options]
+//
+//image::pacman-configure-service3.png[Secure Route]
+//
+//image::pacman-configure-service4.png[Label]
 
 To see the build logs, in Topology view, click the `pacman` entry, then click on *View Logs* in the *Builds* section of the *Resources* tab.
 
-image::nationalparks-java-new-java-build.png[Nationalparks build]
+image::pacman-new-nodejs-build.png[Pacman build]
 
 
-This is a Java-based application that uses Maven as the build and dependency system.  For this reason, the initial build
+This is a nodejs based application that uses Maven as the build and dependency system.  For this reason, the initial build
 will take a few minutes as Maven downloads all of the dependencies needed for
 the application. You can see all of this happening in real time!
 
