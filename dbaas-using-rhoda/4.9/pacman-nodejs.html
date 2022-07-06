@@ -196,7 +196,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="pacman-nodejs-databases.html">Connecting Pacman to MongoDB Atlas Cloud Database Instance</a>
+    <a class="nav-link" href="pacman-nodejs-databases.html">Connecting Pacman to MongoDB Atlas</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="pacman-nodejs-databases.html#prereq_rhoda">Prerequisites</a>
@@ -330,16 +330,15 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>In this section, we&#8217;re going to deploy a backend service, developed in Java that will expose 2 main REST endpoints to the visualizer
+<p>In this section, we&#8217;re going to deploy a pacman application, developed in nodejs that will expose 2 main REST endpoints to the visualizer
 application (<code>pacman</code> web component that was deployed in the previous labs).
-The application will query for national parks information (including its
-coordinates) that is stored in a MongoDB database.  This application will also
-provide an external access point, so that the API provided can be directly used
-by the end user.</p>
+The application will query for user stats and high scores information that is stored in a MongoAtlas database.  This application will also
+provide an external access point, so that the URL provided can be directly used
+by the end user to play pacman game.</p>
 </div>
 <div class="imageblock text-center">
 <div class="content">
-<img src="_images/pacmanocp.png" alt="Application architecture" width="800">
+<img src="_images/pacmanocp.png" alt="Application architecture" width="600">
 </div>
 </div>
 </div>
@@ -399,7 +398,7 @@ places.</p>
 <h3 id="add_to_project"><a class="anchor" href="#add_to_project"></a>Add to Project</h3>
 <div class="paragraph">
 <p>Because the <code>pacman</code> component is a backend to serve data that our
-existing frontend (parksmap) will consume, we are going to build it inside the existing
+existing frontend (pacman) will consume, we are going to build it inside the existing
 project that we have been working with. To illustrate how you can interact with OpenShift via the CLI or the web console, we will deploy the nationalparks component using the web console.</p>
 </div>
 </div>
@@ -429,9 +428,9 @@ have your own git repository, let&#8217;s use it with a simple Java S2I image.</
 <div class="paragraph">
 <p>In the Developer Perspective, click <strong>+Add</strong> in the left navigation, go to the <strong>Git Repository</strong> section and then choose <strong>From Git</strong> option.</p>
 </div>
-<div class="imageblock">
+<div class="imageblock text-center">
 <div class="content">
-<img src="_images/nationalparks-show-add-options.png" alt="Add to Project">
+<img src="_images/pacman-show-add-options.png" alt="Add to Project" width="800">
 </div>
 </div>
 <div class="paragraph">
@@ -453,7 +452,7 @@ have your own git repository, let&#8217;s use it with a simple Java S2I image.</
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-import-strategy.png" alt="Select Import Strategy">
+<img src="_images/pacman-import-strategy.png" alt="Select Import Strategy">
 </div>
 </div>
 <div class="paragraph">
@@ -598,7 +597,7 @@ If present, leave Pipeline section empty here as we will implement it in the nex
 </div>
 </div>
 <div class="paragraph">
-<p>To see the build logs, in Topology view, click the <code>nationalparks</code> entry, then click on <strong>View Logs</strong> in the <strong>Builds</strong> section of the <strong>Resources</strong> tab.</p>
+<p>To see the build logs, in Topology view, click the <code>pacman</code> entry, then click on <strong>View Logs</strong> in the <strong>Builds</strong> section of the <strong>Resources</strong> tab.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -615,109 +614,102 @@ the application. You can see all of this happening in real time!</p>
 </div>
 <div class="listingblock console-input">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get builds</code></pre>
+<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get builds
+= ----
+
+You'll see output like:
+
+[.console-output]
+[source,bash]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You&#8217;ll see output like:</p>
+<p>NAME       TYPE     FROM          STATUS     STARTED      DURATION
+pacman-1   Source   Git@1c647d5   Complete   2 days ago   58s</p>
 </div>
-<div class="listingblock console-output">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME       TYPE     FROM          STATUS     STARTED      DURATION
-pacman-1   Source   Git@1c647d5   Complete   2 days ago   58s</code></pre>
+<pre>You can also view the build logs with the following command:
+
+[.console-input]
+[source,bash,subs="+attributes,macros+"]</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>You can also view the build logs with the following command:</p>
+<p>oc logs -f builds/pacman-1</p>
 </div>
-<div class="listingblock console-input">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc logs -f builds/nationalparks-1</code></pre>
+<pre>After the build has completed and successfully:
+
+* The S2I process will push the resulting image to the internal OpenShift registry
+* The *Deployment* (D) will detect that the image has changed, and this
+  will cause a new deployment to happen.
+* A *ReplicaSet* (RS) will be spawned for this new deployment.
+* The RS will detect no *Pods* are running and will cause one to be deployed, as our default replica count is just 1.
+
+In the end, when issuing the `oc get pods` command, you will see that the build Pod
+has finished (exited) and that an application *Pod* is in a ready and running state:
+
+[.console-output]
+[source,bash]</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>After the build has completed and successfully:</p>
+<p>NAME                    READY     STATUS      RESTARTS   AGE
+pacman-1-tkid3   1/1       Running     3          2m
+pacman-1-build   0/1       Completed   0          3m
+pacman-57df75c46d-xltcs        1/1       Running     0          2h</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>The S2I process will push the resulting image to the internal OpenShift registry</p>
-</li>
-<li>
-<p>The <strong>Deployment</strong> (D) will detect that the image has changed, and this
-will cause a new deployment to happen.</p>
-</li>
-<li>
-<p>A <strong>ReplicaSet</strong> (RS) will be spawned for this new deployment.</p>
-</li>
-<li>
-<p>The RS will detect no <strong>Pods</strong> are running and will cause one to be deployed, as our default replica count is just 1.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>In the end, when issuing the <code>oc get pods</code> command, you will see that the build Pod
-has finished (exited) and that an application <strong>Pod</strong> is in a ready and running state:</p>
-</div>
-<div class="listingblock console-output">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME                    READY     STATUS      RESTARTS   AGE
-nationalparks-1-tkid3   1/1       Running     3          2m
-nationalparks-1-build   0/1       Completed   0          3m
-parksmap-57df75c46d-xltcs        1/1       Running     0          2h</code></pre>
+<pre>If you look again at the web console, you will notice that, when you create the
+application this way, OpenShift also creates a *Route* for you. You can see the
+URL in the web console, or via the command line:
+
+[.console-input]
+[source,bash,subs="+attributes,macros+"]</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you look again at the web console, you will notice that, when you create the
-application this way, OpenShift also creates a <strong>Route</strong> for you. You can see the
-URL in the web console, or via the command line:</p>
+<p>oc get routes</p>
 </div>
-<div class="listingblock console-input">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">oc get routes</code></pre>
-</div>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<img src="_images/101.png" alt="Pacman Console 800">
+<pre>image::101.png[Pacman Console 800,align="center"]
+
+Where you should see something like the following:
+
+[.console-output]
+[source,bash,subs="+attributes,macros+"]</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Where you should see something like the following:</p>
-</div>
-<div class="listingblock console-output">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-bash hljs" data-lang="bash">NAME     HOST/PORT                                                 PATH   SERVICES   PORT       TERMINATION     WILDCARD
+<p>NAME     HOST/PORT                                                 PATH   SERVICES   PORT       TERMINATION     WILDCARD
 pacman   pacman-pacman.apps.maverick.lab.upshift.rdu2.redhat.com          pacman     8080-tcp   edge/Redirect   None
-bash-4.4 ~ $</code></pre>
+bash-4.4 ~ $</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>In the above example, the URL is:
+
+[source,text,role="copypaste",subs="+attributes"]</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In the above example, the URL is:</p>
+<p><a href="https://pacman-%PROJECT%.%CLUSTER_SUBDOMAIN%" class="bare">https://pacman-%PROJECT%.%CLUSTER_SUBDOMAIN%</a></p>
 </div>
-<div class="listingblock copypaste">
+<div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-text hljs" data-lang="text">https://pacman-%PROJECT%.%CLUSTER_SUBDOMAIN%</code></pre>
+<pre>WARNING: If the Pod is Running and the application is not available, please wait till we connect it to the MongoAtlas in the cloud as we don't have a database. Yet.</pre>
 </div>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-warning" title="Warning"></i>
-</td>
-<td class="content">
-If the Pod is Running and the application is not available, please wait till we connect it to the MongoAtlas in the cloud as we don&#8217;t have a database. Yet.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="common-pacman-architecture.html" class="query-params-link">Pacman Architecture</a></span>
-  <span class="next"><a href="pacman-nodejs-databases.html" class="query-params-link">Connecting Pacman to MongoDB Atlas Cloud Database Instance</a></span>
+  <span class="next"><a href="pacman-nodejs-databases.html" class="query-params-link">Connecting Pacman to MongoDB Atlas</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
