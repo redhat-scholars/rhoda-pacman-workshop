@@ -388,18 +388,14 @@ remember about S2I is that it&#8217;s magic.</p>
 <div class="sectionbody">
 <div class="paragraph">
 <p>The backend service that we will be deploying as part of this exercise is
-called <code>pacman</code>.  This is a Java Spring Boot application that performs 2D
-geo-spatial queries against a MongoDB database to locate and return map
-coordinates of all National Parks in the world. That was just a fancy way of
-saying that we are going to deploy a webservice that returns a JSON list of
-places.</p>
+called <code>pacman</code> which is a game,</p>
 </div>
 <div class="sect2">
 <h3 id="add_to_project"><a class="anchor" href="#add_to_project"></a>Add to Project</h3>
 <div class="paragraph">
 <p>Because the <code>pacman</code> component is a backend to serve data that our
 existing frontend (pacman) will consume, we are going to build it inside the existing
-project that we have been working with. To illustrate how you can interact with OpenShift via the CLI or the web console, we will deploy the nationalparks component using the web console.</p>
+project that we have been working with. To illustrate how you can interact with OpenShift via the CLI or the web console, we will deploy the pacman component using the web console.</p>
 </div>
 </div>
 <div class="sect2">
@@ -476,7 +472,7 @@ have your own git repository, let&#8217;s use it with a simple Java S2I image.</
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-import-strategy-build.png" alt="Select Import Strategy">
+<img src="_images/pacman-new-nodejs-build.png" alt="Select Import Strategy">
 </div>
 </div>
 <div class="admonitionblock tip">
@@ -578,22 +574,7 @@ If present, leave Pipeline section empty here as we will implement it in the nex
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-configure-service1.png" alt="Select Builder">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-configure-service2.png" alt="Advanced Options">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-configure-service3.png" alt="Secure Route">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="_images/nationalparks-configure-service4.png" alt="Label">
+<img src="_images/pacman-configure-service.png" alt="Select Builder">
 </div>
 </div>
 <div class="paragraph">
@@ -601,11 +582,11 @@ If present, leave Pipeline section empty here as we will implement it in the nex
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/nationalparks-java-new-java-build.png" alt="Nationalparks build">
+<img src="_images/pacman-new-nodejs-build.png" alt="Pacman build">
 </div>
 </div>
 <div class="paragraph">
-<p>This is a Java-based application that uses Maven as the build and dependency system.  For this reason, the initial build
+<p>This is a nodejs based application that uses Maven as the build and dependency system.  For this reason, the initial build
 will take a few minutes as Maven downloads all of the dependencies needed for
 the application. You can see all of this happening in real time!</p>
 </div>
