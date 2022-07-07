@@ -65,85 +65,85 @@ image::rhoda8.png[Application architecture,800,align="center"]
 
 image::rhoda11.png[Application architecture,800,align="center"]
 
-* Create a Provider Account depending on the the managed database that the application needs to connect to
-
-* You can create a provider account resource that represents an account with a cloud database provider.
-* By providing the correct authentication credentials for the cloud database provider, you can fetch the available database instances.
-
-*NOTE:* For the Service Preview release of OpenShift Database Access, there is only a single namespace.
-
-.*Procedure*
-
-. Log into the OpenShift Cluster Manager console.
-
-. Select the correct project namespace.
-+
-//image::rhoda_single_page_all_steps.png[Single screenshot of the three steps to set the project namespace]
-
-.. Change to the **Administrator** perspective image:1st_Callout_Bullet.png[First callout].
-
-. Expand the **Data Services** navigation menu, and click **Database Access**.
-+
-
-image::rhoda_select_database_access_from_nav_menu.png[The Database Services navigation menu]
-
-.. Select the **redhat-dbaas-operator** project from the **Project** dropdown menu.
-
-. On the **Database Access** page, select the **Import database provider account** button.
-+
-[NOTE]
-====
-If a cloud-database provider account already exists, then a database inventory view is displayed.
-To add another cloud-database provider account, click the **Configuration** dropdown button, and select **Import database provider account**.
-====
-+
-image::rhoda_create_database_provider_account_dropdown.png[The create provider account button on the database access page]
-
-. On the **Import Provider Account** page, specify a **Name** for the new provider account resource.
-+
-image::dbaas_create_provider_account_page_name_field.png[The create provider account page with the name field highlighted]
-
-. Select your cloud database provider from the dropdown menu, and provide the necessary credentials for that provider.
-+
-**NOTE**
-
-The required account credentials vary based on the selected cloud-database provider.
-
-image::dbaas_create_provider_account_page_db_provider_box.png[The create provider account page with the database provider field highlighted]
-
-.MongoDB Atlas Example
-image::dbaas_create_provider_account_page_mongodb_atlas_account_credentials.png[The create provider account page when MongoDB Atlas is selected as the provider]
-
-.Crunchy Data Bridge Example
-image::dbaas_create_provider_account_page_crunchy_data_bridge_account_credentials.png[The create provider account page when Crunchy Bridge is selected as the provider]
-
-.CockroachDB Example
-image::rhoda_create_provider_account_page_cockroachdb_account_credentials.png[The create provider account page when CockroachDB is selected as the provider]
-
-. After you provide the account credentials, click the **Import** button to configure the provider account resource, and fetch the available database instances.
-
-.. If fetching is successful, then you can click on the **View Provider Accounts** button to display the available database instances that developers can import.
-+
-.Successful Message Example
-image::dbaas_create_provider_account_page_fetch_successful.png[The success message when a database instance is retrieved]
-
-.Database Inventory Example
-image::dbaas_provider_account_inventories_page.png[Listing of available database instances]
-
-.. If fetching fails, then the cloud database provider's error code is displayed.
-
-To check the cloud database provider account information, you can click on the **Edit Provider Account** button.
-
-.Failure Message Example
-image::dbaas_create_provider_account_page_fetch_failure.png[The failure message when a database instance is not retrieved]
-
-[role="_additional-resources"]
-.Additional Resources
-
-* See link:{rhoda-prod-doc-url}#finding-your-cloud-database-provider-account-credentials[_Appendix A_] in the _Red Hat OpenShift Database Access Quick Start Guide_ for help in finding your provider account information.
-* The MongoDB Atlas link:https://www.mongodb.com/cloud/atlas[home page].
-* The Crunchy Data Bridge link:https://www.crunchydata.com[home page].
-* The CockroachDB link:https://www.cockroachlabs.com[home page]
+//* Create a Provider Account depending on the the managed database that the application needs to connect to
+//
+//* You can create a provider account resource that represents an account with a cloud database provider.
+//* By providing the correct authentication credentials for the cloud database provider, you can fetch the available database instances.
+//
+//*NOTE:* For the Service Preview release of OpenShift Database Access, there is only a single namespace.
+//
+//.*Procedure*
+//
+//. Log into the OpenShift Cluster Manager console.
+//
+//. Select the correct project namespace.
+//+
+////image::rhoda_single_page_all_steps.png[Single screenshot of the three steps to set the project namespace]
+//
+//.. Change to the **Administrator** perspective image:1st_Callout_Bullet.png[First callout].
+//
+//. Expand the **Data Services** navigation menu, and click **Database Access**.
+//+
+//
+//image::rhoda_select_database_access_from_nav_menu.png[The Database Services navigation menu]
+//
+//.. Select the **redhat-dbaas-operator** project from the **Project** dropdown menu.
+//
+//. On the **Database Access** page, select the **Import database provider account** button.
+//+
+//[NOTE]
+//====
+//If a cloud-database provider account already exists, then a database inventory view is displayed.
+//To add another cloud-database provider account, click the **Configuration** dropdown button, and select **Import database provider account**.
+//====
+//+
+//image::rhoda_create_database_provider_account_dropdown.png[The create provider account button on the database access page]
+//
+//. On the **Import Provider Account** page, specify a **Name** for the new provider account resource.
+//+
+//image::dbaas_create_provider_account_page_name_field.png[The create provider account page with the name field highlighted]
+//
+//. Select your cloud database provider from the dropdown menu, and provide the necessary credentials for that provider.
+//+
+//**NOTE**
+//
+//The required account credentials vary based on the selected cloud-database provider.
+//
+//image::dbaas_create_provider_account_page_db_provider_box.png[The create provider account page with the database provider field highlighted]
+//
+//.MongoDB Atlas Example
+//image::dbaas_create_provider_account_page_mongodb_atlas_account_credentials.png[The create provider account page when MongoDB Atlas is selected as the provider]
+//
+//.Crunchy Data Bridge Example
+//image::dbaas_create_provider_account_page_crunchy_data_bridge_account_credentials.png[The create provider account page when Crunchy Bridge is selected as the provider]
+//
+//.CockroachDB Example
+//image::rhoda_create_provider_account_page_cockroachdb_account_credentials.png[The create provider account page when CockroachDB is selected as the provider]
+//
+//. After you provide the account credentials, click the **Import** button to configure the provider account resource, and fetch the available database instances.
+//
+//.. If fetching is successful, then you can click on the **View Provider Accounts** button to display the available database instances that developers can import.
+//+
+//.Successful Message Example
+//image::dbaas_create_provider_account_page_fetch_successful.png[The success message when a database instance is retrieved]
+//
+//.Database Inventory Example
+//image::dbaas_provider_account_inventories_page.png[Listing of available database instances]
+//
+//.. If fetching fails, then the cloud database provider's error code is displayed.
+//
+//To check the cloud database provider account information, you can click on the **Edit Provider Account** button.
+//
+//.Failure Message Example
+//image::dbaas_create_provider_account_page_fetch_failure.png[The failure message when a database instance is not retrieved]
+//
+//[role="_additional-resources"]
+//.Additional Resources
+//
+//* See link:{rhoda-prod-doc-url}#finding-your-cloud-database-provider-account-credentials[_Appendix A_] in the _Red Hat OpenShift Database Access Quick Start Guide_ for help in finding your provider account information.
+//* The MongoDB Atlas link:https://www.mongodb.com/cloud/atlas[home page].
+//* The Crunchy Data Bridge link:https://www.crunchydata.com[home page].
+//* The CockroachDB link:https://www.cockroachlabs.com[home page]
 
 [#deploy_kustomize]
 == Install RHODA using Kustomize
