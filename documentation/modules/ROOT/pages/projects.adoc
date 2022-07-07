@@ -44,7 +44,7 @@ You can also create and manage project from the CLI as well. Let's use our newly
 [.console-input]
 [source,bash,subs="+attributes,macros+"]
 ----
-oc project Pacman
+oc project pacman
 ----
 
 You should an output similar to the following:
@@ -52,7 +52,7 @@ You should an output similar to the following:
 [.console-output]
 [source,bash,subs="+attributes,macros+"]
 ----
-Now using project "Pacman" on server "https://api.%CLUSTER_SUBDOMAIN%:6443"
+Now using project "pacman" on server "https://api.%CLUSTER_SUBDOMAIN%:6443"
 ----
 
 We will be using a mix of command line tooling and the web console for the labs.

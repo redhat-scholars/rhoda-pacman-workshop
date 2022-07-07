@@ -41,7 +41,6 @@ You can also view the database provider, the provider account resource, and the 
 image::rhoda_admin_db_inventory_view.png[Snippet of the database inventory view]
 
 
-
 [#explore_cli]
 == Explore using CLI by using below commands
 
