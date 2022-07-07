@@ -2,8 +2,13 @@
 :navtitle: Installation of RHODA
 
 [#deploy_web_terminal]
-== Install using OpenShift Web Terminal
-* Launch Web Terminal from OpenShift console and perform below steps*
+== Create the RHODA catalog source using OpenShift Web Terminal 
+
+*Note* 
+
+We need below step if we are trying to deploy RHODA without using the Add-On, For example in an OpenShift Cluster deployed on-premise.
+
+Launch Web Terminal from OpenShift console and perform below steps*
 
 ----
 cat <<EOF | oc apply -f -
@@ -73,7 +78,7 @@ image::rhoda11.png[Application architecture,800,align="center"]
 
 . Select the correct project namespace.
 +
-image::rhoda_single_page_all_steps.png[Single screenshot of the three steps to set the project namespace]
+//image::rhoda_single_page_all_steps.png[Single screenshot of the three steps to set the project namespace]
 
 .. Change to the **Administrator** perspective image:1st_Callout_Bullet.png[First callout].
 
@@ -176,7 +181,7 @@ https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml[Pipeline T
 [#deploy_rhacm]
 == Install using Red Hat Advanced Cluster Management Policy
 
-Red Hat® Advanced Cluster Management for Kubernetes controls clusters and applications from a single console, with built-in security policies. Extend the value of Red Hat OpenShift® by deploying apps, managing multiple clusters, and enforcing policies across multiple clusters at scale. Red Hat’s solution ensures compliance, monitors usage, and maintains consistency.
+Red Hat® Advanced Cluster Management for Kubernetes controls clusters and applications from a `single` console, with built-in security policies. Extend the value of Red Hat OpenShift® by deploying apps, managing multiple clusters, and enforcing policies across multiple clusters at scale. Red Hat’s solution ensures compliance, monitors usage, and maintains consistency.
 
 For more information on RHACM, please refer to https://access.redhat.com/documentation/en-us/openshift_container_platform/4.10[docs]
 
