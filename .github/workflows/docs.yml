@@ -4,7 +4,7 @@ on:
   push:
     branches:
       - "4.9"
-      - "4.10.17"
+      - "4.10.18"
 env:
   SITE_DIR: "gh-pages"
 jobs:
