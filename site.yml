@@ -11,7 +11,7 @@ content:
   sources:
     - url: git@github.com:redhat-scholars/rhoda-pacman-workshop.git
       tags: []
-      branches: ["4.9", "4.10"]
+      branches: ["4.9", "4.10.20"]
       start_path: documentation
 
 asciidoc:
