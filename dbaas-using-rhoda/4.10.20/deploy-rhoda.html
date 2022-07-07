@@ -1,0 +1,585 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Installing Red Hat OpenShift Database Access :: Connecting Applications to DBaaS using RHODA</title>
+    <link rel="canonical" href="https://redhat-scholars.github.io/course-template/dbaas-using-rhoda/4.10.20/deploy-rhoda.html">
+    <link rel="prev" href="pacman-nodejs-bg.html">
+    <link rel="next" href="explore-rhoda.html">
+    <meta name="generator" content="Antora 3.0.0">
+    <link rel="stylesheet" href="../../_/css/site.css">
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://developers.redhat.com" target="_blank"><img
+          src="../../_/img/header_logo.png" height="40px" alt="Red Hat Developer Program"></a>
+      <a class="navbar-item" href="https://redhat-scholars.github.io/course-template">Connecting Applications to DBaaS using RHODA</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="#">Books</a>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">CheatSheets</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">CheatSheet A</a>
+            <a class="navbar-item" href="#">CheatSheet B</a>
+            <a class="navbar-item" href="#">CheatSheet C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">Upcoming Events</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Event A</a>
+            <a class="navbar-item" href="#">Event B</a>
+            <a class="navbar-item" href="#">Event C</a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link" href="#">More Tutorials</a>
+          <div class="navbar-dropdown">
+            <a class="navbar-item" href="#">Tutorial A</a>
+            <a class="navbar-item" href="#">Tutorial B</a>
+            <a class="navbar-item" href="#">Tutorial C</a>
+          </div>
+        </div>
+        <div class="navbar-item">
+          <span class="control">
+            <a class="button is-primary" href="#">Download</a>
+          </span>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="dbaas-using-rhoda" data-version="4.10.20">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="index.html" class=" query-params-link">Connecting Applications to DBaaS using RHODA</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-workshop-summary.html">Workshop</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-environment.html">OpenShift Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html">Explore OpenShift</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-explore.html#the_web_console">The Web Console</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#command_line_interface">Command Line Interface</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#download_openshift_cli">Download OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="common-explore.html#use_web_terminal">Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-explore.html#connect_to_the_cluster_with_cli">Connect to the OpenShift Cluster from CLI</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="4">
+    <a class="nav-link" href="common-explore.html#working_with_proxies">Working with proxies</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-bg.html">Before we begin</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#challenges_dbaas">DBaaS &amp; Present Challenges</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#sol_rh_dbaas">Red Hat Solution</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-bg.html#bg_sb_lib">Service binding libraries</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item is-current-page" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="deploy-rhoda.html">Installation</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_web_terminal">OpenShift Web Terminal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_kustomize">Kustomize</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_ansible">Ansible</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_rhacm">RHACM</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="#deploy_ocp_pipelines">OpenShift Pipelines</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="explore-rhoda.html">Explore RHODA</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="explore-rhoda.html#explore_cli">OpenShift CLI</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="explore-rhoda.html#explore_web_console">OpenShift Web console</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="projects.html">Projects</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="projects.html#create_pacman_project">Create Pacman Project</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-pacman-architecture.html">Pacman Architecture</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs.html">Pacman App</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs.html#source_to_image">Background: Source-to-Image (S2I)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs.html#creating_nodejs_application">Exercise: Creating a Pacman application</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pacman-nodejs.html#add_to_project">Add to Project</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pacman-nodejs.html#using_application_code_on_git_server">Using Application Code on a Git Server</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="pacman-nodejs.html#build_code_on_openshift">Build the Code on OpenShift</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="pacman-nodejs-databases.html">Connecting Pacman to MongoDB Atlas</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#prereq_rhoda">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#access_mongodb">Exercise: Accessing the database access menu for configuring and monitoring</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#find_mongodb_creds">Exercise: Find your MongoDB Atlas account credentials</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#dev_add_db">Exercise: Accessing the developer workspace and adding a database instance</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="pacman-nodejs-databases.html#play_pacman">Exercise: Play Pacman and save your high scores</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="common-further-resources.html">Further Resources</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="common-workshop-links.html">Workshop Links</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#openshift_cluster_url">OpenShift Cluster URL</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#workshop_guides">Workshop Guides</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#web_terminal">Web terminal</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="common-workshop-links.html#git_server">Git Server</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Connecting Applications to DBaaS using RHODA</span>
+    <span class="version">4.10.20</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <span class="title">Connecting Applications to DBaaS using RHODA</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="index.html">4.10.20</a>
+        </li>
+        <li class="version">
+          <a href="../4.9/index.html">4.9</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="index.html">Connecting Applications to DBaaS using RHODA</a></li>
+    <li><a href="deploy-rhoda.html">Installation</a></li>
+  </ul>
+</nav>
+<div class="page-versions">
+  <button class="version-menu-toggle" title="Show other versions of page">4.10.20</button>
+  <div class="version-menu">
+    <a class="version is-current" href="deploy-rhoda.html">4.10.20</a>
+    <a class="version" href="../4.9/deploy-rhoda.html">4.9</a>
+  </div>
+</div>
+  <div class="edit-this-page"><a href="https://github.com/redhat-scholars/rhoda-pacman-workshop/edit/4.10.20/documentation/modules/ROOT/pages/deploy-rhoda.adoc">Edit this Page</a></div>
+  </div>
+  <div class="content">
+<article class="doc">
+<h1 class="page">Installing Red Hat OpenShift Database Access</h1>
+<div class="sect1">
+<h2 id="deploy_web_terminal"><a class="anchor" href="#deploy_web_terminal"></a>Create the RHODA catalog source using OpenShift Web Terminal</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><strong>Note</strong></p>
+</div>
+<div class="paragraph">
+<p>We need below step if we are trying to deploy RHODA without using the Add-On, For example in an OpenShift Cluster deployed on-premise.</p>
+</div>
+<div class="paragraph">
+<p>Launch Web Terminal from OpenShift console and perform below steps*</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>cat &lt;&lt;EOF | oc apply -f -
+apiVersion: operators.coreos.com/v1alpha1
+kind: CatalogSource
+metadata:
+name: dbaas-operator
+namespace: openshift-marketplace
+spec:
+sourceType: grpc
+image: quay.io/osd-addons/dbaas-operator-index@sha256:6325f547b394b1d6f7a528ab3c01bb8f9052762acc245fd453378f5a47830923
+displayName: DBaaS Operator
+EOF</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>bash-4.4 ~ $ oc get catalogsource dbaas-operator -n openshift-marketplace
+NAME             DISPLAY          TYPE   PUBLISHER   AGE
+dbaas-operator   DBaaS Operator   grpc               3d23h</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify that dbaas-operator catalog source is in READY state, It might take a few minutes before the catalog source is ready. If the below command does not return READY, wait a few minutes and try to verify the status again.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can also check this by going into openshift-marketplace namespace dbass-operator catalog pod</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc get catalogsource -n openshift-marketplace  dbaas-operator -o jsonpath='{.status.connectionState.lastObservedState} {"\n"}'</pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>oc describe packagemanifests dbaas-operator -n openshift-marketplace</pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Go to Operator Hub and look for OpenShift Database Access Operator</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda5.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Once Selected the OpenShift Database Access Operator,</p>
+</li>
+<li>
+<p>Navigate in the web console to the Operators → OperatorHub page.
+Type a keyword into the Filter by keyword box OpenShift Database Access Operator.
+Select the OpenShift Database Access Operator  to display additional information.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda6.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>On the Install Operator page. The RHODA operator is cluster scope and the default installed namespace is openshift-dbaas-operator and use the same default settings.</p>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda7.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda8.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify the installation completion logs</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda11.png" alt="Application architecture" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_kustomize"><a class="anchor" href="#deploy_kustomize"></a>Install RHODA using Kustomize</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Kustomize traverses a Kubernetes manifest to add, remove or update configuration options without forking. It is available both as a standalone binary and as a native feature of kubectl.</p>
+</div>
+<div class="paragraph">
+<p>For more information on using Kustomize, please refer to the following <a href="https://kustomize.io/">link</a></p>
+</div>
+<div class="paragraph">
+<p>Please use the following : <a href="https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator">URL</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda8.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify the installation completion logs</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda11.png" alt="Application architecture" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_ansible"><a class="anchor" href="#deploy_ansible"></a>Install using Ansible</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Ansible is a software tool that provides simple but powerful automation for cross-platform computer support. It is primarily intended for IT professionals, who use it for application deployment, updates on workstations and servers, cloud provisioning, configuration management, intra-service orchestration, and nearly anything a systems administrator does on a weekly or daily basis. Ansible doesn&#8217;t depend on agent software and has no additional security infrastructure, so it&#8217;s easy to deploy.</p>
+</div>
+<div class="paragraph">
+<p>For information on using Ansible, please refer to the <a href="https://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html">link</a></p>
+</div>
+<div class="paragraph">
+<p>Using below manifest, we can install using AAP or run as a playbook manually by creating necessary artifacts.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy">Gist</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda8.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify the installation completion logs</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda11.png" alt="Application architecture" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_ocp_pipelines"><a class="anchor" href="#deploy_ocp_pipelines"></a>Install using OpenShift Pipelines</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Red Hat OpenShift Pipelines is a cloud-native, continuous integration and continuous delivery (CI/CD) solution based on Kubernetes resources. It uses Tekton building blocks to automate deployments across multiple platforms by abstracting away the underlying implementation details. Tekton introduces a number of standard custom resource definitions (CRDs) for defining CI/CD pipelines that are portable across Kubernetes distributions</p>
+</div>
+<div class="paragraph">
+<p>Please refer to <a href="https://docs.openshift.com/container-platform/4.10/cicd/pipelines/understanding-openshift-pipelines.html">docs</a></p>
+</div>
+<div class="paragraph">
+<p>Use below links for the pipeline related manifest.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhoda-pipeline.yaml">Pipeline</a>
+<a href="https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml">Pipeline Task</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda8.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify the installation completion logs</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda11.png" alt="Application architecture" width="800">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="deploy_rhacm"><a class="anchor" href="#deploy_rhacm"></a>Install using Red Hat Advanced Cluster Management Policy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Red Hat® Advanced Cluster Management for Kubernetes controls clusters and applications from a <code>single</code> console, with built-in security policies. Extend the value of Red Hat OpenShift® by deploying apps, managing multiple clusters, and enforcing policies across multiple clusters at scale. Red Hat’s solution ensures compliance, monitors usage, and maintains consistency.</p>
+</div>
+<div class="paragraph">
+<p>For more information on RHACM, please refer to <a href="https://access.redhat.com/documentation/en-us/openshift_container_platform/4.10">docs</a></p>
+</div>
+<div class="paragraph">
+<p>Below is the link to the policy manifest that can be used to configure as policy in RHACM which can install the Operator</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml">Policy</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda8.png" alt="Application architecture" width="800">
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Verify the installation completion logs</p>
+</li>
+</ul>
+</div>
+<div class="imageblock text-center">
+<div class="content">
+<img src="_images/rhoda11.png" alt="Application architecture" width="800">
+</div>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="pacman-nodejs-bg.html" class="query-params-link">Before we begin</a></span>
+  <span class="next"><a href="explore-rhoda.html" class="query-params-link">Explore RHODA</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <a class="rhd-logo" href="https://developers.redhat.com" target="_blank"></div>
+</footer>
+<script src="../../_/js/vendor/clipboard.js"></script>
+<script src="../../_/js/site.js"></script>
+<script async src="../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
