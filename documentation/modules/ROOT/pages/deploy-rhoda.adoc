@@ -78,7 +78,6 @@ image::rhoda11.png[Application architecture,800,align="center"]
 //
 //. Select the correct project namespace.
 //+
-////image::rhoda_single_page_all_steps.png[Single screenshot of the three steps to set the project namespace]
 //
 //.. Change to the **Administrator** perspective image:1st_Callout_Bullet.png[First callout].
 //
@@ -154,6 +153,14 @@ For more information on using Kustomize, please refer to the following https://k
 
 Please use the following : https://github.com/redhat-cop/gitops-catalog/tree/main/rhoda-operator/operator[URL]
 
+* On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.
+
+image::rhoda8.png[Application architecture,800,align="center"]
+
+* Verify the installation completion logs
+
+image::rhoda11.png[Application architecture,800,align="center"]
+
 [#deploy_ansible]
 == Install using Ansible
 
@@ -164,6 +171,15 @@ For information on using Ansible, please refer to the https://docs.ansible.com/a
 Using below manifest, we can install using AAP or run as a playbook manually by creating necessary artifacts.
 
 https://gist.githubusercontent.com/fOO223Fr/6fc8661709bd795796d9aae973e173a4/raw/54e1dab5819e70021bcd7764f9dbd9310b6640c2/Ansible%2520deploy[Gist]
+
+
+* On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.
+
+image::rhoda8.png[Application architecture,800,align="center"]
+
+* Verify the installation completion logs
+
+image::rhoda11.png[Application architecture,800,align="center"]
 
 [#deploy_ocp_pipelines]
 == Install using OpenShift Pipelines 
@@ -178,6 +194,15 @@ https://github.com/veniceofcode/pacman/blob/master/pipeline/scripts/install-rhod
 https://github.com/veniceofcode/pacman/blob/master/pipeline/task.yaml[Pipeline Task]
 
 
+* On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.
+
+image::rhoda8.png[Application architecture,800,align="center"]
+
+* Verify the installation completion logs
+
+image::rhoda11.png[Application architecture,800,align="center"]
+
+
 [#deploy_rhacm]
 == Install using Red Hat Advanced Cluster Management Policy
 
@@ -189,5 +214,14 @@ For more information on RHACM, please refer to https://access.redhat.com/documen
 Below is the link to the policy manifest that can be used to configure as policy in RHACM which can install the Operator
 
 https://github.com/stolostron/policy-collection/blob/main/community/CM-Configuration-Management/policy-rhoda-operator.yaml[Policy]
+
+
+* On successful installation of RHODA operator, will automatically install all its dependencies including provider operators, console plugins as seen in the screenshot and you see an additional menu with name Data Services in the end of menu list. Once all it’s components installation completed the dbaas operator pod logs will shows: DBaaS platform stack installation complete.
+
+image::rhoda8.png[Application architecture,800,align="center"]
+
+* Verify the installation completion logs
+
+image::rhoda11.png[Application architecture,800,align="center"]
 
 
